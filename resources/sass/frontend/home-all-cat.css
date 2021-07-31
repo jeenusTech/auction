@@ -1,0 +1,391 @@
+h6{
+  text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    color: rgba(35,35,35,1);
+}
+h6 small{
+  font-size: 14px;
+}
+.home-all-cat .container{
+  padding: 30px;
+  text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    color: rgba(112,112,112,1);
+}
+.home-all-cat .container h4{
+  font-family: "Raleway", sans-serif;
+      font-size: 32px;
+    color: rgba(72,68,68,1);
+    font-weight: bold;
+}
+.home-all-cat .container p{
+  font-size: 18px;
+    color: rgba(72,68,68,1);
+}
+.home-all-cat-btn{
+  padding: 10px 29px;
+    border-radius: 27px;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(255,255,255,1);
+}
+.home-all-cat-btn:hover{
+  background: rgba(245,180,0,1);
+  color: #b02a37;
+}
+@media screen and (max-width: 428px) {
+ .home-all-cat .container h4{
+      font-size: 22px;
+
+ }
+ .home-all-cat .container p{
+    font-size: 12px;
+  }
+  .home-all-cat-btn{
+    font-size: 12px;
+  }
+}
+
+/*for home coin categories*/
+.home-coin-cat {
+ background-color: #ffffff;
+}
+.home-coin-cat .container{
+  padding: 30px;
+  text-align: left;
+  font-family: Segoe UI;
+  font-style: normal;
+  color: rgba(112,112,112,1);
+ 
+}
+.cat_1 {
+  
+  padding: 50px 5px;
+}
+.cat_2{
+  padding: 50px 5px;
+}
+.border-right{
+  border-right: 1px solid black;
+}
+.recomended-cat .swiper-slide{
+  padding: 12px;
+  height: 80%;
+  
+}
+.recomended-cat figcaption{
+  text-align: left;
+  text-transform: uppercase;
+    font-family: Segoe UI;
+    font-size: 12px;
+    color: rgba(112,112,112,1);
+    padding: 0px 10px;
+}
+.recomended-cat .figure{
+  text-align: center;
+}
+.recomended-cat .figure:hover{
+  box-shadow: 0px 1px 9px 4px #ada9a9;
+}
+.cat-foot{
+ /* position: absolute;
+  bottom: 0;*/
+  /*left: 0;
+  right: 0;*/
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  color: rgba(112,112,112,1);
+}
+.cat-foot a{
+  position: absolute;
+  left: 40%;
+  right: 40%;
+  bottom: 0;
+  color: rgba(112,112,112,1);
+}
+.cat-foot .swiper-button-prev-unique{
+  position: absolute;
+  left: 20%;
+  bottom: 0;
+}
+.cat-foot .swiper-button-next-unique{
+  position: absolute;
+    right: 20%;
+    bottom: 0;
+}
+@media screen and (max-width: 768px) {
+  .cat_1{
+    border: none;
+    padding: 25px 0px;
+  }
+  .cat_2{
+    padding: 25px 0px;
+  }
+}
+
+/*home medal css*/
+#home-medal{
+  padding: 22px 0px;
+}
+#home-medal .medal-box{
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 1px 9px 4px #ada9a9;
+}
+#home-medal .medal-box .row{
+  padding: 12px;
+  font-size: 13px;
+  color: rgba(112,112,112,1);
+  text-transform: uppercase;
+}
+#home-medal .price{
+  color: #ff4a17;
+}
+#home-medal .small-head{
+  color: #ff4a17;;
+}
+#home-medal .medal-slide{
+  padding: 22px 12px;
+}
+
+/* home coin find section */
+.home-coin-find{
+  background-color: #ffffff;
+}
+.home-coin-find .container{
+  padding: 30px;
+  text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    color: rgba(112,112,112,1);
+}
+.home-coin-find .container h4{
+  font-family: "Raleway", sans-serif;
+      font-size: 32px;
+    color: rgba(72,68,68,1);
+    font-weight: bold;
+}
+.home-coin-find .container p{
+  font-size: 18px;
+    color: rgba(72,68,68,1);
+}
+.home-coin-find-btn{
+  padding: 10px 29px;
+    border-radius: 27px;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(255,255,255,1);
+}
+.home-coin-find-btn:hover{
+  background: rgba(245,180,0,1);
+  color: #b02a37;
+}
+@media screen and (max-width: 428px) {
+ .home-coin-find .container h4{
+      font-size: 22px;
+
+ }
+ .home-coin-find .container p{
+    font-size: 12px;
+  }
+  .home-coin-find-btn{
+    font-size: 12px;
+  }
+}
+
+/*heritage section*/
+.wrap-banner{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align: center;
+   height:60vh;
+   background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.wrap-banner:before {
+  content: "";
+  background: rgba(13, 20, 26, 0.7);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.wrap-banner .block {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  padding: 0px 10px;
+    line-height: 20px;
+    width: 68%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.wrap-banner .block p {
+    text-align: center;
+    font-family: Helvetica Neue;
+    line-height: 1.5;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    color: rgba(255,255,255,1);
+}
+.wrap-banner .block h2{
+      font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 37px;
+    color: rgba(223,52,56,1);
+}
+@media (max-width: 767px) {
+  .wrap-banner .block p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .wrap-banner .block{
+    width: 100%;
+  }
+}
+
+
+/*--------------------------------------------------------------
+# blog slider
+--------------------------------------------------------------*/
+.blog-boxes {
+  background-size: cover;
+  padding: 60px 0 30px 0;
+  position: relative;
+}
+.blog-boxes .container, .blog-boxes .container-fluid {
+  position: relative;
+  z-index: 10;
+}
+.blog-boxes .card {
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+.blog-boxes .card-body {
+  padding-top: 12px;
+}
+.blog-boxes .card-title {
+  font-weight: 700;
+  text-align: center;
+  float: unset !important;
+}
+.blog-boxes .card-title a {
+  color: #15222b;
+}
+.blog-boxes .card-title a:hover {
+  color: #ff4a17;
+}
+.blog-boxes .card-text {
+  color: #5e5e5e;
+}
+.card-footer{
+  text-align: right;
+  height: 40px;
+  background-color: #ffffff;
+  border-top: unset;
+  border-radius: 0px 0px 10px 10px !important;
+}
+.eye-size{
+  /*font-size: 22px;*/
+}
+.eye-size small{
+  font-size: 14px;
+  position: absolute;
+  right: 10%;
+}
+.eye-size:before{
+  position: absolute;
+  right: 25%;
+}
+@media (max-width: 1024px) {
+  .blog-boxes {
+    background-attachment: scroll;
+  }
+}
+ .blog-post{
+  padding: 22px 5px;
+ }
+
+/*--------------------------------------------------------------
+# footer top section
+--------------------------------------------------------------*/
+.top-footer {
+  background-size: cover;
+  padding: 60px 0 30px 0;
+  position: relative;
+  background-color: #ffffff;
+  text-align: center !important;
+}
+.top-footer .container, .top-footer .container-fluid {
+  position: relative;
+  z-index: 10;
+}
+.top-footer .card {
+  border-radius: 10px !important;
+  border: 0;
+  margin-bottom: 30px;
+}
+.top-footer .card-body {
+  padding-top: 12px;
+}
+.top-footer .card-title {
+  font-weight: 700;
+  text-align: center;
+  float: unset !important;
+}
+.card-title {
+  float: unset !important;
+}
+.top-footer a {
+  color: rgba(245,180,0,1);
+}
+.top-footer .card-title a:hover {
+  color: #ff4a17;
+}
+.top-footer .card-text {
+  color: #5e5e5e;
+}
+.card-footer{
+  text-align: center;
+  height: 40px;
+  background-color: #ffffff;
+  border-top: unset;
+  border-radius: 0px 0px 10px 10px !important;
+}
+.card-footer span, .bold-black{
+  color: black !important;
+  font-weight: bold !important;
+}
+@media (max-width: 1024px) {
+  .top-footer {
+    background-attachment: scroll;
+  }
+}
+.top-footer .card-icon{
+  font-size: 60px;
+}
+.letconnect{
+  font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    color: rgba(121,121,121,1);
+    padding: 12px 0px;
+}
+@media (max-width: 567px) {
+  font-size: 18px;
+}

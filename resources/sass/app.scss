@@ -1,0 +1,50 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// fontawsome
+$fa-font-path:"../webfonts";
+
+
+// fontawesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+// vendor files
+@import '~aos/dist/aos.css';
+@import '../vendor/bootstrap/css/bootstrap.min.css';
+@import '~bootstrap/dist/css/bootstrap-grid.min.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+@import '../vendor/bootstrap-icons/bootstrap-icons.css';
+@import '../vendor/remixicon/remixicon.css';
+@import '~swiper/swiper-bundle.min.css';
+@import '~boxicons/css/boxicons.min.css';
+@import '../vendor/remixicon/remixicon.css';
+
+// for frontend
+@import 'frontend/header.css';
+@import 'frontend/home-slider.css';
+@import 'frontend/banner.css';
+@import 'frontend/home-all-cat.css';
+@import 'frontend/register.css';
+@import 'frontend/footer.css';
+@import 'frontend/contact.css';
+@import 'frontend/single_auction.css';
+@import 'frontend/about.css';
+@import 'frontend/realization.css';
+@import 'frontend/search_form.css';
+@import '../vendor/magiczoomplus/magiczoomplus.css';
+
+// for light box
+@import '~lightbox2/dist/css/lightbox';
+
+// for user dashboard
+@import 'frontend/dashboard_nav.css';
+@import 'frontend/dashboard.css';
+
+

@@ -1,0 +1,100 @@
+/* this css is used for both the registeration and the single auction page  */
+
+.form-control:focus {
+  border-color: inherit !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+#form-section{
+  margin: 22px !important;
+  background-color: #ffffff !important;
+  border: 1px !important;
+}
+#form-section h4{
+  text-align: center !important;
+    font-family: Segoe UI !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    color: rgba(223,52,56,1) !important;
+}
+#form-section .container{
+  padding-top: 22px !important;
+}
+#reg_form{
+  font-family: Segoe UI !important;
+}
+#reg_form .row{
+  padding-top: 12px !important;
+}
+#reg_form .row input{
+  margin-bottom: 5px !important;
+}
+.reg-btn{
+    padding: 10px 29px !important;
+    border-radius: 27px !important;
+    font-weight: bold !important;
+    font-size: 21px !important;
+    color: rgba(255,255,255,1) !important;
+}
+.inp {
+    border:none !important;
+    border-bottom: 1px solid #7c848b !important;
+    padding: 5px 10px !important;
+    outline: none !important;
+    border-radius: unset !important;
+ }
+
+[placeholder]:focus::-webkit-input-placeholder {
+    transition: text-indent 0.4s 0.4s ease; 
+    text-indent: -100%;
+    opacity: 1;
+ }
+.reg-container{
+    padding: 12px !important;
+    margin-top: 22px !important;
+    margin-bottom: 22px !important;
+    box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+    box-shadow: cornflowerblue !important;
+ }
+ #reg_form fieldset{
+  padding: 40px !important;
+ }
+.inp::placeholder {
+    font-family: Segoe UI !important;
+    font-style: italic !important;
+    color: rgba(185,185,185,1) !important;
+    font-size: 12px !important;
+}
+.col-form-label, .form-check-label{
+  font-weight: bold !important;
+}
+.reg-right{
+  margin-top: 40px !important;
+}
+.reg-right h4{
+  text-align: left !important;
+  font-size: 16px;
+  color: rgba(72,68,68,1) !important;
+}
+.reg-right p{
+  font-size: 14px !important;
+}
+.support p{
+  color: rgba(185,185,185,1) !important;
+}
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  color: #979595;
+}

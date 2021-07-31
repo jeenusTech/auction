@@ -1,0 +1,73 @@
+#user_dashboard.banner{
+	padding: 100px 0 100px;
+}
+#user_dashboard.bg-banner-one:before{
+	background: rgba(21, 34, 43, 0.85);
+	opacity: 1;
+}
+.user_dashboard .p-3{
+
+    font-family: Segoe UI;
+    font-style: normal;
+    /*font-weight: bold;*/
+    font-size: 14px;
+    color: rgba(121,121,121,1);
+}
+.user_dashboard .shadow-sm{
+	box-shadow: 0px 1px 9px 4px #ada9a9 !important;
+}
+.user_dashboard .bold{
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	color: rgba(72,68,68,1);
+}
+
+.user_dashboard{
+	padding: 10px 0px 0px !important;
+	background-color: #efefef;
+}
+.ud_chang_pass_link{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 12px;
+}
+.user_dashboard .verify_btn{
+	font-family: Segoe UI;
+	font-size: 12px;
+	position: absolute;
+	color: #ff4a17 !important;
+	font-weight: bold;
+	right: 31px;
+}
+.user_dashboard .nav-link{
+	padding: 0.2rem;
+    border-bottom: 1px solid #e1e1e1;
+    font-weight: bold;
+}
+.user_dashboard .active{
+	color: #ffffff !important;
+	background-color: rgba(223,52,56,1);
+	border-bottom: 1px solid #ffffff;
+}
+.user_dashboard .nav-link:hover{
+	color: #ffffff !important;
+	background-color: rgba(223,52,56,1);
+	border-bottom: 1px solid #ffffff;
+}
+
+@media (max-width: 567px) {
+	.user_dashboard .bold{
+		font-size: 14px;
+	}
+}
+@media (max-width: 421px) {
+	.user_dashboard .bold{
+		font-size: 12px;
+	}
+	.user_dashboard .nav-link{
+		font-size: 11px;
+	}
+}

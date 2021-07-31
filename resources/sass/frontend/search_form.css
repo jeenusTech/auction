@@ -1,0 +1,116 @@
+#search_form_section .container{
+  /*margin: 22px !important;*/
+  background-color: #ffffff !important;
+  border: 1px !important;
+  font-family: Segoe UI !important;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+#search_form_section h6{
+  text-align: center !important;
+    font-family: Segoe UI !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    color: rgba(223,52,56,1) !important;
+}
+#search_form_section .container{
+  padding-top: 22px !important;
+}
+#adv_form input, #adv_form select{
+  height: 27px;
+  font-size: 11px;
+}
+#adv_form .form-group{
+  padding: 12px;
+}
+#adv_form label{
+  padding-right: 5px;
+  color: rgba(223,52,56,1) !important;
+  font-weight: bold;
+}
+.adv_header{
+  background-color: rgba(245,180,0,1);
+  border-radius: 5px;
+}
+.search_pagination{
+  margin-top: 20px;
+  font-family: Segoe UI;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(121,121,121,1);
+    border-radius: 23px;
+}
+.search_pagination .pagination a {
+  color: rgba(121,121,121,1);
+  padding: 0px 8px;
+  text-decoration: none;
+}
+.search_pagination label{
+    color: rgba(121,121,121,1);
+}
+.adv_result_row .singleauctionswipper{
+    height: 160px;
+}
+.adv_result_row .auction-container{
+    box-shadow: 0px 0px 0px 2px rgb(117 123 137 / 25%) !important;
+}
+.adv_result_row .auction-container:hover{
+    box-shadow: -1px 2px 8px 5px rgb(117 123 137 / 25%) !important;
+}
+.width_20{
+    width: 20%;
+}
+.wid_30{
+  width: 30%;
+}
+.width_50{
+    width: 50%;
+}
+.adv_result_row .single_auc_bg{
+    font-size: 11px;
+    margin: 0px;
+}
+.adv_result_row #single_auc_bid_btn{
+  width: 30%;
+}
+.adv_result_row .auc_blue{
+  font-weight: bold;
+    font-size: 11px;
+    color: rgba(64,75,130,1);
+}
+.adv_result_row .auc_red{
+    font-weight: bold;
+    font-size: 11px;
+    color: rgba(223,52,56,1);
+}
+.advnc_srchpadding{
+  padding: 22px 0px;
+}
+@media screen and (max-width: 991px) {
+  .adv_result_row{
+    font-size: 11px;
+  }
+  .adv_result_row .singleauction-right label{
+    font-size: 14px;
+  }
+  .adv_result_row .auction_description{
+    font-size: 11px;    
+  }
+  .adv_result_row .singleauctionswipper{
+    height: 125px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .adv_result_row #single_auc_bid_btn{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 467px) {
+  .width_20, .wid_30{
+    width: 100%;
+  }
+  .width_50{
+    width: 100%;
+  }
+}

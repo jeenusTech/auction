@@ -1,0 +1,121 @@
+.dwidth_50{
+	width: 49%;
+	
+}
+#slot-dropdown{
+	padding: 5px;
+    font-family: Segoe UI;
+    /* font-style: normal; */
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(72,68,68,1);
+    border: 1px solid rgb(198 198 198);
+    position: absolute;
+    top: 12px;
+    right: 27px;
+}
+#slot-dropdown option{
+	padding: 5px;
+    font-family: Segoe UI;
+    /* font-style: normal; */
+    font-weight: bold;
+    color: rgba(72,68,68,1);
+}
+.ab_section{
+    color: rgba(72,68,68,1);
+}
+.ab_section label{
+    font-family: Segoe UI;
+    color: rgba(121,121,121,1);
+}
+.ab_count{
+	font-family: Segoe UI;
+	font-size: 12px;
+	position: absolute;
+	font-weight: bold;
+	right: 31px;
+}
+.ab_border{
+	border-bottom: 1px solid #e1e1e1;
+}
+.ab_count_lot{
+	font-family: Segoe UI;
+	font-size: 12px;
+	position: absolute;
+	font-weight: bold;
+	color: #28a745!important;
+	right: 31px;
+}
+#ab_bids_dropdown{
+	padding: 5px;
+	font-size: 14px;
+}
+.ab_tabs .card-header{
+	background-color: #ffffff;
+	padding-bottom: 0;
+}
+.ab_tabs .card-header .nav-tabs{
+	border-bottom: unset;
+}
+.ab_tabs .card-header .nav-tabs .nav-link {
+	border-bottom: unset;
+	font-family: Segoe UI;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px;
+	color: rgba(121,121,121,1);
+}
+.ab_tabs .card-header .nav-tabs .active{
+	color: rgba(121,121,121,1) !important;
+}
+.ab_tabs .card-header .nav-tabs .active:hover{
+	color: #ffffff !important;
+}
+.ab_tabs .tab-pane.active{
+	background-color: #ffffff;
+	color: rgba(121,121,121,1) !important;
+}
+#slot-history-dropdown{
+	padding: 5px;
+    font-family: Segoe UI;
+    /* font-style: normal; */
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(72,68,68,1);
+    border: 1px solid rgb(198 198 198);
+}
+.p12{
+	padding: 12px;
+}
+.bid-used{
+	font-size: 14px;
+}
+@media (max-width: 767px) {
+	#bid-history .col-md-4{
+		font-size: 14px;
+	}
+	#bid-history #slot-history-dropdown{
+		font-size: 10px;
+	}
+}
+#bid-request-section{
+	text-align: center;
+}
+#bid-request-section #bid_request{
+	padding: 8px;
+}
+.request-btn{
+	background-color: #fff;
+    color: rgba(223,52,56,1);
+    box-shadow: 0 0 18px rgb(208 208 208);
+    padding: 7px 7px;
+    border-radius: 23px;
+    font-weight: 700;
+    font-family: Segoe UI;
+    font-size: 12px;
+    border: none;
+}
+.request-btn:hover{
+	background-color: rgba(223,52,56,1);
+    color: #fff;
+}

@@ -1,0 +1,649 @@
+#auction-section{
+  margin: 22px !important;
+  background-color: #ffffff !important;
+  border: 1px !important;	
+}
+.auction-container{
+    padding: 12px !important;
+    margin-top: 22px !important;
+    margin-bottom: 22px !important;
+    box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+    box-shadow: cornflowerblue !important;
+ }
+ /*testing the swiper*/
+ #auction-section .swiper-container {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+    #auction-section  .swiper-slide {
+        background-size: cover;
+        background-position: center;
+      }
+     .singleauctionswipper{
+     	height: 80%;
+     	border: 1px solid rgba(208,208,208,1);
+    	padding: 5px;
+     }
+   #auction-section   .singleauctionswiper {
+        height: 80%;
+        width: 100%;
+      }
+
+    #auction-section  .singleswiperthumb {
+        height: 20%;
+        box-sizing: border-box;
+        padding: 10px 0;
+      }
+
+     #auction-section .singleswiperthumb .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+      }
+
+    #auction-section  .singleswiperthumb .swiper-slide-thumb-active {
+        opacity: 1;
+      }
+
+     #auction-section .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .auction-detail ul{
+      	padding: 0;
+      }
+      .auction-detail ul li{
+      	display: inline;
+      	list-style: none;
+      	float: left;
+      	padding: 0;
+      }
+      .auction-detail ul li a{
+      	padding: 2px 10px;
+      	font-size: 16px;
+      	font-weight: bold;
+      	color: rgba(223,52,56,1);
+      	font-family: Segoe UI;
+      }
+      .auction-detail ul li a i{
+      	padding-right: 2px;
+      }
+      .singleauction-left{
+      	height: auto;
+      }
+      .auction-detail{
+      	height: 20%;
+      	width: 100%;
+      }
+      .singleauction-right{
+      	font-family: Segoe UI;
+      }
+      .singleauction-right label{
+      	color:  rgba(223,52,56,1);
+      	font-weight: bold;
+      	font-size: 20px;
+      }
+      .auction_plan{
+      	font-size: 20px;
+      }
+      .auction_description{
+      	text-align: left;
+	    font-family: Segoe UI;
+	    font-weight: normal;
+	    font-size: 14px;
+	    color: rgba(72,68,68,1);
+      }
+      .singleauction-right .auc_blue{
+      	font-weight: bold;
+	    font-size: 15px;
+	    color: rgba(64,75,130,1);
+      }
+      .singleauction-right .auc_red{
+      	font-weight: bold;
+	    font-size: 15px;
+	    color: rgba(223,52,56,1);
+      }
+      #single_auc_bid_btn{
+      	width: 50%;
+	    padding: 7px 7px;
+	    float: right;
+	    border-radius: 23px;
+	    font-weight: 700;
+	    font-family: Segoe UI;
+	    border: none;
+	    color: rgba(255,255,255,1);
+	    background-color: rgba(223,52,56,1);
+      }
+      #single_auc_bid_btn:hover{
+      	background-color: rgba(245,180,0,1);
+      }
+      .single_auc_bg{
+      	background-color: rgba(235,235,235,1);
+      }
+      .auctitle{
+      	font-family: Segoe UI;
+	    font-weight: bold;
+	    /*font-size: 16px;*/
+	    color: rgba(121,121,121,1);
+      }
+      .auc-right{
+      	 box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+      	 font-family: Segoe UI;
+      	 padding-top: 10px;
+      }
+      .auc-right a{
+      	color: unset;
+      }
+      .auc-right a:hover{
+      	 box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+      }
+      .single_au_adjacent{
+      	padding: 13px;
+      	border-bottom: 1px solid rgba(208,208,208,1);
+      	border-width: 80%;
+      }
+      .single_au_adjacent .img{
+      	 box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+      	 padding: 10px;
+      	 border-radius: 11px;
+      }
+      .single_au_adjacent .auc_red{
+      	font-weight: bold;
+	    font-size: 15px;
+	    color: rgba(223,52,56,1);
+      }
+      .au_select_drop{
+      	padding: 11px;
+      	text-align: right;
+      }
+      .au_select_drop .auc_blue{
+      	font-weight: bold;
+	    font-size: 15px;
+	    color: rgba(64,75,130,1);
+      }
+      #single_auc_lot_btn{
+      	font-weight: 700;
+	    font-family: Segoe UI;
+	    border: none;
+	    color: rgba(255,255,255,1);
+	    background-color: rgba(223,52,56,1);
+	    border-radius: 5px;
+      }
+      #single_auc_lot_btn:hover{
+      	background-color: rgba(245,180,0,1);
+      }
+
+      /*for latest auction*/
+      #latest_auction img{
+        height: 100%;
+        width: 100%;
+
+      }
+      .latest-auction-container{
+        padding: 0px 12px 12px !important;
+        margin-top: 22px !important;
+        margin-bottom: 22px !important;
+        box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+        box-shadow: cornflowerblue !important;
+     }
+     .latest_auc_title{
+        padding-top: 12px;
+        margin-bottom: 20px;
+        background-color: rgba(223,52,56,1);
+        color: #ffffff;
+     }
+     .latest_auc_title h6{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        color: rgba(255,255,255,1);
+     }
+     .latest_auc_title .auc_title_label{
+        font-size: 13px;
+     }
+     .latest-auction-container .singleauction-right h6{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        color: rgba(72,68,68,1);
+     }
+     .latest-auction-container .singleauction-right p{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        color: rgba(72,68,68,1);
+     }
+     .latest-auction-container #latest_auction{
+        height: 100%;
+     }
+     .latest-auction-container .auction-detail ul{
+        float: right;
+     }
+     .filter-search .fa-search{
+        position: absolute;
+        right: 0;
+        top: 17px;
+     }
+     .ltst_auction #search-form .p-3{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        color: rgba(121,121,121,1);
+     }
+     .ltst_auction #search-form .bold{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        color: rgba(72,68,68,1);
+     }
+     .ltst_auction #search-form .filt-lbl{
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        color: rgba(121,121,121,1);
+     }
+     .latest-auction-container .singleauction-right label{
+        font-size: 13px;
+        color: rgba(223,52,56,1);
+        float: right;
+     }
+     .ltst_auction{
+        margin: 0px !important;
+        background-color: #ffffff;
+     }
+     .ltst_auction .container{
+        padding: 22px 12px 12px;
+     }
+     .realization-btn{
+        position: absolute;
+        top: 0px;
+        right: 9px;
+        padding: 6px 21px;
+        background: rgba(223,52,56,1);
+        color: #fff;
+        border-radius: 23px;
+     }
+     .realization-btn:hover{
+        color: #ffffff;
+        background-color: rgba(245,180,0,1);
+     }
+     /*previous auction section*/
+/*home medal css*/
+#prev-auction{
+  padding: 22px 0px;
+}
+#prev-auction .medal-box{
+  background-color: rgba(223,52,56,1);
+  border-radius: 10px;
+  box-shadow: 0px 1px 9px 4px #ada9a9;
+}
+#prev-auction .medal-box .row{
+  padding: 12px;
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: Segoe UI;
+}
+#prev-auction .price{
+  color: #ffffff;
+      font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    color: rgba(255,255,255,1);
+}
+#prev-auction .small-head{
+  color: #ff4a17;;
+}
+#prev-auction .medal-slide{
+  padding: 22px 12px;
+}
+#prev-auction .prev-auc-right{
+    padding: 22px !important;
+    width: 70%;
+}
+#prev-auction .prev-auc-left{
+    padding: 4px !important;
+    background-color: #ffffff;
+    border-radius: 7px;
+    width: 30%;
+}
+#prev-auction h6{
+    font-family: Segoe UI;
+    font-weight: bold;
+    /* font-size: 16px; */
+    color: rgba(121,121,121,1);
+
+}
+
+/*for this page banner btn*/
+.auc-banner-btn{
+    font-size: 13px;
+}
+/*for magnifier*/
+
+.magnify {
+    position: relative;
+    cursor: none;
+    height: 100%;
+}
+
+.magnify-large {
+    position: absolute;
+    display: none;
+    width: 175px;
+    height: 175px;
+
+    -webkit-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+       -moz-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    
+    -webkit-border-radius: 100%;
+       -moz-border-radius: 100%;
+             border-radius: 100%
+}
+/*for count down*/
+
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 16px;
+  position: absolute;
+  background: #fff;
+  top: -9px;
+  width: 50%;
+  padding: 0;
+  right: 26%;
+}
+
+#clockdiv > div{
+  padding: 4px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 0px;
+  border-radius: 3px;
+  display: inline-block;
+  font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    color: rgba(72,68,68,1);
+}
+
+.smalltext{
+    font-size: 11px;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    color: rgba(223,52,56,1);
+}
+/*for auction lot page*/
+
+.auction-lot-top{
+    position: absolute;
+    top: 7px;
+    right: 9px;
+    font-family: Segoe UI;
+    font-weight: bold;
+    font-size: 11px;
+    color: rgba(121,121,121,1);
+    border-radius: 23px;
+    height: 25px;
+}
+.auction-lot-top label{
+    color: rgba(121,121,121,1);
+    float: left;
+}
+.auction-lot-top .pagination a {
+  color: rgba(121,121,121,1);
+  float: left;
+  padding: 0px 8px;
+  text-decoration: none;
+}
+
+.auction-lot-top .pagination a.active {
+  
+  color: rgba(245,180,0,1);
+}
+
+.auction-lot-top .pagination a:hover:not(.active) {background-color: #dc3545;color: rgba(245,180,0,1);}
+.shop_auc{
+    padding: 12px;
+    border: 1px solid rgba(208,208,208,1);
+}
+.shop_auc:hover{
+    box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+}
+.shop_auc_ask{
+    margin-left: -12px;
+    margin-right: -12px;
+    background: rgba(227,184,44,1);
+    text-align: center;
+    font-weight: bold;
+    font-family: Segoe UI;
+}
+.shop_auc_ask .width_100{
+    color: rgba(64,75,130,1);
+    font-weight: bold;
+}
+.shop_auc_btn{
+    text-align: center;
+}
+.shop_auc_btn #single_auc_bid_btn{
+    width: 80%;
+    float: unset;
+    background-color: #fff;
+    color: rgba(223,52,56,1);
+    box-shadow: 0 0 4px rgba(208,208,208,1);
+}
+.shop_auc_btn #single_auc_bid_btn:hover{
+    background-color: rgba(223,52,56,1);
+    color: #fff;
+}
+.width_100{
+    width: 100%;
+    font-size: 13px;
+    color: rgba(121,121,121,1);
+}
+.width_30{
+    width: 50%;
+    font-size: 13px;
+    color: rgba(121,121,121,1);
+}
+.div_width_30{
+    width: 33.33%;
+    margin-top: 10px;
+    line-height: 2;
+    margin-bottom: 10px;
+}
+.width_30 span, .width_100 span{
+    color: rgba(223,52,56,1);
+    font-weight: bold;
+}
+@media screen and (max-width: 1200px) {
+    .shop_auc_btn #single_auc_bid_btn{
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .div_width_30{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 467px) {
+    .div_width_30{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 548px) {
+    .auction-lot-top .pagination a {
+        padding: 0px 10px;
+    }
+    .auction-lot-top{
+        position: relative;
+        float: left !important;
+    }
+}
+@media screen and (max-width: 320px) {
+    .auction-lot-top{
+        font-size: 10px;
+    }
+}
+
+.auc_filter{
+    border-top: 1px solid rgba(185,185,185,1);
+    border-bottom: 1px solid rgba(185,185,185,1);
+    padding: 0;
+}
+.auc_filter ul{
+    list-style: none;
+    margin: 0;
+    padding: 6px 0px;
+}
+.auc_filter ul li{
+    display: inline;
+}
+.auc_filter ul li a{
+    padding: 12px;
+    text-align: left;
+    font-family: Segoe UI;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(72,68,68,1);
+}
+.auc_filter ul li a i{
+    padding: 0px 4px;
+    font-size: 13px;
+}
+.auc_filter .divider{
+    color: rgba(112,112,112,1);
+    font-weight: lighter;
+    padding: 0px;
+}
+@media screen and (max-width: 548px) {
+    .auc_filter ul li a{
+        font-size: 12px;
+    }
+}
+.shop_footer_pagination{
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+.shop_footer_pagination{
+   
+    text-align: center;
+    font-family: Segoe UI;
+    font-weight: bold;
+    font-size: 11px;
+    color: rgba(121,121,121,1);
+    border-radius: 23px;
+    height: 25px;
+}
+.shop_footer_pagination .pagination a {
+  color: rgba(121,121,121,1);
+  float: left;
+  padding: 0px 8px;
+  text-decoration: none;
+}
+.shop_footer_pagination label{
+    color: rgba(121,121,121,1);
+    float: left;
+}
+@media screen and (max-width: 548px) {
+    .shop_footer_pagination{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 467px) {
+    .shop_footer_pagination label{
+        float: unset;
+    }
+    .auction-lot-top label{
+        float: unset;
+    }
+    .auction-lot-top{
+        height: auto;
+    }
+    .shop_footer_pagination{
+        width: 100%;
+        text-align: left;
+        height: auto;
+    }
+}
+.Grid {
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #ddd;
+    border-collapse: collapse;
+    color: #474747;
+    width: 100%;
+}
+.Grid th {
+    padding: 6px 5px;
+    color: #fff;
+    background-color: #ff180d;
+    font-size: 14px;
+    border: 1px solid #6A0509/*#ffba61*/;
+    text-align: center;
+    font-weight: 800;
+}
+.Grid td {
+    padding: 4px 5px;
+    border: solid 1px #ddd;
+}
+.btn-bs-close{
+    background-color: #ff180d;
+    color: #ffffff;
+}
+.btn-bs-close:hover{
+    color: #ffffff;
+}
+.amnt{
+    color: rgba(223,52,56,1);
+    font-weight: bold;
+    font-size: 20px;
+}
+/*for rippons*/
+.ribbon-wrapper {
+    height: 70px;
+    overflow: hidden;
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    width: 70px;
+    z-index: 10;
+}
+.ribbon-wrapper .ribbon {
+    box-shadow: 0 0 3px rgb(0 0 0 / 30%);
+    font-size: .8rem;
+    line-height: 100%;
+    padding: .375rem 0;
+    position: relative;
+    right: -2px;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 40%);
+    text-transform: uppercase;
+    top: 10px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 90px;
+    color: #ffffff;
+}

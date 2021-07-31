@@ -1,0 +1,71 @@
+
+.bg-banner-one {
+  background-size: cover;
+  background-position: center center;
+}
+.bg-banner-one:before {
+  content: "";
+  background: rgba(13, 20, 26, 0.7);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.5;
+}
+.banner {
+  padding: 200px 0 100px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .banner {
+    padding: 100px 0;
+  }
+}
+.banner .block {
+  position: relative;
+  z-index: 10;
+  padding: 0px 10px;
+    line-height: 20px;
+    width: 68%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.banner  .block div{
+  width: 80%;
+}
+.banner .block h1 {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 44px;
+    color: rgba(227,184,44,1);
+}
+.banner .block p {
+    text-align: left;
+    font-family: Segoe UI;
+    line-height: 1.5;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: rgba(255,255,255,1);
+}
+
+@media (max-width: 767px) {
+  .banner .block h1 {
+    font-size: 22px;
+  }
+  .banner .block p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 767px) {
+  .banner .block{
+    width: 100%;
+  }
+  .banner{
+    padding: 100px 0 75px;
+  }
+}

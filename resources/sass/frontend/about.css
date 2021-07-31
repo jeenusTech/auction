@@ -1,0 +1,252 @@
+.section_1{
+	background-color: #ffffff;
+	text-align: center;
+	padding: 40px;
+}
+.section_1 .row{
+	padding: 40px;
+}
+.section_1 .container{
+	padding: 40px;
+}
+.section_1 h1{
+	font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    color: rgba(227,184,44,1);
+}
+.section_1 p{
+	font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: rgba(72,68,68,1);
+}
+@media (max-width: 767px) {
+	.section_1 .row{
+		padding: 20px;
+	}
+	.section_1 .container{
+		padding: 20px;
+	}
+}
+@media (max-width: 591px) {
+	.section_1 .row{
+		padding: 10px;
+	}
+	.section_1 .container{
+		padding: 10px;
+	}
+	.section_1 h1{
+    	font-size: 18px;
+	}
+	.section_1 p{
+    	font-size: 12px;
+	}
+
+}
+.section_2{
+	background-color: rgb(59 24 11 / 79%);
+}
+.section_2 .row{
+	margin: 0;
+}
+.section_2 .col{
+background-size: cover;
+    background-position: center center;
+}
+.section_2 .content{
+	padding: 60px;
+	/*width: 80%;*/
+}
+.section_2 h1{
+	font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    color: rgba(227,184,44,1);
+}
+.section_2 p{
+	text-align: left;
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255,255,255,1);
+}
+.enquire{
+	padding: 12px 22px;
+	background-color: #ff180d;
+	color: #ffffff;
+	border-radius: 23px;
+}
+.enquire:hover{
+	background-color: rgba(245,180,0,1);
+	color: #ffffff;
+}
+@media (max-width: 767px) {
+	.section_2 .col{
+		width: 100%;
+	}
+	.section_2 .img{
+		display: none;
+	}
+}
+@media (max-width: 591px) {
+	.section_2 h1{
+		font-size: 18px;
+	}
+	.section_2 p{
+		font-size: 12px;
+	}
+}
+/*third section*/
+.section_3 {
+	padding: 40px 0px;
+}
+.section_3 .container{
+	/*background-color: rgb(59 24 11 / 79%);*/
+	box-shadow: 0px 1px 9px 4px #ada9a9;
+	max-width: 90%;
+	padding: 0px 0px;
+}
+.section_3 .row{
+	margin: 0;
+	background-color: rgb(59 24 11 / 79%);
+}
+.section_3 .row_2{
+	background-color: rgba(88,64,40,1);
+}
+.section_2 .service_2{
+	background-color: #ffffff;
+}
+.section_2 .service_3{
+	background-color: rgb(97 100 107 / 98%);
+}
+.section_2 .service_4{
+	background-color: rgb(123 82 73);
+}
+.section_2 .service_2 p{
+	color: rgba(72,68,68,1);
+}
+.section_3 .row_3{
+	background-color: rgba(84,101,70,1);
+}
+.section_3 .col{
+background-size: cover;
+    background-position: center center;
+}
+.section_3 .content{
+	padding: 60px;
+	/*width: 80%;*/
+}
+.section_3 h1{
+	font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    color: rgba(227,184,44,1);
+}
+.section_3 p{
+	text-align: left;
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255,255,255,1);
+}
+.section_3 .img{
+	text-align: center;
+	background-color: #ffffff;
+}
+.section_3 .img img{
+	margin: 14% auto;
+}
+@media (max-width: 767px) {
+	.section_3 .col{
+		width: 100%;
+	}
+	.section_3 .img{
+		display: none;
+	}
+}
+@media (max-width: 591px) {
+	.section_3 h1{
+		font-size: 18px;
+	}
+	.section_3 p{
+		font-size: 12px;
+	}
+}
+
+.service_section .block h2{
+	color: #ffffff;
+}
+.service_section .block p{
+	font-size: 20px;
+}
+.service_section .block a{
+	color: #ffffff;
+}
+.storage{
+	padding: 22px;
+}
+.storage .container{
+	padding: 22px;
+}
+.storage h1{
+	font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    color: rgba(227,184,44,1);
+    text-align: center;
+}
+.storage ul{
+	list-style: none;
+  	padding-left: 0;
+}
+.storage li{
+  position: relative;
+  padding-left: 1.5em;  /* space to preserve indentation on wrap */
+  padding-top: 10px;
+}
+.storage li:before {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;  /* place the SVG at the start of the padding */
+  width: 1em;
+  height: 1em;
+  color: rgba(227,184,44,1);
+}
+.storage_left{
+    box-shadow: -8px 6px 10px 8px rgb(117 123 137 / 25%) !important;
+    padding: 40px;
+    margin: 40px 0px;
+}
+.storage_right{
+    box-shadow: 6px 7px 10px 8px rgb(117 123 137 / 25%) !important;
+    padding: 60px 40px;
+    background-color: rgba(72,68,68,1);
+
+}
+.storage_right li{
+	color: #ffffff;
+}
+@media (max-width: 591px) {
+	.service_section .block h2{
+		font-size: 18px;
+	}
+	.service_section .block p{
+		font-size: 12px;
+	}
+	.storage h1{
+	    font-size: 18px;
+	}
+	.storage li{
+		font-size: 12px;
+	}
+}
