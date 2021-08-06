@@ -96,6 +96,7 @@
                   <th>User Email</th>
                   <th>Bid Amount</th>
                   <th>Bid Date</th>
+                  <th>Invoice</th>
                   {{-- <th>Close</th> --}}
                 </tr>
                 </thead>
@@ -107,6 +108,7 @@
                     <td>{{$bid->user->email}}</td>
                     <td>{{number_format($bid->bid_amount,2)}}</td>
                     <td>{{$bid->created_at->diffForHumans()}}</td>
+                    <td>@if($bid->awarded==1)<a href="{{route('generate-invoice',$bid->id)}}" class="btn btn-warning" target="blank">Generate</a>@endif</td>
                     {{-- <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">
                           @csrf
                           <label id="switch">

@@ -7,6 +7,7 @@ use App\Models\Auction;
 use App\Models\Lot;
 use App\Models\Bid;
 use App\Models\category;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -130,5 +131,10 @@ class UserAuctionController extends Controller
          'used'=>$used
       ];
       return response()->json($data);
+   }
+   public function bankdetail()
+   {
+      $banks=Bank::all();
+      return view("frontend.bank_info",['banks'=>$banks]);
    }
 }

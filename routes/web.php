@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\ApproveUserController;
 use App\Http\Controllers\Admin\AuctionController;
 use App\Http\Controllers\Admin\LotController;
 use App\Http\Controllers\Admin\SellerController;
+use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\InvoiceController;
 
 // for the frontendControllers
 use App\Http\Controllers\frontend\UserAuctionController;
@@ -38,6 +41,12 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     //return view('welcome');
     return view("frontend/index");
+});
+// for site map
+Route::get('/sitemap.xml',function () {
+    //return view('welcome');
+    return response()
+           ->view("frontend/sitemap")->header('Content-Type', 'text/xml');
 });
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -90,10 +99,7 @@ Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
 
 // for the bank route
 
-Route::get('/bank-info', function(){
-   return view("frontend.bank_info");
-})->name('bank-info');
-
+Route::get('/bank-info', [UserAuctionController::class, 'bankdetail'])->name('bank-info');
 
 // for user registration form and guest controller
 Route::group(['middleware' => ['guest']], function () {
@@ -125,9 +131,8 @@ Route::group(['middleware' => ['auth','verified']], function() {
       return view('frontend.user_dashboard.wish-list');
    })->name('wishlist');
 
-   Route::get('auctionbids', function(){
-      return view('frontend.user_dashboard.auctionbids');
-   })->name('auctionbids');
+   Route::get('auctionbids',  [ProfileController::class,'auctionbids'])->name('auctionbids');
+   Route::post('api/user-auctionbids', [ProfileController::class, 'user_auctionbids']);
 
    Route::get('bid-history', [ProfileController::class,'bidhistory'])->name('bid-history');
    Route::post('api/user-auction-history', [ProfileController::class, 'user_auction_history']);
@@ -193,9 +198,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::resource('admin_lot', LotController::class);
     Route::post('lot_closed/{id}', [LotController::class,'lot_closed'])->name('lot_closed');
-    // Route::get('admin-lot-show', function(){
-    //   return view('admin.lot.show');
-    // })->name('admin-lot-show');
+    
 // seller management
     Route::resource('seller', SellerController::class);
     Route::post('block_seller/{id}', [SellerController::class,'block_seller'])->name('block_seller');
@@ -203,4 +206,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('pending_seller', [SellerController::class,'pending_seller'])->name('pending_seller');
     Route::get('blocked_seller', [SellerController::class,'blocked_seller'])->name('blocked_seller');
     Route::post('unblock_seller/{id}', [SellerController::class,'unblock_seller'])->name('unblock_seller');
+    // bank detail
+    Route::resource('bank', BankController::class);
+    Route::resource('homePage', HomePageController::class);
+    // invoice
+    Route::resource('invoice',InvoiceController::class);
+    Route::get('generate-invoice/{id}',[InvoiceController::class,'generate_invoice'])->name('generate-invoice');
 });

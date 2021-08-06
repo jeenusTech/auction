@@ -8736,6 +8736,38 @@ background-size: cover;
 		font-size: 12px;
 	}
 }
+.summernote_cont table, .summernote_cont p{
+	width: 100% !important;
+	font-size: 16px !important;
+}
+
+.qr-upi{
+	width: 100%;
+}
+.bank-right{
+	font-size: 16px;
+}
+@media (max-width: 768px){
+	.bank-right {
+	   font-size: 14px;
+	}
+	.summernote_cont table, .summernote_cont p{
+		font-size: 14px !important;
+	}
+}
+@media (max-width: 576px){
+	.bank-right {
+	    font-size: 11px;
+	}
+	.summernote_cont table, .summernote_cont p{
+		font-size: 11px !important;
+	}
+	.qr-upi{
+		width: 125px;
+		height: 120px;
+	}
+}
+
 .realization_view ul li{
 	width: 50%;
     text-align: center;

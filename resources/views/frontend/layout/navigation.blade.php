@@ -8,10 +8,14 @@
       <nav id="navbar" class="navbar">
         <ul>
         <div class="search_left">
-          <form action="">
+          <form action="{{route('advanced_search/search')}}" method="get">
             <div class="searchContainer">
               <i class="bi bi-search searchIcon"></i>
-              <input class="searchBox" type="search" name="search" placeholder="Search..." >
+              <input class="searchBox" type="search" name="keyword" value="{{request()->get('keyword')?request()->get('keyword'):''}}" placeholder="Search..." >
+              <input type="hidden" class="form-control" value="{{request()->get('price_range')?request()->get('price_range'):''}}" name="price_range" id="price_range">
+              <input type="hidden" class="form-control" value="Hight-Low" name="price_range_order" id="price_range_order">
+              <input type="hidden" class="form-control" value="{{all_category()?all_category()[0]['id']:''}}" name="category" id="category">
+              <input type="hidden" class="form-control" value="{{all_auction()?all_auction()[0]['id']:''}}" name="auction" id="auction">
             </div>
           </form>
 
@@ -167,8 +171,12 @@
 
   <div class="search-bar">
     <i class="bi bi-x search_x"></i>
-    <form class="d-flex w-100 justify-content-center" method="GET">
-      <input class="align-self-center search-input form-control" type="text" name="s" placeholder="Search">
+    <form class="d-flex w-100 justify-content-center" action="{{route('advanced_search/search')}}" method="GET">
+      <input class="align-self-center search-input form-control" type="text" name="keyword" value="{{request()->get('keyword')?request()->get('keyword'):''}}" placeholder="Search">
+      <input type="hidden" class="form-control" value="{{request()->get('price_range')?request()->get('price_range'):''}}" name="price_range" id="price_range">
+      <input type="hidden" class="form-control" value="Hight-Low" name="price_range_order" id="price_range_order">
+      <input type="hidden" class="form-control" value="{{all_category()?all_category()[0]['id']:''}}" name="category" id="category">
+      <input type="hidden" class="form-control" value="{{all_auction()?all_auction()[0]['id']:''}}" name="auction" id="auction">
       <button type="submit" class="align-self-center"><i class="bi bi-search"></i>
       </button>
     </form>

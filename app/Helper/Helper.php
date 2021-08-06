@@ -6,6 +6,8 @@ use App\Models\category;
 use App\Models\Seller;
 use App\Models\Auction;
 use App\Models\Lot;
+use App\Models\HomePage;
+use App\Models\Bid;
 
 use App\Models\User;
 // get country , state, city with id
@@ -124,5 +126,18 @@ use App\Models\User;
 			return $auction;
 		}
 		return null;
+	}
+	// for home page banner
+	function homebanner()
+	{
+		$banner=HomePage::all();
+		return $banner;
+	}
+
+	// print the allocated lots
+	function allocated_lot($auction_id)
+	{
+		$bids=Bid::where('auction_id',$auction_id)->where('awarded',1)->orderBy('lot_id','ASC')->get();
+		return $bids;
 	}
 ?>

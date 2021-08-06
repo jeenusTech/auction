@@ -120,50 +120,50 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="verify">
-
-          <div class="card card-navy border-dark">
-            <div class="card-header">
-              <h3 class="card-title">All Lots</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="categorytable" class="table table-bordered table-hover" width="100%">
-                <thead>
-                <tr>
-                  <th>Auction no.</th>
-                  <th>Lot no</th>
-                  <th>Price</th>
-                  {{-- <th>Close</th> --}}
-                  <th>Current bid - Asking bid</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                  @foreach($auction->lot as $lot)
-                  <tr>
-                    <td>Auction no.{{$lot->auctions->auction_number}}</td>
-                    <td>Lot No.{{$lot->lot_number}}</td>
-                    <td>Rs. {{number_format($lot->min_price,2)}} - Rs. {{number_format($lot->max_price,2)}}</td>
-                    {{-- <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">
-                          @csrf
-                          <label id="switch">
-                            <input type="checkbox" class="form-control lot_closed" name="closed" {{$lot->closed==1?'checked':''}} data-id="{{ $lot->id }}" >
-                            <span class="slider round"></span>
-                          </label>
-                          
-                      </form>
-                    </td> --}}
-                    <td>Rs. {{number_format($lot->current_bid,2)}} - Rs. {{number_format($lot->asking_bid,2)}}</td>
-                    <td>
-                      <a href="{{route('admin_lot.show',$lot->id)}}" id="show_cat_{{$lot->id}}" class="p-2 btn btn-success btn-sm"><i class="fas fa-gavel"></i> View Bids</a>
-                    </td>
-                  </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
+                    <div class="card card-navy border-dark">
+                      <div class="card-header">
+                        <h3 class="card-title">All Lots</h3>
+                        <a href="javscript:void(0)" onclick="printrealization()" class="float-right btn btn-success"><i class="fas fa-print"></i>  Print</a>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        <table id="categorytable" class="table table-bordered table-hover" width="100%">
+                          <thead>
+                          <tr>
+                            <th>Auction no.</th>
+                            <th>Lot no</th>
+                            <th>Price</th>
+                            {{-- <th>Close</th> --}}
+                            <th>Current bid - Asking bid</th>
+                            <th>Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($auction->lot as $lot)
+                            <tr>
+                              <td>Auction no.{{$lot->auctions->auction_number}}</td>
+                              <td>Lot No.{{$lot->lot_number}}</td>
+                              <td>Rs. {{number_format($lot->min_price,2)}} - Rs. {{number_format($lot->max_price,2)}}</td>
+                              {{-- <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">
+                                    @csrf
+                                    <label id="switch">
+                                      <input type="checkbox" class="form-control lot_closed" name="closed" {{$lot->closed==1?'checked':''}} data-id="{{ $lot->id }}" >
+                                      <span class="slider round"></span>
+                                    </label>
+                                    
+                                </form>
+                              </td> --}}
+                              <td>Rs. {{number_format($lot->current_bid,2)}} - Rs. {{number_format($lot->asking_bid,2)}}</td>
+                              <td>
+                                <a href="{{route('admin_lot.show',$lot->id)}}" id="show_cat_{{$lot->id}}" class="p-2 btn btn-success btn-sm"><i class="fas fa-gavel"></i> View Bids</a>
+                              </td>
+                            </tr>
+                          @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
                   </div>
                   <div class="tab-pane" id="catelogue">
                     <!-- Post -->
@@ -182,6 +182,33 @@
                 <!-- /.tab-content -->
               </div><!-- /.card-body -->
             </div>
+            <div class="card card-navy border-dark" style="display: none;">
+              <div class="card-header">
+                <h4 class="card-title">Lot Allocation</h4>
+              </div>
+              <div class="card-body">
+                <table id="print_table" class="table table-bordered table-hover" width="100%">
+                  <thead>
+                  <tr>
+                    <th>Auction no.</th>
+                    <th>Lot no</th>
+                    <th>User</th>
+                    <th>Phone</th>
+                  </tr>
+                  </thead>
+                  <tbody id="content">
+                    @foreach(allocated_lot($auction->id) as $bid)
+                    <tr>
+                      <td>{{$bid->auction->auction_number}}</td>
+                      <td>{{$bid->lot->lot_number}}</td>
+                      <td>{{$bid->user->name}}</td>
+                      <td>{{$bid->user->mobile_1}}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -190,3 +217,30 @@
       </div><!-- /.container-fluid -->
     </section>
 @endsection
+<script>
+      function printrealization(){
+        var contents = $("#content").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Auction</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        frameDoc.document.write('<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />');
+        //Append the DIV contents.
+        frameDoc.document.write('<table id="print_table" class="table table-bordered table-hover" width="100%"><thead><tr><th>Auction no.</th><th>Lot no</th><th>User</th><th>Phone</th>                  </tr></thead><tbody>');
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</tbody></table>');
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+</script>

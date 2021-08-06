@@ -1,0 +1,232 @@
+<?php echo'<?xml version="1.0" encoding="UTF-8"?>' ;?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://bhargavaauctions.com/</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/index</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/advanced_search</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/latest-auction</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-archives</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/upcoming-auction</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/1</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/2</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/3</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/4</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/5</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/6</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/7</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/8</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/9</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/10</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/11</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/12</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/13</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/14</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/category-auction/15</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/bank-info</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/about-us</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/contact</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/login</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/register</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/our-service</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/lots</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/storage/auction/auction_catelogue/q2iusObod6rkEI0py0Aw84FCuJIKLvXa8uuAgMF2.pdf</loc>
+  <lastmod>2021-08-03T09:52:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/realization/1</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/password/reset</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/LotDesc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/LotAsc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/EstimateDesc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/EstimateAsc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/BidDesc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-lot/1/BidAsc</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/1</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/2</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/3</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/4</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/5</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/auction-bid/6</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://bhargavaauctions.com/realization/index</loc>
+  <lastmod>2021-08-05T06:08:40+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>

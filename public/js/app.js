@@ -1723,6 +1723,9 @@ var swiper2 = new Swiper(".singleauctionswiper", {
 });
 var allcat = new Swiper(".home-banner", {
   loop: true,
+  autoplay: {
+    delay: 5000
+  },
   pagination: {
     el: '.swiper-pagination',
     type: 'bullets'

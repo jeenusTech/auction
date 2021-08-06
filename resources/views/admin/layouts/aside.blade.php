@@ -187,6 +187,75 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item {{(Request::is('admin/bank*')) ? 'menu-is-opening menu-open' : ''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-university"></i>
+              <p>
+                Bank Info
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('bank.index')}}" class="nav-link {{(Request::is('admin/bank')) ? 'active' : ''}}">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>All Banks</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('bank.create')}}" class="nav-link {{(Request::is('admin/bank/create')) ? 'active' : ''}}">
+                  <i class="fa fa-pencil-alt nav-icon"></i>
+                  <p>Add Bank</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{(Request::is('admin/homePage*')) ? 'menu-is-opening menu-open' : ''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-images"></i>
+              <p>
+                HomePage Info
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('homePage.index')}}" class="nav-link {{(Request::is('admin/homePage')) ? 'active' : ''}}">
+                  <i class="fas fa-images nav-icon"></i>
+                  <p>All Banners</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('homePage.create')}}" class="nav-link {{(Request::is('admin/homePage/create')) ? 'active' : ''}}">
+                  <i class="fa fa-pencil-alt nav-icon"></i>
+                  <p>Add homePage Banner</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{(Request::is('admin/invoice*')) ? 'menu-is-opening menu-open' : ''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file-invoice-dollar"></i>
+              <p>
+                invoices
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('invoice.edit',1)}}" class="nav-link {{(Request::is('admin/invoice')) ? 'active' : ''}}">
+                  <i class="fas fa-images nav-icon"></i>
+                  <p>edit invoices</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('invoice.create')}}" class="nav-link {{(Request::is('admin/invoice/show')) ? 'active' : ''}}">
+                  <i class="fa fa-pencil-alt nav-icon"></i>
+                  <p>Create invoice</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

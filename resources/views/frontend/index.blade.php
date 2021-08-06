@@ -3,23 +3,23 @@
    <!-- ======= Home slider Section ======= -->
    <div class="swiper-container home-banner">
       <div class="swiper-wrapper">
-        <?php for($i=0; $i<3; $i++){ ?>
-        <section id="hero" class="swiper-slide" style='background-image: url("{{asset('/frontend/hero-bg.png')}}");' alt="auction-home" title="bhargavaauction home">
+        @foreach(homebanner() as $banner)
+        <section id="hero" class="swiper-slide" style='background-image: url("{{getimg($banner->image_big)}}");' alt="{{$banner->image_alt}}" title="{{$banner->image_title}}">
           <div class="container">
             <div class="row">
               <div class="col-lg-12">
                 <!-- Content Block -->
                 <div class="block">
                   <div class="aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
-                    <p>Baldwin’s currently boasts the most comprehensive stock of numismatic material in the UK, which is updated on a regular basis.</p>
-                    <a href="auction-lot" class="btn btn-danger slider-btn">Have a Look</a>
+                    <p>{{$banner->description}}</p>
+                    <a href="{{$banner->button_link}}" class="btn btn-danger slider-btn">{{$banner->button_text}}</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      <?php } ?>
+      @endforeach
       </div>
       <div class="swiper-pagination"></div>
     </div>

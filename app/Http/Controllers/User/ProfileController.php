@@ -323,4 +323,75 @@ class ProfileController extends Controller
         }
         return response()->json($result);
     }
+    public function auctionbids(Request $request){
+        $bids=Bid::where('user_id',auth()->user()->id)->distinct()->get(['auction_id']);
+        return view('frontend.user_dashboard.auctionbids',['bids'=>$bids]);
+    }
+    public function user_auctionbids(Request $request){
+        $data = Bid::where("auction_id",$request->id)
+                ->where("user_id",auth()->user()->id)
+                ->orderBy('created_at','DESC')->get();
+        $bids_on_lot = Bid::where("auction_id",$request->id)
+                        ->where("user_id",auth()->user()->id)
+                        ->orderBy('created_at','DESC')
+                        ->distinct('lot_id')->get();;
+        $win_bids = Bid::where("auction_id",$request->id)
+                    ->where("user_id",auth()->user()->id)
+                    ->where("awarded",1)->orderBy('created_at','DESC')
+                    ->distinct('lot_id')->get();
+        $out_bids = Bid::where("auction_id",$request->id)
+                    ->where("user_id",auth()->user()->id)
+                    ->where("awarded",0)->orderBy('created_at','DESC')
+                    ->get();
+        $lots=[];
+        $winlot=[];
+        $outlot=[];
+        
+        if ($bids_on_lot !='' || $bids_on_lot !=null) {
+            $bidsOnLot=$bids_on_lot->count();
+        }else{
+            $bidsOnLot=0;
+        }
+        if ($win_bids !='' || $win_bids !=null) {
+            $WinBids=$win_bids->count();
+        }else{
+            $WinBids=0;
+        }
+        if ($out_bids !='' || $out_bids !=null) {
+            $outBids=$out_bids->count();
+        }else{
+            $outBids=0;
+        }
+        #dd($win_bids);
+        foreach($data as $dt){
+            $lots[]=[
+                'lot_number'=>$dt->lot->lot_number,
+                'bid_amount'=>$dt->bid_amount,
+                'bid_date'=>$dt->created_at->diffForHumans()
+            ];
+        }
+        foreach($win_bids as $wdt){
+            $winlot[]=[
+                'lot_number'=>$wdt->lot->lot_number,
+                'bid_amount'=>$wdt->bid_amount,
+                'bid_date'=>$wdt->created_at->diffForHumans()
+            ];
+        }
+        foreach($out_bids as $odt){
+            $outlot[]=[
+                'lot_number'=>$odt->lot->lot_number,
+                'bid_amount'=>$odt->bid_amount,
+                'bid_date'=>$odt->created_at->diffForHumans()
+            ];
+        }
+        $result=[
+            'lots'=>$lots,
+            'winlot'=>$winlot,
+            'outlot'=>$outlot,
+            'bidsOnLot'=>$bidsOnLot,
+            'WinBids'=>$WinBids,
+            'outBids'=>$outBids,
+        ];
+        return response()->json($result);
+    }
 }

@@ -17,8 +17,6 @@
                 </div>
                 <div class="col-sm-4 col-md-4 p12"><span class="bid-used">Total ₹ {{auth()->user()->bid_used}}/{{auth()->user()->bid_plan_amount}}- Bid Limit Used !!</span></div>
               </div>
-              
-
 		        </div>
 		        <div class="p-3">
 		        	
