@@ -53,7 +53,7 @@
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#docs" data-toggle="tab">Invoice Detail</a></li>
                 </ul>
-                <span class="float-right text-white" style="position: absolute; right: 2%;top: 10px"><b><i>Invoice Created - </i></b></span>
+                <span class="float-right text-white" style="position: absolute; right: 2%;top: 10px"><b><i></i></b></span>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
@@ -72,20 +72,21 @@
                                       <div class="col-md-4"> <img class="img" alt="Invoce Template" src="{{asset('/frontend/logo/logo.png')}}" /> </div>
                                       <div class="col-md-8 text-right">
                                           <h4 style="color: #F81D2D;"><strong>Bhargava Auctions</strong></h4>
-                                          <p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
+                                          <strong><p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
                                           <p>1800-234-124</p>
-                                          <p>example@gmail.com</p>
+                                          <p>example@gmail.com</p></strong>
 
                                       </div>
                                     </div>
 
                                     <div class="row border" style="margin: 0;padding-top: 12px;">
                                       <div class="col">
-                                        <strong><h4><b>Consignee</b></h4></strong>
-                                        <h5 style="color: #F81D2D;"><strong>Rajesh Bilung</strong></h5>
-                                        <p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
-                                        <p>1800-234-124</p>
-                                        <p>example@gmail.com</p>
+                                        <strong><h4><b>Consignee</b></h4>
+                                        <h5 style="color: #F81D2D;"><strong>{{$invoice->user->name}}</strong></h5>
+                                        <p>{{$invoice->user->address_1}},{{$invoice->user->address_2}},</p>
+                                        <p>{{$invoice->user->landmark}},{{getCity($invoice->user->city)->name}},</p><p>{{getState($invoice->user->state)->name}},{{getCountry($invoice->user->country)->name}}-{{$invoice->user->pincode}}</p>
+                                        <p>{{$invoice->user->mobile_1}}</p>
+                                        <p>{{$invoice->user->email}}</p></strong>
                                       </div>
                                       <div class="col">
                                         <div class="row" style="margin: 0;padding-top: 12px;">
@@ -99,10 +100,10 @@
                                           </div>
                                           <div class="col">
                                             <strong>
-                                              <p>04854654101</p>
-                                              <p>6 June 2019</p>
-                                              <p>Bhavarkuva</p>
-                                              <p> </p>
+                                              <p>{{$invoice->invoice_number}}</p>
+                                              <p>{{ \Carbon\Carbon::parse($invoice->created_at)->isoFormat('Do MMM YYYY')}}</p>
+                                              <p>{{$invoice->delivery_place}}</p>
+                                              <p>{{$invoice->dispatched_place}}</p>
                                             </strong>
                                           </div>
                                         </div>
@@ -132,11 +133,11 @@
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <td>12</td>
-                                          <td>Punch Marked, Attributed to Shakya Janapada, “Narhan Hoard” type, Silver 5 Shana, 6.51g</td>
-                                          <td>12%</td>
-                                          <td>5%</td>
-                                          <td>50,000 </td>
+                                        <td><strong>{{$invoice->lot->lot_number}}</strong></td>
+                                          <td><strong>{{$invoice->description}}</strong></td>
+                                          <td><strong>{{$invoice->hsn}}</strong></td>
+                                          <td><strong>{{$invoice->gst}}</strong></td>
+                                          <td><strong>{{$invoice->gross}}</strong></td>
                                       </tr>
                                       <tr style="color: #F81D2D;">
                                         <td></td>
@@ -146,7 +147,7 @@
                                         <td></td>
                                         <td></td>
                                         <td class="text-left">
-                                            <strong><i class="fas fa-rupee-sign" area-hidden="true"></i> 79,900 </strong>
+                                            <strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$invoice->gross}}</strong>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -165,27 +166,27 @@
                                       <p> <strong>2457754vf343</strong> </p>
                                     </div>
                                     <div class="col text-right">
-                                      <p> <strong>(+) commission 12.5% </strong> </p>
+                                      <p> <strong>(+) commission {{$invoice->commission_percentage}}% </strong> </p>
                                       <p> <strong>(+) Shipping Charge</strong> </p>
                                       <p> <strong>(+) Total GST</strong> </p>
                                       <p> <strong>(+/-) Round off </strong> </p>
                                     </div>
                                     <div class="col text-right">
-                                      <p> <strong>500 </strong> </p>
-                                      <p> <strong>82,900</strong> </p>
-                                      <p> <strong>3,000 </strong> </p>
-                                      <p> <strong>79,900</strong> </p>
+                                      <p> <strong>{{$invoice->commission_amount}}</strong> </p>
+                                      <p> <strong>{{$invoice->shipping}}</strong> </p>
+                                      <p> <strong>{{$invoice->total_gst}}</strong> </p>
+                                      <p> <strong>{{$invoice->roundoff}}</strong> </p>
                                     </div>
                                   </div>
                                   <div class="row border" style="margin: 0;">
                                     <div class="col">
                                       <strong>Amount(in words)<br>
-                                      <span class="text-uppercase">three thousand</span></strong>
+                                      <span class="text-uppercase">{{$invoice->total_in_words}}</span></strong>
                                     </div>
                                     <div class="col text-right" style="color: #F81D2D;">
                                       <div class="row text-right" style="margin: 0;">
                                         <div class="col"><strong><h4>Total</h4></strong></div>
-                                        <div class="col"><strong><h4><i class="fas fa-rupee-sign" area-hidden="true"></i> 79,900 </h4></strong></div>
+                                        <div class="col"><strong><h4><i class="fas fa-rupee-sign" area-hidden="true"></i> {{number_format($invoice->total_amount,2)}}</h4></strong></div>
                                       </div>
                                       
                                     </div>
@@ -193,8 +194,13 @@
                                 </div>
                                 <div class="row border" style="margin: 0;">
                                     <div class="col-md-12 text-right">
-                                        <p><b>Date :</b> 6 June 2019</p> <br />
+                                        <p><b>Date :</b> {{ \Carbon\Carbon::parse($invoice->created_at)->isoFormat('Do MMM YYYY')}}</p> <br />
                                         <p><b>Signature</b></p>
+                                    </div>
+                                </div>
+                                <div class="row border" style="margin: 0;">
+                                    <div class="col-md-12 text-center">
+                                        <button class="mt-2 btn bg-navy"><i class="fas fa-print"></i>  Print Invoice</button>
                                     </div>
                                 </div>
                               </div>

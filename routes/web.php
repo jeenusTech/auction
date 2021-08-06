@@ -212,4 +212,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     // invoice
     Route::resource('invoice',InvoiceController::class);
     Route::get('generate-invoice/{id}',[InvoiceController::class,'generate_invoice'])->name('generate-invoice');
+    Route::get('invoices/pending',[InvoiceController::class,'pending_invoice'])->name('invoices/pending');
+    Route::get('invoices/paid',[InvoiceController::class,'paid_invoice'])->name('invoices/paid');
+    Route::post('invoice_status/{id}',[InvoiceController::class,'invoice_status'])->name('invoice_status');
 });

@@ -21,10 +21,12 @@ class CreateInvoicesTable extends Migration
             $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade');
             $table->unsignedBigInteger('lot_id')->nullable();
             $table->foreign('lot_id')->references('id')->on('lots')->onDelete('cascade');
+            $table->unsignedBigInteger('bid_id')->nullable();
+            $table->foreign('bid_id')->references('id')->on('bids')->onDelete('cascade');
             $table->string('invoice_number')->unique();
             $table->string('hsn')->nullable();
             $table->integer('gst');
-            $table->integer('description');
+            $table->string('description');
             $table->float('gross');
             $table->integer('commission_percentage');
             $table->float('commission_amount');
@@ -33,8 +35,8 @@ class CreateInvoicesTable extends Migration
             $table->integer('roundoff');
             $table->float('total_amount');
             $table->string('total_in_words');
-            $table->string('delivery_place');
-            $table->string('dispatched_place');
+            $table->string('delivery_place')->nullable();
+            $table->string('dispatched_place')->nullable();
             $table->boolean('paid')->default(0);
             $table->timestamps();
         });

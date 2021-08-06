@@ -237,21 +237,27 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file-invoice-dollar"></i>
               <p>
-                invoices
+                Invoices
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('invoice.edit',1)}}" class="nav-link {{(Request::is('admin/invoice')) ? 'active' : ''}}">
-                  <i class="fas fa-images nav-icon"></i>
-                  <p>edit invoices</p>
+                <a href="{{route('invoice.index')}}" class="nav-link {{(Request::is('admin/invoice')) ? 'active' : ''}}">
+                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                  <p>All invoices</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('invoice.create')}}" class="nav-link {{(Request::is('admin/invoice/show')) ? 'active' : ''}}">
-                  <i class="fa fa-pencil-alt nav-icon"></i>
-                  <p>Create invoice</p>
+                <a href="{{route('invoices/pending')}}" class="nav-link {{(Request::is('admin/invoices/pending')) ? 'active' : ''}}">
+                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                  <p>Pending Invoices</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('invoices/paid')}}" class="nav-link {{(Request::is('admin/invoices/paid')) ? 'active' : ''}}">
+                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                  <p>Paid Invoices</p>
                 </a>
               </li>
             </ul>

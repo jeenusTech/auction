@@ -11,6 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('invoice.index')}}">All Invoices</a></li>
             
           </ol>
         </div>
@@ -25,7 +26,7 @@
         <div class="col-12">
           <div class="card card-navy border-dark">
             <div class="card-header">
-              <h3 class="card-title">All Invoices</h3>
+              <h3 class="card-title">Paid Invoices</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -39,7 +40,7 @@
                   <th>User</th>
                   <th>Created On</th>
                   <th>Amount</th>
-                  <th>Payment Status</th>
+                  <th>Payment Completed</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -53,7 +54,15 @@
                       <td>{{$invoice->user->name}}</td>
                       <td>{{$invoice->created_at}}</td>
                       <td>{{$invoice->total_amount}}</td>
-                      <td>{!!$invoice->paid==0?'<button class="btn btn-danger text-warning">pending</button>':'<button class="btn bg-navy text-warning">Paid</button>'!!}</td>
+                      <td><form id="status{{ $invoice->id }}" action="{{route('invoice_status',$invoice->id)}}" method="post" style="display: inline;">
+                            @csrf
+                            <label id="switch">
+                              <input type="checkbox" class="form-control auction_status" name="status" {{$invoice->paid==1?'checked':''}} data-id="{{ $invoice->id }}" >
+                              <span class="slider round"></span>
+                            </label>
+                            
+                        </form>
+                      </td>
                       
                       <td>
                         <a href="{{route('invoice.edit',$invoice->id)}}" class="p-2 btn btn-success btn-sm text-white"><i class="fas fa-pencil-alt"></i></a>
