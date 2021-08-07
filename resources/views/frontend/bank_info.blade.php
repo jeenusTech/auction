@@ -64,14 +64,14 @@
                           <div class="tab-pane {{$j==0 ?'active':''}}" id="bank_{{$bank->id}}" role="tabpanel">
 
                             <p style="height: 85px">
-                              <img src="{{getimg($bank->bank_logo)}}" height="100%" alt="ICICI Logo" data-toggle="tooltip" title="" data-original-title="ICICI Bank">
+                              <img src="{{getimg($bank->bank_logo)}}" height="100%" alt="{{$bank->name}} Logo" title="{{$bank->name}}" data-original-title="{{$bank->name}} Bank">
                             </p>
                             <div class="row">
                                 <div class="col-sm-12 col-md-9 summernote_cont">
                                   {!!$bank->bank_info!!}
                                 </div>
                                 <div class="col-sm-12 col-md-3">
-                                    <img src="{{getimg($bank->qr_code)}}" alt="" class="qr-upi">
+                                    <img src="{{getimg($bank->qr_code)}}" alt="{{$bank->name}} qr" title="{{$bank->name}} qr-code" class="qr-upi">
                                 </div>
                             </div>
                             <div class="row">

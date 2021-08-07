@@ -85,3 +85,28 @@
   width: 265px !important;
   height: 275px !important;
 }
+/*for printing invoices*/
+ .body-main {
+     background: #ffffff;
+     border-bottom: 15px solid #1E1F23;
+     border-top: 15px solid #1E1F23;
+     margin-top: 30px;
+     margin-bottom: 30px;
+     padding: 40px 30px !important;
+     position: relative;
+     box-shadow: 0 1px 21px #808080;
+     /*font-size: 10px*/
+ }
+
+ .body-main  .main thead {
+     background: #1E1F23;
+     color: #fff
+ }
+
+ .body-main .img {
+     height: 100px
+ }
+
+ .body-main  h1 {
+     text-align: center
+ }

@@ -142,9 +142,8 @@ Route::group(['middleware' => ['auth','verified']], function() {
       return view('frontend.user_dashboard.bid-limit');
    })->name('bid-limit');
    Route::post('bid_request', [ProfileController::class,'bid_request'])->name('bid_request');
-   Route::get('invoice', function(){
-      return view('frontend.user_dashboard.invoice');
-   })->name('invoice');
+   Route::get('invoice', [ProfileController::class,'user_invoice'])->name('invoice');
+   Route::get('invoice_show/{id}', [ProfileController::class,'user_invoice_show'])->name('invoice_show');
 
 
    Route::get('manage-address', function(){

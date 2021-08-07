@@ -9,7 +9,7 @@
     <meta name="description" content="Baldwin’s currently boasts the most comprehensive stock of numismatic material in the UK, which is updated on a regular basis."/>
 
 
-    <title>{{ config('app.name', 'Auction') }}</title>
+    <title>{{ View::hasSection('title') ? View::getSection('title') . ' - '.config('app.name') : config('app.name') }}</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <!-- =======================================================

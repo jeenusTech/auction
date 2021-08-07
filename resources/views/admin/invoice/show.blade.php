@@ -12,16 +12,16 @@
      /*font-size: 10px*/
  }
 
- .main thead {
+ .body-main  .main thead {
      background: #1E1F23;
      color: #fff
  }
 
- .img {
+ .body-main .img {
      height: 100px
  }
 
- h1 {
+ .body-main  h1 {
      text-align: center
  }
 </style>
@@ -69,7 +69,7 @@
                                 <div class="col-md-12 col-md-offset-3 body-main">
                                   <div class="col-md-12">
                                     <div class="row">
-                                      <div class="col-md-4"> <img class="img" alt="Invoce Template" src="{{asset('/frontend/logo/logo.png')}}" /> </div>
+                                      <div class="col-md-4"> <img class="img" alt="Invoce Template" src="{{asset('/frontend/logo/logo.png')}}" height="100px" /> </div>
                                       <div class="col-md-8 text-right">
                                           <h4 style="color: #F81D2D;"><strong>Bhargava Auctions</strong></h4>
                                           <strong><p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
@@ -198,13 +198,14 @@
                                         <p><b>Signature</b></p>
                                     </div>
                                 </div>
-                                <div class="row border" style="margin: 0;">
-                                    <div class="col-md-12 text-center">
-                                        <button class="mt-2 btn bg-navy"><i class="fas fa-print"></i>  Print Invoice</button>
-                                    </div>
-                                </div>
                               </div>
                           </div>
+                          
+                                <div class="row border" style="margin: 0;">
+                                    <div class="col-md-12 text-center">
+                                        <button class="mt-2 btn bg-navy" onclick="printrealization()"><i class="fas fa-print"></i>  Print Invoice</button>
+                                    </div>
+                                </div>
                         </div>
                       </div>
                     </div>
@@ -223,3 +224,29 @@
       </div><!-- /.container-fluid -->
     </section>
 @endsection
+<script>
+      function printrealization(){
+        var contents = $(".body-main").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Auction</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        frameDoc.document.write('<link href="{{ asset('css/admin.css') }}" rel="stylesheet" type="text/css" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+</script>

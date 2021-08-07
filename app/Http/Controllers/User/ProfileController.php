@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Bid;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
@@ -12,11 +13,9 @@ use Storage;
 use File;
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('frontend.user_dashboard.profile');
@@ -393,5 +392,19 @@ class ProfileController extends Controller
             'outBids'=>$outBids,
         ];
         return response()->json($result);
+    }
+    public function user_invoice()
+    {
+        
+        $pending_invoice=Invoice::where('user_id',auth()->user()->id)->where('paid',0)->orderBy('created_at','desc')->get();
+        $paid_invoice=Invoice::where('user_id',auth()->user()->id)->where('paid',1)->orderBy('created_at','desc')->get();
+        return view('frontend.user_dashboard.invoice',['pending_invoice'=>$pending_invoice,'paid_invoice'=>$paid_invoice]);
+    }
+    public function user_invoice_show($id)
+    {
+        
+        $invoice=Invoice::where('user_id',auth()->user()->id)->where('invoice_number',$id)->first();
+        
+        return view('frontend.user_dashboard.show_invoice',['invoice'=>$invoice]);
     }
 }
