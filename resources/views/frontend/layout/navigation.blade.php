@@ -26,9 +26,10 @@
           <a href="{{url('index')}}"><img src="{{asset('/frontend/logo/logo.png')}}" alt="logo-desktop" title="logo home page"></a>
           
         </div>
+          <li><a class="nav-link  {{(Request::is('about-us')) ? 'active' : ''}}" href="{{route('about-us')}}">About Us</a></li>
           <li class="dropdown"><a class="nav-link scrollto  dropdown-toggle  {{
             (Request::is('latest-auction*'))||(Request::is('auction-archives*'))||(Request::is('upcoming-auction*')) ? 'active' : ''}}" href="javascript:void(0)"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Auction</a>
-            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown" id="auc_menu_dropdown">
               <ul>
                 <li>
                   <a class="dropdown-item nav-link {{(Request::is('latest-auction*')) ? 'active' : ''}}" href="{{route('latest-auction')}}">
@@ -50,14 +51,14 @@
           </li>
           <li class="dropdown"><a class="nav-link dropdown-toggle {{(Request::is('category-auction*')) ? 'active' : ''}}" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="container">
+            {{-- <div class="container"> --}}
               <div class="row menu_width100">
-                <div class="width-50 cat-left">
+                {{-- <div class="width-50 cat-left">
                   <a href="javascript:void(0)">
                     <img src="{{asset('/frontend/megamenu.png')}}" alt="home-menu" title="home category menu" class="img-fluid cat_image">
                   </a>
-                </div>
-                <div class="width-50">
+                </div> --}}
+                <div class="menu_width100">
                   <div class="row">
                     @php
                         $categories = App\Models\category::get();
@@ -66,7 +67,8 @@
                       <div class="width-25 tiles">
                         <a class=" {{(Request::is('category-auction/'.$category->id)) ? 'active' : ''}}" href="{{route('category-auction',$category->id)}}">
                           <figure>
-                            <img class="pt-2 rounded-circle" src="{{getimg($category->cat_image)}}" alt="{{str_replace('.jpg', '', $category->cat_image)}}" title="{{$category->cat_name}}" height="45">
+                           {{--  <img class="pt-2 rounded-circle" src="{{getimg($category->cat_image)}}" alt="{{str_replace('.jpg', '', $category->cat_image)}}" title="{{$category->cat_name}}" height="90"> --}}
+                           <img class="pt-2 " src="{{getimg($category->cat_image)}}" alt="{{str_replace('.jpg', '', $category->cat_image)}}" title="{{$category->cat_name}}" height="75">
                             <figcaption>{{$category->cat_name}}</figcaption>
                           </figure>
                         </a>
@@ -76,14 +78,14 @@
                 </div>
                 <!-- /.col-md-4  -->
               </div>
-            </div>
+            {{-- </div> --}}
           <!--  /.container  -->
           </li>
-          <li><a class="nav-link {{(Request::is('bank-info')) ? 'active' : ''}}" href="{{route('bank-info')}}">Bank Information</a></li>
-          <li><a class="nav-link  {{(Request::is('about-us')) ? 'active' : ''}}" href="{{url('about-us')}}">About Us</a></li>
-          <li><a class="nav-link {{(Request::is('contact')) ? 'active' : ''}}" href="{{url('contact')}}">Contact Us</a></li>
-          <li><a clas="nav-link" href="#">Terms & Conditions</i></a>
+          <li><a class="nav-link " href="">Know Your Coins</a></li>
+          {{-- <li><a class="nav-link  {{(Request::is('about-us')) ? 'active' : ''}}" href="{{route('about-us')}}">About Us</a></li> --}}
+          <li><a clas="nav-link {{(Request::is('terms-and-conditions')) ? 'active' : ''}}" href="{{route('terms-and-conditions')}}">Terms & Conditions</i></a>
           </li>
+          <li><a class="nav-link {{(Request::is('contact')) ? 'active' : ''}}" href="{{route('contact')}}">Contact Us</a></li>
           @guest
             @if (Route::has('login'))
               <li class="mobile_right_menu"><a class="nav-link {{(Request::is('login')) ? 'active' : ''}}" href="{{route('login')}}">Login</a></li>

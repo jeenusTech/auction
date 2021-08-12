@@ -11,11 +11,9 @@ use File;
 
 class SellerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('admin');
+    }
     public function index()
     {
         $seller=Seller::where('approved',1)->where('pending',0)->orderBy('id','DESC')->get();

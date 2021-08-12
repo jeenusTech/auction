@@ -11,11 +11,9 @@ use File;
 
 class BankController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('admin');
+    } 
     public function index()
     {
        $banks=Bank::all();

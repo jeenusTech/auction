@@ -647,3 +647,7 @@
     width: 90px;
     color: #ffffff;
 }
+/*for the filter purpose*/
+.filt{
+    display: none;
+}

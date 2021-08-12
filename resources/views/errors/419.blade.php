@@ -24,7 +24,7 @@
                 </div>
                 <h2>419- {{$exception->getMessage() ?: 'Page Expired'}}</h2>
                 <p>Sorry Page Expired Reload After Sometimes</p>
-                <a href="index">Go To Homepage</a>
+                <a href="{{route('home')}}">Go To Homepage</a>
               </div>
             </div>
       </div>

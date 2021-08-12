@@ -10,14 +10,12 @@ use File;
 
 class LotController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('admin');
+    }
     public function index()
     {
-        $lots=Lot::orderBy('id','desc')->get();
+        $lots=Lot::with(['materials','auctions'])->orderBy('id','desc')->get();
         return view('admin.lot.index',['lots'=>$lots]);
     }
 
@@ -52,6 +50,7 @@ class LotController extends Controller
                                 
                             }],
             'category' => 'required',
+            'material' => 'required',
             'description'=> 'required|min:75',
             'min_price'=> 'required|numeric|regex:/[0-9][0-9]+/u',
             'max_price'=> 'required|numeric|regex:/[0-9][0-9]+/u',
@@ -109,6 +108,7 @@ class LotController extends Controller
             'auction_id'=> $request->auction,
             'lot_number'=> $request->lot_number,
             'category' => $request->category,
+            'material' => $request->material,
             'description'=> $request->description,
             'min_price'=> str_replace(',', '', $request->min_price),
             'max_price'=> str_replace(',', '', $request->max_price),
@@ -174,6 +174,7 @@ class LotController extends Controller
                                 
                             }],
             'category' => 'required',
+            'material' => 'required',
             'description'=> 'required|min:75',
             'min_price'=> 'required|numeric|regex:/[0-9][0-9]+/u',
             'max_price'=> 'required|numeric|regex:/[0-9][0-9]+/u',
@@ -251,6 +252,7 @@ class LotController extends Controller
             'auction_id'=> $request->auction,
             'lot_number'=> $request->lot_number,
             'category' => $request->category,
+            'material' => $request->material,
             'description'=> $request->description,
             'min_price'=> str_replace(',', '', $request->min_price),
             'max_price'=> str_replace(',', '', $request->max_price),

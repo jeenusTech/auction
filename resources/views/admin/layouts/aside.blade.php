@@ -98,6 +98,30 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item {{(Request::is('admin/material*')) ? 'menu-is-opening menu-open' : ''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Material
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('material.index')}}" class="nav-link {{(Request::is('admin/material')) ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Material</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('material.create')}}" class="nav-link {{(Request::is('admin/material/create')) ? 'active' : ''}}">
+                  <i class="fa fa-pencil-alt nav-icon"></i>
+                  <p>Create Material</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item {{(Request::is('admin/admin-auction*')) || (Request::is('admin/admin-latest-auction')) ? 'menu-is-opening menu-open' : ''}}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gavel"></i>
@@ -258,6 +282,31 @@
                 <a href="{{route('invoices/paid')}}" class="nav-link {{(Request::is('admin/invoices/paid')) ? 'active' : ''}}">
                   <i class="fas fa-file-invoice-dollar nav-icon"></i>
                   <p>Paid Invoices</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{(Request::is('admin/terms*')||Request::is('admin/site-info*')) ? 'menu-is-opening menu-open' : ''}}">
+            
+                
+                <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Site Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('terms.index')}}" class="nav-link {{(Request::is('admin/terms')) ? 'active' : ''}}">
+                  <i class="fas fa-exclamation-triangle  nav-icon"></i>
+                  <p>Terms and conditions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('site-info.index')}}" class="nav-link {{(Request::is('admin/invoices/pending')) ? 'active' : ''}}">
+                  <i class="fas fa-wrench nav-icon"></i>
+                  <p>Site Info</p>
                 </a>
               </li>
             </ul>

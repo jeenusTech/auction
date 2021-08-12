@@ -76,6 +76,23 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
+                <label>Material</label>
+                <select class="form-control select2bs4 " data-dropdown-css-class="select2-danger" style="width: 100%;" name="material">
+                  <option value="">--select material--</option>
+                  @foreach(all_materials() as $material)
+                  <option value="{{$material->id}}"
+                    @if(old('material')==$material->id)
+                    selected
+                    @elseif($lot->material==$material->id)
+                    selected
+                    @endif>{{$material->name}}</option>
+                  @endforeach
+                </select>
+                <small class="form-text text-danger"><b><i>{!!$errors->first('material')!!}</i></b></small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
                 <label>Lot No</label>
                 <input type="text" class="form-control" name="lot_number" value="{{old('lot_number')?old('lot_number'):$lot->lot_number}}">
                 <small class="form-text text-danger"><b><i>{!!$errors->first('lot_number')!!}</i></b></small>

@@ -8,8 +8,12 @@ use App\Models\Auction;
 use App\Models\Lot;
 use App\Models\HomePage;
 use App\Models\Bid;
+use App\Models\SiteInfo;
+use App\Models\Material;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Route;;
+
 // get country , state, city with id
 	function getCountry($id){
 		$country=Country::where('id','=',$id)->first();
@@ -139,5 +143,24 @@ use App\Models\User;
 	{
 		$bids=Bid::where('auction_id',$auction_id)->where('awarded',1)->orderBy('lot_id','ASC')->get();
 		return $bids;
+	}
+
+	function site_navigation(){
+		#$route=Route::currentRouteName();
+		$route = Route::current(); // Illuminate\Routing\Route
+		$name = Route::currentRouteName(); // string
+		$action = Route::currentRouteAction(); // string
+		
+		return $name;
+	}
+	function site_info(){
+		$result=SiteInfo::first();
+		return $result;
+	}
+	// all materials
+	 
+	function all_materials(){
+		$result=Material::all();
+		return $result;
 	}
 ?>

@@ -13,3 +13,18 @@
 	php artisan config:cache
 	php artisan serve
 
+
+13)php artisan vendor:publish --tag=laravel-mail(for the laravel mail templates)
+	<!-- update to server -->
+	php artisan make:model TermsAndCondition -a
+php artisan vendor:publish --tag=laravel-errors
+upload error image from public/error
+php artisan vendor:publish --tag=laravel-mail
+php artisan vendor:publish --tag=laravel-notifications
+php artisan make:model Material -a
+php artisan make:migration add_material_to_lots_table --table=lots
+
+
+
+
+

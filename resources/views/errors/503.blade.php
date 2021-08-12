@@ -24,7 +24,7 @@
                 </div>
                 <h2>503- {{$exception->getMessage() ?: 'Service Unavailable'}}</h2>
                 <p>Sorry The Service You Are Looking For Is Unavailable At The Moment</p>
-                <a href="index">Go To Homepage</a>
+                <a href="{{route('home')}}">Go To Homepage</a>
               </div>
             </div>
       </div>

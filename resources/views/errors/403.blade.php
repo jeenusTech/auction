@@ -23,8 +23,8 @@
     background-size: cover; -webkit-background-clip: text;">Oops!</h1>
                 </div>
                 <h2>403- {{$exception->getMessage() ?: 'Forbidden'}}</h2>
-                <p>Sorry Only For Admin</p>
-                <a href="index">Go To Homepage</a>
+                <p>Sorry Try Something Else</p>
+                <a href="{{route('home')}}">Go To Homepage</a>
               </div>
             </div>
       </div>

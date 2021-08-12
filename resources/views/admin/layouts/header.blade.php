@@ -5,7 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Auction</title>
-
+  <link rel="apple-touch-icon" sizes="180x180" href="{{asset('/frontend/icons/apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('/frontend/icons/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/frontend/icons/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{asset('/frontend/icons/site.webmanifest')}}">
   <link rel="stylesheet" href="{{asset('css/admin.css')}}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">

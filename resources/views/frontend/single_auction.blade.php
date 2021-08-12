@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-sm-3"><label>Auc:</label>&nbsp;<span>{{$lot->auctions->auction_number}}</span></div>
                     <div class="col-sm-3"><label>Lot:</label>&nbsp;<span>{{$lot->lot_number}}</span></div>
-                    <div class="col-sm-6"><label>Cat:</label>&nbsp;<span class="">{{$lot->singlecategory->cat_name}}</span></div>
+                    <div class="col-sm-6"><label>Cat:</label>&nbsp;<span class="">{{$lot->materials?$lot->materials->name:''}}</span></div>
                 </div>
                 <div class="row">
                   <p class="auction_description">{{$lot->description}}</p>
@@ -127,10 +127,11 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12 pt-3">
-                   @if($today < \Carbon::createFromTimestamp(strtotime($lot->auctions->start_date.$lot->auctions->start_time)))
-                   <button type="button" id="single_auc_bid_btn" class="bg-success"><i class="fa fa-gavel pr-2"></i>Coming soon</button>
-                    @elseif($lot->sold == '1')
+                    
+                    @if($lot->sold == '1')
                     <button type="button" id="single_auc_bid_btn" class="bg-success"><i class="fa fa-gavel pr-2"></i>Lot Sold</button>
+                   @elseif($today < \Carbon::createFromTimestamp(strtotime($lot->auctions->start_date.$lot->auctions->start_time)))
+                   <button type="button" id="single_auc_bid_btn" class="bg-success"><i class="fa fa-gavel pr-2"></i>Coming soon</button>
                     @elseif($today >= \Carbon::createFromTimestamp(strtotime($lot->auctions->end_date.$lot->auctions->end_time)))
                     <button type="button" id="single_auc_bid_btn"><i class="fa fa-gavel pr-2"></i>Lot Closed</button>
                     @else

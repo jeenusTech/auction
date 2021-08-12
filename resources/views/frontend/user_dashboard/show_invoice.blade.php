@@ -31,10 +31,14 @@
                                   	</p>
                                   </div>
                                   <div class="col-md-8 text-right">
-                                      <h6 style="color: #F81D2D;text-align: unset !important;"><strong>Bhargava Auctions</strong></h6>
-                                      <strong><p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
-                                      <p>1800-234-124</p>
-                                      <p>example@gmail.com</p></strong>
+                                      <h6 style="color: #F81D2D;text-align: unset !important;"><strong>{{site_info() !=null ?site_info()->title:'Bhargava Auctions'}}</strong></h6>
+                                      @if(site_info() !=null)
+                                          <p>{{site_info()->door_number}}, {{site_info()->street}},</p><p> {{site_info()->district}}, {{site_info()->state}}-{{site_info()->pin}}</p>
+                                          <p>{{site_info()->phone}}</p>
+                                          <p>{{site_info()->email}}</p>
+                                          @else
+                                          <p>Please enter the site settings to load the site information</p>
+                                        @endif
 
                                   </div>
                                 </div>
@@ -103,19 +107,19 @@
                                     <div class="col">
                                     	<div class="row" style="margin: 0;padding-top: 12px;">
 	                                      <div class="col"><strong><p>Bank Name:</p></strong></div>
-	                                      <div class="col text-right"><strong><p>Yes bank pvt. Ltd. </p></strong></div>
+	                                      <div class="col text-right"><strong><p>{{site_info() !=null ?site_info()->bank_name:'null'}}</p></strong></div>
 	                                  	</div>
                                     	<div class="row" style="margin: 0;padding-top: 12px;">
 	                                      <div class="col"><strong><p>A/C NO:</p></strong></div>
-	                                      <div class="col text-right"><strong><p>047851100003619</p></strong></div>
+	                                      <div class="col text-right"><strong><p>{{site_info() !=null ?site_info()->account_number:'null'}}</p></strong></div>
 	                                  	</div>
                                     	<div class="row" style="margin: 0;padding-top: 12px;">
 	                                      <div class="col"><strong><p>RTGS / NEFT code:</p></strong></div>
-	                                      <div class="col text-right"><strong><p>YESB0000487</p></strong></div>
+	                                      <div class="col text-right"><strong><p>{{site_info() !=null ?site_info()->neft_code:'null'}}</p></strong></div>
 	                                  	</div>
                                     	<div class="row" style="margin: 0;padding-top: 12px;">
 	                                      <div class="col"><strong><p>GSTIN:</p></strong></div>
-	                                      <div class="col text-right"><strong><p>2457754vf343</p></strong></div>
+	                                      <div class="col text-right"><strong><p>{{site_info() !=null ?site_info()->gstin:'null'}}</p></strong></div>
 	                                  	</div>
                                     </div>
                                     <div class="col text-right">

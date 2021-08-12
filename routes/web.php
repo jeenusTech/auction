@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\SellerController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\TermsAndConditionController;
+use App\Http\Controllers\Admin\SiteInfoController;
+use App\Http\Controllers\Admin\MaterialController;
 
 // for the frontendControllers
 use App\Http\Controllers\frontend\UserAuctionController;
@@ -52,26 +55,29 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/index', function(){
    return view("frontend/index");
-});
+})->name('index');
 
 Route::get('/contact', function(){
    return view("frontend.contact");
-});
+})->name('contact');
 Route::get('/about-us', function(){
    return view("frontend.about-us");
-});
+})->name('about-us');
 Route::get('/our-service', function(){
    return view("frontend.our-service");
-});
+})->name('our-service');
+
 // dynamic contents starts here
 Route::get('realization/{id}', [UserAuctionController::class,'realization'])->name('realization');
 Route::get('latest-auction', [UserAuctionController::class,'latestAuction'])->name('latest-auction');
 // Route::get('auction-lot/{id}', [UserAuctionController::class,'auction_lot'])->name('auction-lot');
-Route::get('auction-lot/{id}/{filter}', [UserAuctionController::class,'filter'])->name('auction_lot');
+Route::get('auction-lot/{id}/{filter}', [UserAuctionController::class,'filter'])->name('auction-lot');
 
 Route::get('auction-bid/{id}', [UserAuctionController::class,'auctionBid'])->name('auction-bid');
 Route::get('auction-archives', [UserAuctionController::class,'archives'])->name('auction-archives');
 Route::get('category-auction/{id}', [UserAuctionController::class,'auction_categories'])->name('category-auction');
+Route::get('category-auctions/{id}/{filter}', [UserAuctionController::class,'auction_category_lots'])->name('category-auctions');
+Route::get('latest-category-auctions/{id}/{aid}/{filter}', [UserAuctionController::class,'latest_auction_category_lots'])->name('latest-category-auctions');
 // for the auction bid ajax
 Route::post('api/fetch-bidmaount', [UserAuctionController::class, 'fetchbidmaount']);
 // dynamic contents ends here
@@ -84,7 +90,7 @@ Route::group(['middleware' => ['auth', 'bid']], function() {
 
 Route::get('/advanced_search', function(){
    return view("frontend.advanced_search");
-});
+})->name('advanced_search');
 // for upcoming auction
 Route::get('upcoming-auction', function(){
    return view("frontend.upcoming");
@@ -100,12 +106,13 @@ Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
 // for the bank route
 
 Route::get('/bank-info', [UserAuctionController::class, 'bankdetail'])->name('bank-info');
+Route::get('/terms-and-conditions', [UserAuctionController::class, 'termsandconditions'])->name('terms-and-conditions');
 
 // for user registration form and guest controller
 Route::group(['middleware' => ['guest']], function () {
     Route::get('/register', function(){
       return view("frontend.registration");
-   });
+   })->name('register');
     Route::Resource('/user',UserController::class);
 });
 
@@ -214,4 +221,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('invoices/pending',[InvoiceController::class,'pending_invoice'])->name('invoices/pending');
     Route::get('invoices/paid',[InvoiceController::class,'paid_invoice'])->name('invoices/paid');
     Route::post('invoice_status/{id}',[InvoiceController::class,'invoice_status'])->name('invoice_status');
+    Route::resource('terms',TermsAndConditionController::class);
+    Route::resource('site-info',SiteInfoController::class);
+    Route::resource('material',MaterialController::class);
+
 });

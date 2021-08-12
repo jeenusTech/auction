@@ -6,10 +6,15 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Baldwin’s currently boasts the most comprehensive stock of numismatic material in the UK, which is updated on a regular basis."/>
+    <meta name="description" content="{{site_info() !=null?site_info()->meta_description:'Baldwin’s currently boasts the most comprehensive stock of numismatic material in the UK, which is updated on a regular basis'}}."/>
 
 
-    <title>{{ View::hasSection('title') ? View::getSection('title') . ' - '.config('app.name') : config('app.name') }}</title>
+    <title>{{ site_navigation() ? ucfirst(str_replace(['-','_'], ' ',site_navigation())). ' - '.(site_info() !=null?site_info()->title:config('app.name')) : config('app.name') }}</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('/frontend/icons/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('/frontend/icons/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/frontend/icons/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('/frontend/icons/site.webmanifest')}}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <!-- =======================================================
@@ -24,7 +29,6 @@
 @include('frontend.layout.navigation')
 
 @yield('content')
-
 @include('frontend.layout.footer')
 
 <script>

@@ -36,7 +36,7 @@
         <div class="col-md-12">
           <h3>Auction No. {{$auction_id}} Realization</h3>
           <div class="realisation_print">
-            <a href="javscript:void(0)"><i class="bx bxs-file-pdf"></i>Realization PDF</a>
+            {{-- <a href="javscript:void(0)"><i class="bx bxs-file-pdf"></i>Realization PDF</a> --}}
             <a href="javscript:void(0)" onclick="printrealization()"><i class="bx bxs-printer"></i>Print Realization</a>
           </div>
           <div class="container reg-container">
@@ -102,7 +102,7 @@
         var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
         frameDoc.document.open();
         //Create a new HTML document.
-        frameDoc.document.write('<html><head><title>Auction</title>');
+        frameDoc.document.write('<html><head><title>{{site_info() !=null?site_info()->title:config('app.name')}}</title>');
         frameDoc.document.write('</head><body>');
         //Append the external CSS file.
         frameDoc.document.write('<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />');

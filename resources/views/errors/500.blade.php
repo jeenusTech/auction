@@ -24,7 +24,7 @@
                 </div>
                 <h2>500- {{$exception->getMessage() ?: 'Server Error'}}</h2>
                 <p>Sorry We Are Facing Some Server Error</p>
-                <a href="index">Go To Homepage</a>
+                <a href="{{route('home')}}">Go To Homepage</a>
               </div>
             </div>
       </div>

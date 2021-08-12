@@ -31,6 +31,12 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
+                    <b>Category name</b> <a class="float-right">{{$lot->singlecategory->cat_name}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Material</b> <a class="float-right">{{$lot->materials?$lot->materials->name:'-'}}</a>
+                  </li>
+                  <li class="list-group-item">
                     <b>Auction No</b> <a class="float-right">{{$lot->auctions->auction_number}}</a>
                   </li>
                   <li class="list-group-item">

@@ -171,7 +171,7 @@
                   <img src="{{getimg($old_auction->image)}}" alt="medal" class="" height="auto" width="100%">
                 </div>
                 <div class=" prev-auc-right">
-                <p>Auction No: {{$old_auction->id}}</p>
+                <p>Auction No: {{$old_auction->auction_number}}</p>
                 <span class="price">{{$old_auction->title}}</span>              
                 </div>
               </a>

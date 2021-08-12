@@ -1,5 +1,6 @@
 @extends('frontend.layout.header')
 @section('content')
+@if(site_navigation() == 'auction-lot')
 @php
 $stimestamp = strtotime($auction->start_date);
 $sday = date('D', $stimestamp);
@@ -7,6 +8,7 @@ $sdate = date('d', $stimestamp);
 $smonth = date('M', $stimestamp);
 $syear = date('Y', $stimestamp);
 @endphp
+@endif
 <section class="banner bg-banner-one overlay" style='background-image: url("{{asset('/frontend/hero/Mask_Group_1@2x.png')}}");' alt="auction-categories" title="auction category">
   <div class="container">
     <div class="row">
@@ -14,9 +16,13 @@ $syear = date('Y', $stimestamp);
         <!-- Content Block -->
         <div class="block">
           <div class="aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
+            @if(site_navigation() == 'auction-lot')
             <h1>Auction No:{{$auction->auction_number}}</h1>
             <p>{{$sday.' '.$sdate.'th '. $smonth.' '. $syear .'  '.$auction->start_time}} Onwards</p>
             <a href="{{route('realization',$auction->id)}}" class="btn btn-danger slider-btn auc-banner-btn">View Realisation</a>
+            @else
+               <h1 class="auctitle">{{$category->cat_name}}</h1>
+            @endif
           </div>
         </div>
       </div>
@@ -32,19 +38,30 @@ $syear = date('Y', $stimestamp);
         {{-- end filter --}}
         <div class="col-lg-8">
           <div class="row">
+            @if(site_navigation() == 'auction-lot')
             <div class="col-md-12">
-               <h6 class="auctitle">Auction no: {{$auction->auction_number}}</h6>
+              <a href="{{route('realization',$auction->id)}}" class="btn btn-danger slider-btn auc-banner-btn float-right">View Realisation</a>
+            </div>
+            @endif
+            <div class="col-md-12">
+              @if(site_navigation() == 'auction-lot')
+               <h6 class="auctitle">Auction no: {{$auction->auction_number}} {{$auction->title}}</h6>
+               @else
+               <h6 class="auctitle">{{$category->cat_name}}</h6>
+               @endif
                 {{-- start pagination --}}
                 <div class="float-right auction-lot-top">
                 {{ $lots->links('frontend.pagination.custom_pagination') }}
                 </div>
                 {{-- end pagination --}}
             </div>
+
           </div>
           {{-- start the sorting section --}}
           <div class="row">
             <div class="col-md-12 auc_filter">
               <ul>
+                @if(site_navigation() == 'auction-lot')
                 <li><a href="{{url('auction-lot/'.$auction->id.'/lots')}}">Sort by:</a></li>
                 <li><a href="{{url('auction-lot/'.$auction->id.'/LotDesc')}}">Lot<i class="fa fa-arrow-down"></i></a></li>
                 <li><a href="javascript:void(0)" class="divider">|</a></li>
@@ -57,6 +74,33 @@ $syear = date('Y', $stimestamp);
                 <li><a href="{{url('auction-lot/'.$auction->id.'/BidDesc')}}">Bids<i class="fa fa-arrow-down"></i></a></li>
                 <li><a href="javascript:void(0)" class="divider">|</a></li>
                 <li><a href="{{url('auction-lot/'.$auction->id.'/BidAsc')}}">Bids<i class="fa fa-arrow-up"></i></a></li>
+                @elseif(site_navigation() == 'category-auctions')
+                <li><a href="{{url('category-auctions/'.$category->id.'/lots')}}">Sort by:</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/LotDesc')}}">Lot<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/LotAsc')}}">Lot<i class="fa fa-arrow-up"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/EstimateDesc')}}">Estimate<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/EstimateAsc')}}">Estimate<i class="fa fa-arrow-up"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/BidDesc')}}">Bids<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('category-auctions/'.$category->id.'/BidAsc')}}">Bids<i class="fa fa-arrow-up"></i></a></li>
+                @elseif(site_navigation() == 'latest-category-auctions')
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/lots')}}">Sort by:</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/LotDesc')}}">Lot<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/LotAsc')}}">Lot<i class="fa fa-arrow-up"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/EstimateDesc')}}">Estimate<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/EstimateAsc')}}">Estimate<i class="fa fa-arrow-up"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/BidDesc')}}">Bids<i class="fa fa-arrow-down"></i></a></li>
+                <li><a href="javascript:void(0)" class="divider">|</a></li>
+                <li><a href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/BidAsc')}}">Bids<i class="fa fa-arrow-up"></i></a></li>
+                @endif
               </ul>
             </div>
           </div>
@@ -69,7 +113,7 @@ $syear = date('Y', $stimestamp);
             @endphp
           <div class="row">
             @foreach($lots as $lot)
-            <div class="div_width_30">
+            <div class="div_width_30 filt {{$lot->singlecategory->cat_name}}">
               <div class="shop_auc" style="position: relative;">
                  @if($today < \Carbon::createFromTimestamp(strtotime($lot->auctions->start_date.$lot->auctions->start_time)))
                  <div class="ribbon-wrapper">
@@ -94,7 +138,7 @@ $syear = date('Y', $stimestamp);
                   <div class="row">
                     <div class="width_30"><span>Auc:</span>&nbsp;{{$lot->auctions->auction_number}}</div>
                     <div class="width_30"><span>Lot:</span>&nbsp;{{$lot->lot_number}}</div>
-                    <div class="width_100"><span>Category:</span>&nbsp;{{$lot->singlecategory->cat_name}}</div>
+                    <div class="width_100"><span>Category:</span>&nbsp;{{$lot->materials?$lot->materials->name:''}}</div>
                   </div>
                   {{-- <div class="row">
                     <div class="width_100"><span>Anicient:</span>&nbsp;Punch marked</div>
@@ -134,5 +178,51 @@ $syear = date('Y', $stimestamp);
     </div>
   </section>
 @endsection
+<script>
+  window.addEventListener('load', () => {
+    filterSelection("all")
+  });
+
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("div_width_30");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "d-block");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "d-block");
+  }
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  element.className = arr1.join(" ");
+}
 
 
+// Add active class to the current button (highlight it)
+// var btnContainer = document.getElementById("sidebarfilt");
+// var btns = btnContainer.getElementsByClassName("anc");
+// for (var i = 0; i < btns.length; i++) {
+//   btns[i].addEventListener("click", function(){
+//     var current = document.getElementsByClassName("active");
+//     current[0].className = current[0].className.replace(" active", "");
+//     this.className += " active";
+//   });
+// }
+</script>

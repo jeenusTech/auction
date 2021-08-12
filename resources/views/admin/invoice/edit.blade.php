@@ -78,10 +78,14 @@
                                     <div class="row">
                                       <div class="col-md-4"> <img class="img" alt="Invoce Template" src="{{asset('/frontend/logo/logo.png')}}" /> </div>
                                       <div class="col-md-8 text-right">
-                                          <h4 style="color: #F81D2D;"><strong>Bhargava Auctions</strong></h4>
-                                          <p>4th Floor, 9 SIR HUKUMCHAND MARG,</p><p> Indore, Madhya Pradesh-452002</p>
-                                          <p>1800-234-124</p>
-                                          <p>example@gmail.com</p>
+                                        @if(site_info() !=null)
+                                          <h4 style="color: #F81D2D;"><strong>{{site_info()->title}}</strong></h4>
+                                          <p>{{site_info()->door_number}}, {{site_info()->street}},</p><p> {{site_info()->district}}, {{site_info()->state}}-{{site_info()->pin}}</p>
+                                          <p>{{site_info()->phone}}</p>
+                                          <p>{{site_info()->email}}</p>
+                                          @else
+                                          <p>Please enter the site settings to load the site information</p>
+                                        @endif
 
                                       </div>
                                     </div>
@@ -187,10 +191,17 @@
                                       <p> <strong>GSTIN: </strong> </p>
                                     </div>
                                     <div class="col">
-                                      <p> <strong>Yes bank pvt. Ltd. </strong> </p>
-                                      <p> <strong>047851100003619</strong> </p>
-                                      <p> <strong>YESB0000487 </strong> </p>
-                                      <p> <strong>2457754vf343</strong> </p>
+                                      @if(site_info() !=null)
+                                      <p> <strong>{{site_info()->bank_name}}</strong> </p>
+                                      <p> <strong>{{site_info()->account_number}}</strong> </p>
+                                      <p> <strong>{{site_info()->neft_code}} </strong> </p>
+                                      <p> <strong>{{site_info()->gstin}}</strong> </p>
+                                      @else
+                                      <p> <strong>null</strong> </p>
+                                      <p> <strong>null</strong> </p>
+                                      <p> <strong>null </strong> </p>
+                                      <p> <strong>null</strong> </p>
+                                      @endif
                                     </div>
                                     <div class="col text-right">
                                       <p> <strong>(+) commission <input type="text" style="width: 70px" name="commission_percentage" id="commission_percentage" value="{{old('commission_percentage')?old('commission_percentage'):$invoice->commission_percentage}}" onkeyup="calculate();">% </strong> </p>

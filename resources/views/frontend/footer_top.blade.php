@@ -5,7 +5,7 @@
         <h1 class="letconnect">Lets get connected</h1>
         <div class="col-md-4 d-flex align-items-stretch " data-aos="fade-up" data-aos-delay="100">
           <div class="card">
-            <a href="register">
+            <a href="{{route('register')}}" title="{{site_info() !=null?site_info()->title:config('app.name')}} register">
               <i class="ri-draft-line card-icon"></i>
               <div class="card-body">
                 <h5 class="card-title">Create Account</h5>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-4 d-flex align-items-stretch " data-aos="fade-up" data-aos-delay="100">
           <div class="card">
-            <a href="blog.php">
+            <a href="javascript:void(0)" title="{{site_info() !=null?site_info()->title:config('app.name')}} news letter">
               <i class="ri-draft-line card-icon"></i>
               <div class="card-body">
                 <h5 class="card-title">News letter</h5>
@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
           <div class="card">
-            <a href="blog.php">
+            <a href="javascript:void(0)" title="{{site_info() !=null?site_info()->title:config('app.name')}} social media">
               <i class="ri-draft-line card-icon"></i>
               <div class="card-body">
                 <h5 class="card-title">Follow Us</h5>
@@ -41,9 +41,9 @@
               </div>
               <div class="card-footer">
                 <span>
-                  <a href="#" class="facebook bold-black"><i class="bx bxl-facebook"></i></a>
-                  <a href="#" class="instagram bold-black"><i class="bx bxl-instagram"></i></a>
-                  <a href="#" class="twitter bold-black"><i class="bx bxl-twitter"></i></a>
+                  <a href="{{site_info() !=null?site_info()->fb:'javascript:void(0)'}}" class="facebook bold-black" title="{{site_info() !=null?site_info()->title:config('app.name')}} facebook"><i class="bx bxl-facebook"></i></a>
+                  <a href="{{site_info() !=null?site_info()->instagram:'javascript:void(0)'}}" class="instagram bold-black" title="{{site_info() !=null?site_info()->title:config('app.name')}} instagram"><i class="bx bxl-instagram"></i></a>
+                  <a href="{{site_info() !=null?site_info()->twitter:'javascript:void(0)'}}" class="twitter bold-black" title="{{site_info() !=null?site_info()->title:config('app.name')}} twitter"><i class="bx bxl-twitter"></i></a>
                 </span>
               </div>
             </a>

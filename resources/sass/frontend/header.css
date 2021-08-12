@@ -616,15 +616,23 @@ h1, h2, h3, h4, h5, h6 {
   width:100%;
   left:0;
   right:0;
-/*  height of nav-item  */
-  /*top:112px;*/
   top:90px;
   display:block;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.3s linear;
-  
 }
+/*#frontpage .navbar .dropdown-menu {
+  width: 100vw;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    margin: 0;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding-top: 35px;
+    z-index: 1;
+}*/
   /* shows the dropdown menu on hover */
 #frontpage .navbar .dropdown:hover .dropdown-menu, .navbar .dropdown .dropdown-menu:hover {
   display:block;
@@ -641,7 +649,7 @@ h1, h2, h3, h4, h5, h6 {
   max-height: 300px;
 }
 .width-25{
-  width: 20%;
+  width: 14%;
 }
 .width-50{
   width: 50%;
@@ -657,7 +665,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(223,52,56,1);
 }
 .tiles a{
-  font-size: 10px;
+  font-size: 14px;
   width: 100%;
   text-align: center;
   color: black;
@@ -762,6 +770,10 @@ h1, h2, h3, h4, h5, h6 {
   top: 44px !important;
   padding: 22px;
 }
-.menu_width100{
+.menu_width100, .menu_width100 .row{
   width: 100%;
+  margin: 0 auto;
+}
+#auc_menu_dropdown{
+  left: 97px !important;
 }

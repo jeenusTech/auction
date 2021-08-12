@@ -34,6 +34,7 @@
                 <tr>
                   <th>Auction no.</th>
                   <th>Lot no</th>
+                  <th>Material</th>
                   <th>Price</th>
                   {{-- <th>Close</th> --}}
                   <th>Current bid - Asking bid</th>
@@ -46,6 +47,7 @@
 
                       <td>Auction no.{{$lot->auctions->auction_number}}</td>
                       <td>Lot No.{{$lot->lot_number}}</td>
+                      <td>{{$lot->materials?$lot->materials->name:'-'}}</td>
                       <td>Rs. {{number_format($lot->min_price,2)}} - Rs. {{number_format($lot->max_price,2)}}</td>
                       {{-- <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">
                             @csrf

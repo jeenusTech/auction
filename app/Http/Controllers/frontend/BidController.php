@@ -54,6 +54,25 @@ class BidController extends Controller
                 'message' => 'Sorry! The Lot is closed!',
                 'alert-type' => 'error'
             );
+            $auction->update([
+                'status' => 0
+             ]);
+             $lots=Lot::where('auction_id',$auction->id)->get();
+             foreach($lots as $lot){
+                $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$auction->id)->orderBy('created_at', 'desc')->first();
+
+                if($bid !=null || $bid !=''){
+                   $bid->update([
+                      'awarded'=>1
+                   ]);
+                   $lot->update([
+                      'sold_price' =>$bid->bid_amount,
+                      'sold' =>1,
+                      'closed'=>1
+                   ]);
+
+                }
+             }
             return redirect()->back()->with($notification);
         }else if($request->bidamount > auth()->user()->bid_plan_amount && auth()->user()->bid_plan_amount !='unlimited'){
             $notification = array(

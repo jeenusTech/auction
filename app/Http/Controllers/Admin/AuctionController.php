@@ -13,11 +13,10 @@ use File;
 
 class AuctionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('admin');
+    }
+    
     public function index()
     {
         $auctions=Auction::orderBy('auction_number', 'DESC')->get();
@@ -92,18 +91,18 @@ class AuctionController extends Controller
                          }
                      }
                  }
-                 if ($today > \Carbon::createFromTimestamp(strtotime($nauction->start_date.$nauction->start_time))){
-                    $lots=Lot::where('auction_id',$nauction->id)->get();
-                    if (!empty($lots)) {
+                 // if ($today > \Carbon::createFromTimestamp(strtotime($nauction->start_date.$nauction->start_time))){
+                 //    $lots=Lot::where('auction_id',$nauction->id)->get();
+                 //    if (!empty($lots)) {
                     
-                         foreach($lots as $lot){
-                            $lot->update([
-                                  'sold' =>0,
-                                  'closed'=>0
-                               ]);
-                         }
-                     }
-                 }
+                 //         foreach($lots as $lot){
+                 //            $lot->update([
+                 //                  'sold' =>0,
+                 //                  'closed'=>0
+                 //               ]);
+                 //         }
+                 //     }
+                 // }
                  
             }
          }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Seller;
+// use App\Models\Seller;
 use App\Models\Auction;
 use App\Models\category;
 use App\Models\Bid;
+use App\Models\Material;
 class Lot extends Model
 {
     use HasFactory;
@@ -15,6 +16,7 @@ class Lot extends Model
         'auction_id',
         'lot_number',
         'category',
+        'material',
         'description',
         'min_price',
         'max_price',
@@ -26,9 +28,9 @@ class Lot extends Model
         'sold',
         'closed'
     ];
-    // public function seller(){
-    //     return $this->belongsTo(Seller::class,'seller_id','id');
-    // }
+    public function materials(){
+        return $this->belongsTo(Material::class,'material','id');
+    }
     public function auctions(){
         return $this->belongsTo(Auction::class,'auction_id','id');
     }
