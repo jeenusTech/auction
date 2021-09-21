@@ -49,7 +49,7 @@ class BidController extends Controller
             $userdata='';
         }
         
-        if ($today >= \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time))) {
+        if ($today >= \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time)) && $auction->auction_type=='1') {
             $notification = array(
                 'message' => 'Sorry! The Lot is closed!',
                 'alert-type' => 'error'
@@ -75,18 +75,22 @@ class BidController extends Controller
              }
             return redirect()->back()->with($notification);
         }else if($request->bidamount > auth()->user()->bid_plan_amount && auth()->user()->bid_plan_amount !='unlimited'){
-            $notification = array(
-                'message' => 'Sorry! You Do Not Have Sufficiant Amount In Your Wallet!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            // $notification = array(
+            //     'message' => 'Sorry! You Do Not Have Sufficiant Amount In Your Wallet!',
+            //     'alert-type' => 'error'
+            // );
+            // return redirect()->back()->with($notification);
+            return redirect()->back()->with('err_'.$request->lotid, 'Sorry! You Do Not Have Sufficiant Amount In Your Wallet!');
         }else if($userdata && $userdata !='' && $userdata->user_id==auth()->user()->id){
-            $notification = array(
-                'message' => 'Sorry! You Have The Latest Bid On This Lot. Please Bid When The Current Bid Is Above Your Latest Bid!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            // $notification = array(
+            //     'message' => 'Sorry! You Have The Latest Bid On This Lot. Please Bid When The Current Bid Is Above Your Latest Bid!',
+            //     'alert-type' => 'error'
+            // );
+            // return redirect()->back()->with($notification);
+            return redirect()->back()->with('err_'.$request->lotid, 'Sorry! You Have The Latest Bid On This Lot. Please Bid When The Current Bid Is Above Your Latest Bid!');
 
+        }else if($request->bidamount < $lot->asking_bid){
+            return redirect()->back()->with('err_'.$request->lotid, 'Sorry! Someone Has Already Made Bid.!');
         }else{
             $bid=new Bid([
                 'user_id'=>auth()->user()->id,
@@ -116,16 +120,23 @@ class BidController extends Controller
                 'current_bid' =>$request->bidamount,
                 'asking_bid' => $asking_bid
             ]);
-
-            $user=User::where('id',auth()->user()->id)->update([
+            if (auth()->user()->bid_plan_amount ==trim('unlimited')) {
+                $user=User::where('id',auth()->user()->id)->update([
+                'bid_used'=>(auth()->user()->bid_used + $request->bidamount)
+            ]);
+            }else{
+                $user=User::where('id',auth()->user()->id)->update([
                 'bid_plan_amount'=>(auth()->user()->bid_plan_amount - $request->bidamount),
                 'bid_used'=>(auth()->user()->bid_used + $request->bidamount)
             ]);
-            $notification = array(
-                'message' => 'Congratulations! You Have Successfully Placed Your Bid',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+            }
+            
+            // $notification = array(
+            //     'message' => 'Congratulations! You Have Successfully Placed Your Bid',
+            //     'alert-type' => 'success'
+            // );
+            // return redirect()->back()->with($notification);
+            return redirect()->back()->with('success_'.$request->lotid, 'Congratulations! You Have Successfully Placed Your Bid');
         }
         
     }

@@ -50,7 +50,7 @@ class UserController extends Controller
             'state'=>'required',
             'city'=>'required',
             'pincode'=>'required|min:3',
-            'mobile'=>'required|regex:/[0-9]{10}/u',
+            'mobile'=>'required|max:10|regex:/[0-9]{10}/u',
             'email' => 'email|unique:users',
             'sms' => 'sometimes',
             'mail' => 'sometimes',

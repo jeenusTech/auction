@@ -51,6 +51,29 @@
 							@endforeach
 						</select>
 					</div>
+          <div class="form-group">
+            <label for="material">Material</label>
+            <select class="form-control" name="material" id="material">
+              @if(all_materials() ==null)
+              <option value="null">null</option>
+              @else
+              @foreach(all_materials() as $material)
+              <option value="{{$material->id}}"  {{request()->get('material')==$material->id?'selected':''}}>{{$material->name}}</option>
+              @endforeach
+              @endif
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">Lot:</label>
+          </div>
+          <div class="form-group">
+            <label for="material">from</label>
+            <input type="number" class="form-control" name="lot_from" id="lotfrom" value="{{request()->get('lot_from')?request()->get('lot_from'):''}}">
+          </div>
+          <div class="form-group">
+            <label for="material">To</label>
+            <input type="number" class="form-control" name="lot_to" id="lot_to" value="{{request()->get('lot_to')?request()->get('lot_to'):''}}">
+          </div>
 					<button type="submit" class="btn btn-danger">Search</button>
 				</form>
 	    </div>

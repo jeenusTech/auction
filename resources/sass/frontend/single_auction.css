@@ -108,7 +108,7 @@
 	    font-size: 15px;
 	    color: rgba(223,52,56,1);
       }
-      #single_auc_bid_btn{
+      #single_auc_bid_btn, .single_auc_bid_btn{
       	width: 50%;
 	    padding: 7px 7px;
 	    float: right;
@@ -119,7 +119,7 @@
 	    color: rgba(255,255,255,1);
 	    background-color: rgba(223,52,56,1);
       }
-      #single_auc_bid_btn:hover{
+      #single_auc_bid_btn:hover, .single_auc_bid_btn:hover{
       	background-color: rgba(245,180,0,1);
       }
       .single_auc_bg{
@@ -477,14 +477,35 @@
     color: rgba(223,52,56,1);
     font-weight: bold;
 }
+.stickyfilter{
+    position: fixed;
+    top: 140px;
+    z-index: 999;
+    background-color: #ffffff;
+    right: 0;
+    left: 0;
+    margin: 0 auto !important;
+    width: 100%;
+    text-align: center;
+}
 @media screen and (max-width: 1200px) {
     .shop_auc_btn #single_auc_bid_btn{
         font-size: 12px;
     }
 }
+@media screen and (max-width: 1191px) {
+    .stickyfilter{
+        top: 75px;
+    }
+}
 @media screen and (max-width: 767px) {
     .div_width_30{
         width: 50%;
+    }
+}
+@media screen and (max-width: 567px) {
+    .stickyfilter{
+        top: 41px;
     }
 }
 @media screen and (max-width: 467px) {

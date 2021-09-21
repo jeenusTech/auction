@@ -9,8 +9,10 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
 use Storage;
 use File;
+use \App\Http\SMS;
 class ProfileController extends Controller
 {
     public function __construct(){
@@ -166,6 +168,7 @@ class ProfileController extends Controller
         $user=User::where('id',auth()->user()->id)->first();
         $user->update([
             'mobile_1' =>$request->mobile,
+            'mobile_verify' =>0,
             'email'=>$request->email,
             'email_verified_at'=> null,
             'user_verify'=>'0'
@@ -406,5 +409,64 @@ class ProfileController extends Controller
         $invoice=Invoice::where('user_id',auth()->user()->id)->where('invoice_number',$id)->first();
         
         return view('frontend.user_dashboard.show_invoice',['invoice'=>$invoice]);
+    }
+    public function send_otp(){
+        $response = array();
+        $userId = auth()->user()->id;
+
+    
+
+    
+
+        $otp = rand(1000, 9999);
+        $SMS = new SMS();
+        #$mobile=auth()->user()->mobile_1;
+        $mobile = '+919080718423';
+        $smsResponse = $SMS->sendSMS($otp,$mobile);
+        
+
+        if($smsResponse['error']){
+            
+           $notification = array(
+                'message' => $smsResponse['message'],
+                'alert-type' => 'error'
+            );
+        }else{
+
+            Session::put('OTP', $otp);
+
+            $response['error'] = 0;
+            $response['message'] = 'Your OTP is created.';
+            $response['OTP'] = $otp;
+
+            $notification = array(
+                'message' => 'Your OTP is created.',
+                'alert-type' => 'success'
+            );
+        }
+    // dd($notification);
+    $res= json_encode($response);
+        return view('frontend.user_dashboard.mobile_verify')->with($notification);
+    }
+    public function otp_verify(Request $request)
+    {
+        
+      $otp=$request->otp;
+      if($otp == Session::get('OTP', $otp)){
+        $user=User::findOrFail(auth()->user()->id);
+        if($user->update(['mobile_verify'=>1])){
+            $data=[
+                'success'=>'Mobile Number Verified successfully!',
+                'url'=>url('profile')
+            ];
+        }else{
+            $data=['error'=>'Something went wrong. Please try later!'];
+        }
+        
+        return response()->json($data);
+      }else{
+        $data=['error'=>'Please enter the valid otp'];
+        return response()->json($data);
+      }
     }
 }

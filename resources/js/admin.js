@@ -52,7 +52,16 @@ require('../../node_modules/admin-lte/plugins/summernote/summernote-bs4.min.js')
       "paging": true,
       "lengthChange": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true,
+      "responsive": true
+    });
+    $('.categorytable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
       "responsive": true

@@ -82345,7 +82345,16 @@ $('document').ready(function () {
     "paging": true,
     "lengthChange": true,
     "searching": true,
-    "ordering": true,
+    "ordering": false,
+    "info": true,
+    "autoWidth": true,
+    "responsive": true
+  });
+  $('.categorytable').DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": false,
     "info": true,
     "autoWidth": true,
     "responsive": true

@@ -14,40 +14,43 @@ use File;
 class AuctionController extends Controller
 {
     public function __construct(){
-        $this->middleware('admin');
+        $this->middleware(['auth', 'admin']);
     }
     
     public function index()
     {
-        $auctions=Auction::orderBy('auction_number', 'DESC')->get();
+        $auctions=Auction::where('auction_type','1')->orderBy('status', 'DESC')->get();
+        $floorauctions=Auction::where('auction_type','2')->orderBy('auction_number', 'DESC')->get();
         $todayDate=now()->toDateString();
          $currentTime=date('H:i:s');
          $today = \Carbon::createFromTimestamp(strtotime($todayDate.$currentTime));
-         $active_auction=Auction::where('status',1)->get();
+         $active_auction=Auction::where('auction_type','1')->where('status',1)->get();
          if (!empty($active_auction)) {
             foreach($active_auction as $auction){
-          if ($today >= \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time))) {
-             $auction->update([
-                'status' => 0
-             ]);
-             $lots=Lot::where('auction_id',$auction->id)->get();
-             foreach($lots as $lot){
-                $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$auction->id)->orderBy('created_at', 'desc')->first();
+                // $auction->auction_type =='1' is the e-auction
+                // if ($auction->auction_type =='1') {
+                    if ($today >= \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time))) {
+                        $auction->update([
+                            'status' => 0
+                        ]);
+                        $lots=Lot::where('auction_id',$auction->id)->get();
+                        foreach($lots as $lot){
+                            $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$auction->id)->orderBy('created_at', 'desc')->first();
 
-                if($bid !=null || $bid !=''){
-                   $bid->update([
-                      'awarded'=>1
-                   ]);
-                   $lot->update([
-                      'sold_price' =>$bid->bid_amount,
-                      'sold' =>1,
-                      'closed'=>1
-                   ]);
-
-                }
-             }
-          }
-      }
+                            if($bid !=null || $bid !=''){
+                               $bid->update([
+                                  'awarded'=>1
+                               ]);
+                               $lot->update([
+                                  'sold_price' =>$bid->bid_amount,
+                                  'sold' =>1,
+                                  'closed'=>1
+                               ]);
+                            }
+                        }
+                    }
+                // }
+            }
          }
          $newauction=Auction::all();
          if (!empty($newauction)) {
@@ -68,46 +71,36 @@ class AuctionController extends Controller
                          }
                      }
                  }else{
-                    $nauction->update([
-                        'status' => 0
-                     ]);
-                    $lots=Lot::where('auction_id',$nauction->id)->get();
-                    if (!empty($lots)) {
-                    
-                         foreach($lots as $lot){
-                            $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$nauction->id)->orderBy('created_at', 'desc')->first();
+                    if ($nauction->auction_type =='1') {
+                        $nauction->update([
+                            'status' => 0
+                         ]);
+                        $lots=Lot::where('auction_id',$nauction->id)->get();
+                        if (!empty($lots)) {
+                        
+                             foreach($lots as $lot){
+                                $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$nauction->id)->orderBy('created_at', 'desc')->first();
 
-                            if($bid !=null || $bid !=''){
-                               $bid->update([
-                                  'awarded'=>1
-                               ]);
-                               $lot->update([
-                                  'sold_price' =>$bid->bid_amount,
-                                  'sold' =>1,
-                                  'closed'=>1
-                               ]);
+                                if($bid !=null || $bid !=''){
+                                   $bid->update([
+                                      'awarded'=>1
+                                   ]);
+                                   $lot->update([
+                                      'sold_price' =>$bid->bid_amount,
+                                      'sold' =>1,
+                                      'closed'=>1
+                                   ]);
 
-                            }
+                                }
+                             }
                          }
-                     }
+                    }
                  }
-                 // if ($today > \Carbon::createFromTimestamp(strtotime($nauction->start_date.$nauction->start_time))){
-                 //    $lots=Lot::where('auction_id',$nauction->id)->get();
-                 //    if (!empty($lots)) {
-                    
-                 //         foreach($lots as $lot){
-                 //            $lot->update([
-                 //                  'sold' =>0,
-                 //                  'closed'=>0
-                 //               ]);
-                 //         }
-                 //     }
-                 // }
                  
             }
          }
          #dd($auction);
-        return view('admin.auction.index',['auctions'=>$auctions]);
+        return view('admin.auction.index',['auctions'=>$auctions,'floorauctions'=>$floorauctions]);
     }
 
     /**
@@ -128,10 +121,11 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        #dd($request);
         $request->validate([
             'auction_number'=> 'required|unique:auctions',
             'title'=> 'required|min:5',
+            'auction_type'=> 'required',
             'description'=> 'required',
             'start_date'=> 'required|date_format:Y-m-d|before_or_equal:end_date',
             'end_date'=> 'required|date_format:Y-m-d|after_or_equal:start_date',
@@ -139,7 +133,6 @@ class AuctionController extends Controller
             'end_time'=> 'required',
             'image'=> 'required|file|image',
             'catelogue'=> 'required|mimes:pdf|max:40000'
-
         ]);
         // for uploading auction image
         if ($request->file('image')) {
@@ -166,6 +159,7 @@ class AuctionController extends Controller
         $auction=new Auction([
             'auction_number'=> $request->auction_number,
             'title'=> $request->title,
+            'auction_type'=> $request->auction_type,
             'description'=> $request->description,
             'start_date'=> $request->start_date,
             'end_date'=> $request->end_date,
@@ -216,10 +210,11 @@ class AuctionController extends Controller
     public function update(Request $request, Auction $admin_auction)
     {
         // $auction=Auction::findOrFail($id);
-        // dd($request);
+         #dd($request);
         $request->validate([
             'auction_number'=> 'required|unique:auctions,auction_number,'.$admin_auction->id,
             'title'=> 'required|min:5',
+            'auction_type'=> 'required',
             'description'=> 'required',
             'start_date'=> 'required|date_format:Y-m-d|before_or_equal:end_date',
             'end_date'=> 'required|date_format:Y-m-d|after_or_equal:start_date',
@@ -261,6 +256,7 @@ class AuctionController extends Controller
         $admin_auction->update([
             'auction_number'=> $request->auction_number,
             'title'=> $request->title,
+            'auction_type'=> $request->auction_type,
             'description'=> $request->description,
             'start_date'=> $request->start_date,
             'end_date'=> $request->end_date,
@@ -269,6 +265,7 @@ class AuctionController extends Controller
             'image'=> $imageurl,
             'catelogue'=> $catelogueurl
         ]);
+        #dd($admin_auction);
         $notification = array(
             'message' => 'Auction '.$admin_auction->title.' updated successfully!',
             'alert-type' => 'success'
@@ -313,21 +310,49 @@ class AuctionController extends Controller
         $auction=Auction::findOrFail($id);
         if ($request->status == 'on') {
             $status=1;
-            $allauction=Auction::where('id','!=',$id);
-            $allauction->update([
-                'status' => 0
-            ]);
-
+            // $allauction=Auction::where('id','!=',$id);
+            // $allauction->update([
+            //     'status' => 0
+            // ]);
             $auction->update([
                 'status' =>$status
             ]);
+            $lots=Lot::where('auction_id',$auction->id)->get();
+            foreach($lots as $lot){
+                $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$auction->id)->orderBy('created_at', 'desc')->first();
 
-
+                if($bid !=null || $bid !=''){
+                   $bid->update([
+                      'awarded'=>0
+                   ]);
+                   $lot->update([
+                      'sold_price' =>null,
+                      'sold' =>0,
+                      'closed'=>0
+                   ]);
+                }
+            }
         }else if ($request->status == null) {
             $status=0;
             $auction->update([
                 'status' =>$status
             ]);
+
+            $lots=Lot::where('auction_id',$auction->id)->get();
+            foreach($lots as $lot){
+                $bid=Bid::where('lot_id',$lot->id)->where('auction_id',$auction->id)->orderBy('created_at', 'desc')->first();
+
+                if($bid !=null || $bid !=''){
+                   $bid->update([
+                      'awarded'=>1
+                   ]);
+                   $lot->update([
+                      'sold_price' =>$bid->bid_amount,
+                      'sold' =>1,
+                      'closed'=>1
+                   ]);
+                }
+            }
         }
         return redirect()->back();
     }

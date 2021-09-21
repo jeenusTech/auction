@@ -13,7 +13,7 @@ use File;
 class ApproveUserController extends Controller
 {
     public function __construct(){
-        $this->middleware('admin');
+        $this->middleware(['auth', 'admin']);
     }
     /**
      * Display a listing of the resource.

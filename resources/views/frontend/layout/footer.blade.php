@@ -17,20 +17,21 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Information</h4>
             <ul>
-              <li><i class=""></i> <a href="{{url('contact')}}" title="{{site_info() !=null?site_info()->title:config('app.name')}} know your coin">Know your coin</a></li>
+              <li><i class=""></i> <a href="{{route('know-your-coin.create')}}" title="{{site_info() !=null?site_info()->title:config('app.name')}} know your coin">Know your coin</a></li>
               <li><i class=""></i> <a href="{{url('contact')}}" title="{{site_info() !=null?site_info()->title:config('app.name')}} faq">FAQs</a></li>
               <li><i class=""></i> <a href="{{route('bank-info')}}" title="{{site_info() !=null?site_info()->title:config('app.name')}} bank information">Bank Information</a></li>
               {{-- <li><i class=""></i> <a href="#">Order catalogues</a></li> --}}
             </ul>
           </div>
           <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Subscribe us</h4>
+            {{-- <h4>Subscribe us</h4>
             <p>Subscribe us for Latest updates</p>
             <form action="" method="post">
               <input type="email" name="email">
               <input type="submit" value="Submit">
-            </form>
-            <h4 class="follow_us">Follow us</h4>
+            </form> --}}
+            {{-- <h4 class="follow_us">Follow us</h4> --}}
+            <h4 class="">Follow us</h4>
             <div class="social-links mt-3">
                 <a href="{{site_info() !=null?site_info()->fb:'javascript:void(0)'}}" class="facebook" title="{{site_info() !=null?site_info()->title:config('app.name')}} facebook"><i class="bx bxl-facebook"></i></a>
                 <a href="{{site_info() !=null?site_info()->instagram:'javascript:void(0)'}}" class="instagram" title="{{site_info() !=null?site_info()->title:config('app.name')}} instagram"><i class="bx bxl-instagram"></i></a>
@@ -69,11 +70,26 @@
 </body>
 <!-- Template Main JS File -->
  <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <script>
       window.onload = function(){
       
       
 }
+  function switch_lang(lang){
+    console.log(lang);
+    if (lang !='null') {
+      let url = "{{ route('lang.switch', ':lang') }}";
+      url = url.replace(':lang', lang);
+      $('#lng').attr('action', url);
+      $("#lng").submit();
+    }else{
+      let url = "{{ route('lang.switch', 'en') }}";
+      $('#lng').attr('action', url);
+      $("#lng").submit();
+    }
+    
+  }
   </script>
+
 </html>

@@ -31,9 +31,9 @@ class UserSeeder extends Seeder
             'city'=>'2073',
             'pincode'=>'4234',
             'mobile_1'=>'8903494298',
-            'passport'=>'1234567890',
-            'passport_file_1'=>'storage/something',
-            'passport_file_2'=>'storage/something',
+            'passport'=>null,
+            'passport_file_1'=>null,
+            'passport_file_2'=>null,
             'user_verify'=>'1'
         ]);
         $admin->save();

@@ -45,7 +45,7 @@
                         <div class="col-sm-3">
                           <select class="form-control inp {{$errors->has('country')? ' border-danger':''}}" name="country"  id="country">
                             <option value="">Select Country</option>
-                            @foreach(allCountry() as $country)
+                            @foreach(getregCountry(101) as $country)
                             <option value="{{$country->id}}" 
                               @if(old('country') == $country->id) 
                               {{'selected'}}

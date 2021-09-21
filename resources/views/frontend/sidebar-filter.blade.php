@@ -17,7 +17,7 @@
                     @if(site_navigation() == 'category-auction')
                       <li class="mb-2 ml-2 anc">
                         @if($category->lots->count()>0)
-                          <a class="text-reset fs-14 " href="{{url('category-auctions/'.$category->id.'/lots')}}">{{$category->cat_name}} <label class="float-right filt-lbl">({{$category->lots->count()}})</label></a>
+                          <a class="text-reset fs-14 " href="{{url('category-auctions/'.$category->id.'/search')}}">{{$category->cat_name}} <label class="float-right filt-lbl">({{$category->lots->count()}})</label></a>
                         @endif
                       </li>
                     @elseif(site_navigation() == 'latest-auction')
@@ -39,7 +39,7 @@
                         @endif
                        @endforeach
                        @if($count>0)
-                        <a class="text-reset fs-14 " href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/lots')}}">{{$category->cat_name}} <label class="float-right filt-lbl">({{$count}})</label></a>
+                        <a class="text-reset fs-14 " href="{{url('latest-category-auctions/'.$category->id.'/'.$auction->id.'/search')}}">{{$category->cat_name}} <label class="float-right filt-lbl">({{$count}})</label></a>
                         @endif
                       </li>
                     @endforeach

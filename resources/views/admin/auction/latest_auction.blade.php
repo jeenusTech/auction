@@ -26,6 +26,11 @@
           <div class="card card-navy border-dark">
             <div class="card-header">
               <h3 class="card-title">Latest Auctions</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -43,6 +48,7 @@
                 <tbody>
 
                     @foreach ($auctions as $auction)
+
                     {{-- <tr>
                       <td>{{$auction->auction_number}}</td>
                       <td>{{$auction->title}}</td>
@@ -67,6 +73,7 @@
                         </form>
                       </td>
                     </tr> --}}
+                    @if($auction->lot)
                       @foreach($auction->lot as $lot)
                       <tr>
 
@@ -90,6 +97,7 @@
                     </tr>
 
                       @endforeach
+                      @endif
                     @endforeach
                 </tfoot>
               </table>

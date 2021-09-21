@@ -13,6 +13,7 @@ class Auction extends Model
     protected $fillable = [
         'auction_number',
         'title',
+        'auction_type',
         'description',
         'image',
         'catelogue',
