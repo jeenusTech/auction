@@ -72,7 +72,7 @@
                       <div class="row">
                         <div class="col-md-12 p-2 auction-detail">
                           <ul>
-                            <li><a href="{{url('auction-lot/'.$auction->id.'/lots')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
+                            <li><a href="{{url('auction-lot/'.$auction->id.'/search')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
                             <li><a href="{{url($auction->catelogue)}}" target="blank" download><i class="fas fa-file-pdf"></i>Catelogue</a></li>
                             <li><a href="{{route('realization',$auction->id)}}"><i class="fas fa-eye"></i>View Realization</a></li>
                           </ul>

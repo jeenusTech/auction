@@ -1,4 +1,3 @@
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
@@ -46,6 +45,11 @@
                     Upcoming Auction
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item {{(Request::is('floor-auction*')) ? 'active' : ''}}" href="{{route('floor-auction')}}">
+                    Floor Auction
+                  </a>
+                </li>
               </ul>
             </div>
           </li>
@@ -81,11 +85,11 @@
             {{-- </div> --}}
           <!--  /.container  -->
           </li>
-          <li><a class="nav-link " href="">Know Your Coins</a></li>
+          <li><a class="nav-link {{(Request::is('know-your-coin*')) ? 'active' : ''}}" href="{{route('know-your-coin.create')}}">Know Your Coins</a></li>
           {{-- <li><a class="nav-link  {{(Request::is('about-us')) ? 'active' : ''}}" href="{{route('about-us')}}">About Us</a></li> --}}
           <li><a clas="nav-link {{(Request::is('terms-and-conditions')) ? 'active' : ''}}" href="{{route('terms-and-conditions')}}">Terms & Conditions</i></a>
           </li>
-          <li><a class="nav-link {{(Request::is('contact')) ? 'active' : ''}}" href="{{route('contact')}}">Contact Us</a></li>
+          <li><a class="nav-link {{(Request::is('contact-us')) ? 'active' : ''}}" href="{{route('contact-us')}}">Contact Us</a></li>
           @guest
             @if (Route::has('login'))
               <li class="mobile_right_menu"><a class="nav-link {{(Request::is('login')) ? 'active' : ''}}" href="{{route('login')}}">Login</a></li>
@@ -115,11 +119,20 @@
                 </li>
               @endguest
           <li class="mobile_right_menu">
-            <select name="lang" id="lang_dropdown">
-              <option value="en" selected>Select Language</option>
-              <option value="en" >English</option>
-              <option value="hin">Hindi</option>
-            </select>
+            <form class="" action="" id="lng" method="">
+              
+              <select name="locale" onchange="switch_lang(this.options[this.selectedIndex].value)" id="lang_dropdown">
+                <option value="null" selected>Select Language</option>
+                @foreach (Config::get('languages') as $lang => $language)
+                  @if ($lang != App::getLocale())
+                          
+                    <option value="{{$lang}}" >{{$language}}</option>
+                    @else
+                    <option value="{{$lang}}" selected>{{$language}}</option>
+                  @endif
+                @endforeach
+              </select>
+            </form>
           </li>
 
           <div class="right_menu">
@@ -156,11 +169,21 @@
                 </li>
               @endguest
               <li class="lang">
-                <select name="lang" id="lang_dropdown">
-                  <option value="en" selected>Select Language</option>
-                  <option value="en" >English</option>
-                  <option value="hin">Hindi</option>
-                </select>
+               <form class="" action="" id="lng" method="">
+                 {{--  @csrf --}}
+                  <select name="locale" onchange="switch_lang(this.options[this.selectedIndex].value)" id="lang_dropdown">
+                    <option value="null" selected>Select Language</option>
+                    @foreach (Config::get('languages') as $lang => $language)
+                      @if ($lang != App::getLocale())
+                              
+                        <option value="{{$lang}}" >{{$language}}</option>
+                        @else
+                        <option value="{{$lang}}" selected>{{$language}}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </form>
+                {{--  --}}
               </li>
             </ul>
           </div>

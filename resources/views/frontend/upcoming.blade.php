@@ -1,10 +1,9 @@
 @extends('frontend.layout.header')
 @section('content')
-<section class="banner bg-banner-one overlay" style='background-image: url("{{asset('/frontend/hero/Mask_Group_1@2x.png')}}");' alt="upcoming auctions" title="upcoming auction">
+{{-- <section class="banner bg-banner-one overlay" style='background-image: url("{{asset('/frontend/hero/Mask_Group_1@2x.png')}}");' alt="upcoming auctions" title="upcoming auction">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <!-- Content Block -->
         <div class="block">
           <div class="aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
             <h1>Upcoming Auctions</h1>
@@ -15,31 +14,47 @@
       </div>
     </div>
   </div>
+</section> --}}
+<section id='user_dashboard' class="banner bg-banner-one overlay">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Content Block -->
+        <div class="block">
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
   <!-- End Hero -->
   <!-- ======= Hero Section ======= -->
-  <section id="form-section">
-    <div class="container">
+  <section id="">
+    {{-- <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <h4>Upcoming Auctions</h4>
-          <div class="container reg-container">
-            <div class="row">
-            @foreach(home_upcoming_auction() as $auction)
-              <div class="col-md-4">
+        <div class="col-md-12 "> --}}
+          
                 <div class="container latest-auction-container">
                   <div class="row">
                     <div class="container latest_auc_title">
                       <div class="row">
-                        <div class="col-md-12">
-                          <h6>Auction No.{{$auction->auction_number}}</h6>
+                        <div class="col-md-12 text-center">
+                          <h4 class="text-white">Upcoming Auctions</h4>
                           {{-- <label class="auc_title_label">Sunday 9th May 2021 10:30 Am Onwards</label> --}}
-                          @php
+                          
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div class="singleauctionswipper" id="latest_auction">
+                        
+                        @foreach(home_upcoming_auction() as $auction)
+                        @php
                           // for start date and time
                             $stimestamp = strtotime($auction->start_date);
                             $sday = date('D', $stimestamp);
                             $sdate = date('d', $stimestamp);
-                            $smonth = date('M', $stimestamp);
+                            $smonth = date('F', $stimestamp);
                             $syear = date('Y', $stimestamp);
                             
                             $timefrom=$smonth.' '.$sdate.','.$syear.' '.$auction->start_time;
@@ -52,44 +67,18 @@
                               
                             $timeto=$emonth.' '.$edate.','.$eyear.' '.$auction->end_time;
                           @endphp
-                          <label class="auc_title_label">{{$sday.' '.$sdate.'th '. $smonth.' '. $syear .'  '.$auction->start_time}} Onwards</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-5 singleauction-left">
-                      <div class="singleauctionswipper" id="latest_auction">
-                        <img src="{{getimg($auction->image)}}" title="{{$auction->title}}" alt="{{$auction->title}}" />
-                      </div>
-                    </div>
-                    {{-- bid description section starts here --}}
-                    <div class="col-sm-12 col-md-7 singleauction-right">
-                      <div class="row">
-                        @php
-                        $description=Str::substr($auction->description,0,1000);
-                        @endphp
-                        {{$auction->title}}
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12 p-2 auction-detail">
-                          <ul>
-                            <li><a href="{{url('auction-lot/'.$auction->id.'/lots')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
-                            <li><a href="{{url($auction->catelogue)}}" target="blank" download><i class="fas fa-file-pdf"></i>Catelogue</a></li>
-                            <li><a href="{{route('realization',$auction->id)}}"><i class="fas fa-eye"></i>View Realization</a></li>
-                          </ul>
-                        </div>
+                          {{-- <h2 class="auc_title_label text-center text-danger"><b>{{$auction->auction_type=='1'?'E-Auction':'Floor Auction '.$sday.' '.$sdate.'th '. $smonth.' '. $syear .'  '.$auction->start_time}} Onwards</b></h2> --}}
+                          <h2 class="auc_title_label text-center text-danger"><b>{{($auction->auction_type=='1'?'E-Auction ':'Floor Auction ').$auction->auction_number.' - '.$sday.' '.$sdate.'th '. $smonth.' '. $syear}}</b></h2>
+                        @endforeach
                       </div>
                     </div>
                     {{-- bid description section ends here --}}
                   </div>
                 </div>
-              </div>
-            @endforeach
-            </div>
-          </div>
-        </div>
+              
+        {{-- </div>
       </div>
-    </div>
+    </div> --}}
   </section>
   <!-- End Hero -->
 @endsection

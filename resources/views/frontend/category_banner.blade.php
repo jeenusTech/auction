@@ -2,8 +2,8 @@
     <div class="container">
       <div class="row aos-init aos-animate"  data-aos="fade-up" data-aos-delay="100">
           <div class="col-md-7">
-            <h4>THE BALDWIN’S SHOP</h4>
-            <p>Baldwin’s currently boasts the most comprehensive stock of numismatic material in the UK, which is updated on a regular basis. Our specialist team attends fairs and shows around the world to source the rarest and highest quality items for sale here on our website and in our store at 399 Strand, London.</p>
+            <h4>THE LOREM IPSUM SHOP</h4>
+            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
             <a href="javascript:void(0)" class="btn btn-danger home-all-cat-btn">View all categories</a>
           </div>
           <div class="col-md-5">

@@ -8,7 +8,9 @@
             <div class="swiper-container recomended-cat border-right" style="border-right: unset !important;">
               <div class="swiper-wrapper" style="height: auto;">
                 @foreach(homepage_latest_auctions('asc') as $latest_lots)
-                  <a href="{{route('auction-bid',$latest_lots->id)}}" class="swiper-slide" title="{{site_info() !=null?site_info()->title:config('app.name')}} latest lot {{$latest_lots->lot_number}}">
+                  {{-- <a href="{{route('auction-bid',$latest_lots->id)}}" class="swiper-slide" title="{{site_info() !=null?site_info()->title:config('app.name')}} latest lot {{$latest_lots->lot_number}}"> --}}
+                    
+                  <a href="{{url('auction-lot/'.$latest_lots->auction_id.'/search')}}" class="swiper-slide" title="{{site_info() !=null?site_info()->title:config('app.name')}} latest lot {{$latest_lots->lot_number}}">
                     <figure class="figure">
                       <img src="{{getimg(glob(ltrim($latest_lots->image,'/').'/*.jpg')[0])}}" alt="latest-lot-{{$latest_lots->lot_number}}" title="latest-lot-{{$latest_lots->lot_number}}"  class="figure-img img-fluid rounded" width="175px">
                       <figcaption class="figure-caption">

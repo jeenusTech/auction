@@ -64,7 +64,7 @@
                     @foreach ($category->lots as $lot)
                     <tr>
 
-                      <td>Auction no.{{$lot->auctions->id}}</td>
+                      <td>Auction no.{{$lot->auctions->auction_number}}</td>
                       <td>Lot No.{{$lot->lot_number}}</td>
                       <td>{{$lot->min_price}} - {{$lot->max_price}}</td>
                       <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">

@@ -37,7 +37,7 @@
               @csrf
               @method('PUT')
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Auction no.</label>
                     <input type="number" class="form-control" value="{{old('auction_number')?old('auction_number'):$auction->auction_number}}" name="auction_number">
@@ -46,7 +46,7 @@
                   <!-- /.form-group -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Auction Title</label>
                     <input type="text" class="form-control" name="title" value="{{old('title')?old('title'):$auction->title}}">
@@ -54,6 +54,27 @@
                   </div>
                 </div>
                 <!-- /.col -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Auction Type</label>
+                    <select class="form-control select2bs4 " data-dropdown-css-class="select2-danger" style="width: 100%;" name="auction_type">
+                      <option value="">--select type--</option>
+                      <option value="1" 
+                      @if(old('auction_type')=='1')
+                        selected
+                        @elseif($auction->auction_type=='1')
+                        selected
+                        @endif>E-auction</option>
+                      <option value="2" 
+                      @if(old('auction_type')=='2')
+                        selected
+                        @elseif($auction->auction_type=='2')
+                        selected
+                        @endif>Floor-auction</option>
+                    </select>
+                    <small class="form-text text-danger"><b><i>{!!$errors->first('auction_type')!!}</i></b></small>
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-12">

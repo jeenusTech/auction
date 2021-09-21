@@ -29,7 +29,6 @@
         <div class="card card-dark border-dark">
           <div class="card-header bg-navy">
             <h3 class="card-title">Create Auction</h3>
-
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -41,7 +40,7 @@
             <form action="{{route('admin-auction.store')}}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Auction no.</label>
                     <input type="number" class="form-control" value="{{old('auction_number')}}" name="auction_number">
@@ -51,11 +50,23 @@
                   <!-- /.form-group -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Auction Title</label>
                     <input type="text" class="form-control" name="title" value="{{old('title')}}">
                     <small class="form-text text-danger"><b><i>{!!$errors->first('title')!!}</i></b></small>
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Auction Type</label>
+                    <select class="form-control select2bs4 " data-dropdown-css-class="select2-danger" style="width: 100%;" name="auction_type">
+                      <option value="">--select type--</option>
+                      <option value="1" {{old('auction_type')=='1'?'selected':''}}>E-auction</option>
+                      <option value="2" {{old('auction_type')=='2'?'selected':''}}>Floor-auction</option>
+                    </select>
+                    <small class="form-text text-danger"><b><i>{!!$errors->first('auction_type')!!}</i></b></small>
                   </div>
                 </div>
                 <!-- /.col -->

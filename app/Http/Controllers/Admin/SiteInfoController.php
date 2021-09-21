@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\SiteInfo;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class SiteInfoController extends Controller
 {
     public function __construct(){
-        $this->middleware('admin');
+        $this->middleware(['auth', 'admin']);
     }
     public function index()
     {
@@ -188,5 +191,62 @@ class SiteInfoController extends Controller
     public function destroy(SiteInfo $site_info)
     {
         $site_info->delete();
+    }
+    public function admin_profile()
+    {
+
+        return view('admin.site_settings.profile');
+    }
+    public function admin_basic_info(Request $request)
+    {
+        $this->validate($request,[
+            'name'=>'required',
+            'mobile'=>'required|digits:10',
+            'email' => 'email|unique:users,email,'.auth()->user()->id
+        ]);
+        $user=User::where('id',auth()->user()->id)->first();
+        $user->update([
+            'name'=>$request->name,
+            'mobile_1' =>$request->mobile,
+            'mobile_verify' =>1,
+            'email'=>$request->email,
+            'email_verified_at'=> now(),
+            'remember_token'=>Str::random(10),
+            'user_verify'=>'1'
+        ]);
+        // $user->forceFill(['email_verified_at' => null]);
+        $notification = array(
+                'message' => 'The new contact details are updated successfully!',
+                'alert-type' => 'success'
+            );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_password_update(Request $request)
+    {
+        $this->validate($request, [
+
+            'oldPassword' => 'required',
+            'password' => 'min:6|required_with:confirmPassword|same:confirmPassword|different:oldPassword',
+            'confirmPassword' => 'min:6|required_with:password|same:password',
+        ]);
+        $user=User::where('id',auth()->user()->id)->first();
+        if (Hash::check($request->oldPassword, $user->password)) { 
+           $user->update([
+            'password' => Hash::make($request->password)
+            ]);
+            $notification = array(
+                'message' => 'The new password updated successfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+
+        } else {
+            $notification = array(
+                'message' => 'The old password does not match!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

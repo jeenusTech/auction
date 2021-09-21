@@ -8,7 +8,7 @@
         <div class="block">
           <div class="aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
             <h1>Register</h1>
-            <p>British coins have always been popular amongst numismatists, not least because of their historical context, but also as a result of some of the finest coins ever being minted within this broad period.</p>
+            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
           </div>
         </div>
       </div>
@@ -82,8 +82,8 @@
                     <div class="col-sm-3">
                       <select class="form-control inp {{$errors->has('country')? ' border-danger':''}}" name="country"  id="country" required>
                         <option value="">Select Country</option>
-                        <option value="">Select Country</option>
-                            @foreach(allCountry() as $country)
+
+                            @foreach(getregCountry(101) as $country)
                             <option value="{{$country->id}}" 
                               @if(old('country') == $country->id) 
                               {{'selected'}}
@@ -94,7 +94,7 @@
                       </select>
                     <small class="form-text text-danger">{!!$errors->first('country')!!}</small>
                     </div>
-                    <label for="state" class="col-sm-3 col-form-label">state</label>
+                    <label for="state" class="col-sm-3 col-form-label">State</label>
                     <div class="col-sm-3">
                        <select id="state" class="form-control inp {{$errors->has('state')? ' border-danger':''}}" name="state" required>
                         @if(old('country'))
@@ -255,7 +255,7 @@
               for ($i=0; $i <3 ; $i++) { 
                 echo '<div class="col-md-12">
                         <h4>Heading 1</h4>
-                        <p>Our experience has shown us that the very best collections in the world are achieved through a trusted relationship between collector and advisor. Whatever aspect of the numismatic world interests you, we have skilled numismatists who are always pleased to help.</p>
+                        <p>Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                       </div>';
               }
             ?>
@@ -264,11 +264,11 @@
           <div class="row">
             <div class="col-md-12 support">
               <h4>Support</h4>
-              <p>British Coins – neil@baldwin.co.uk or chris@baldwin.co.uk</p>
-              <p>Ancient Coins – dominic@baldwin.co.uk</p>
-              <p>World Coins – ema@baldwin.co.uk</p>
-              <p>Military Medals – mark@baldwin.co.uk</p>
-              <p>Tokens & Commemorative Medals – richard@baldwin.co.uk</p>
+              <p>British Coins – neil@LoremIpsum.co.uk or chris@LoremIpsum.co.uk</p>
+              <p>Ancient Coins – dominic@LoremIpsum.co.uk</p>
+              <p>World Coins – ema@LoremIpsum.co.uk</p>
+              <p>Military Medals – mark@LoremIpsum.co.uk</p>
+              <p>Tokens & Commemorative Medals – richard@LoremIpsum.co.uk</p>
             </div>
           </div>
         </div>

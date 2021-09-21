@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\frontend\UserAuctionController;
 use App\Http\Controllers\frontend\BidController;
 use App\Http\Controllers\frontend\SearchController;
+use App\Http\Controllers\frontend\KnowYourCoinController;
+use App\Http\Controllers\frontend\ContactUsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\UserController;
@@ -26,7 +28,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\User\ProfileController;
 // for email verification
 use App\Http\Controllers\Auth\EmailVerificationController;
-
+// for language switch
+use App\Http\Controllers\LanguageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -41,6 +44,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 Route::get('/', function () {
     //return view('welcome');
     return view("frontend/index");
@@ -57,9 +61,9 @@ Route::get('/index', function(){
    return view("frontend/index");
 })->name('index');
 
-Route::get('/contact', function(){
-   return view("frontend.contact");
-})->name('contact');
+// Route::get('/contact', function(){
+//    return view("frontend.contact");
+// })->name('contact');
 Route::get('/about-us', function(){
    return view("frontend.about-us");
 })->name('about-us');
@@ -71,7 +75,7 @@ Route::get('/our-service', function(){
 Route::get('realization/{id}', [UserAuctionController::class,'realization'])->name('realization');
 Route::get('latest-auction', [UserAuctionController::class,'latestAuction'])->name('latest-auction');
 // Route::get('auction-lot/{id}', [UserAuctionController::class,'auction_lot'])->name('auction-lot');
-Route::get('auction-lot/{id}/{filter}', [UserAuctionController::class,'filter'])->name('auction-lot');
+Route::get('auction-lot/{id}/{search}', [UserAuctionController::class,'filter'])->name('auction-lot');
 
 Route::get('auction-bid/{id}', [UserAuctionController::class,'auctionBid'])->name('auction-bid');
 Route::get('auction-archives', [UserAuctionController::class,'archives'])->name('auction-archives');
@@ -83,7 +87,7 @@ Route::post('api/fetch-bidmaount', [UserAuctionController::class, 'fetchbidmaoun
 // dynamic contents ends here
 
 // routes for bidding starts here
-Route::group(['middleware' => ['auth', 'bid']], function() {
+Route::group(['middleware' => ['auth','verified','bid']], function() {
     Route::Resource('makebid', BidController::class);
 });
 // routes for bidding ends here
@@ -95,6 +99,7 @@ Route::get('/advanced_search', function(){
 Route::get('upcoming-auction', function(){
    return view("frontend.upcoming");
 })->name('upcoming-auction');
+Route::get('floor-auction', [UserAuctionController::class,'floor'])->name('floor-auction');
 
 // for advance search page
 Route::get('advanced_search/search', [SearchController::class,'advanced_search'])->name('advanced_search/search');
@@ -102,7 +107,11 @@ Route::get('advanced_search/search', [SearchController::class,'advanced_search']
 Route::Resource('/country',CountryController::class);
 Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
 Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
-
+// for know your coin
+Route::Resource('know-your-coin', KnowYourCoinController::class);
+// for contact us form
+Route::get('contact-us', [ContactUsController::class,'create'])->name('contact-us');
+Route::post('store-contact-us', [ContactUsController::class,'store'])->name('store-contact-us');
 // for the bank route
 
 Route::get('/bank-info', [UserAuctionController::class, 'bankdetail'])->name('bank-info');
@@ -137,6 +146,8 @@ Route::group(['middleware' => ['auth','verified']], function() {
    Route::get('wishlist', function(){
       return view('frontend.user_dashboard.wish-list');
    })->name('wishlist');
+    Route::get('mobile-verify',  [ProfileController::class,'send_otp'])->name('mobile-verify');
+    Route::post('otp-verify',  [ProfileController::class,'otp_verify'])->name('otp-verify');
 
    Route::get('auctionbids',  [ProfileController::class,'auctionbids'])->name('auctionbids');
    Route::post('api/user-auctionbids', [ProfileController::class, 'user_auctionbids']);
@@ -223,6 +234,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::post('invoice_status/{id}',[InvoiceController::class,'invoice_status'])->name('invoice_status');
     Route::resource('terms',TermsAndConditionController::class);
     Route::resource('site-info',SiteInfoController::class);
+    Route::get('profile',[SiteInfoController::class,'admin_profile'])->name('profile');
+    Route::post('admin_basic_info',[SiteInfoController::class,'admin_basic_info'])->name('admin_basic_info');
+    Route::post('admin_password_update',[SiteInfoController::class,'admin_password_update'])->name('admin_password_update');
     Route::resource('material',MaterialController::class);
+    Route::Resource('user-coin-query', KnowYourCoinController::class);
+    Route::get('user-coin-query-contacted',[KnowYourCoinController::class,'contacted'])->name('user-coin-query-contacted');
+    // contact form
+    Route::Resource('user-contact-form', ContactUsController::class);
+    Route::get('user-contact-form-contacted',[ContactUsController::class,'contacted'])->name('user-contact-form-contacted');
 
 });

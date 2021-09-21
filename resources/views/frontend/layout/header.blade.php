@@ -17,6 +17,7 @@
     <link rel="manifest" href="{{asset('/frontend/icons/site.webmanifest')}}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
   <!-- =======================================================
   * Template Name: Dewi - v4.3.0
   * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/

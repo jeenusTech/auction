@@ -32,7 +32,7 @@ class Lot extends Model
         return $this->belongsTo(Material::class,'material','id');
     }
     public function auctions(){
-        return $this->belongsTo(Auction::class,'auction_id','id');
+        return $this->belongsTo(Auction::class,'auction_id','id')->orderBy('auction_number','asc');
     }
     public function singlecategory(){
         return $this->belongsTo(category::class,'category','id');

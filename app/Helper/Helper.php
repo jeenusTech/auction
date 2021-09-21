@@ -10,13 +10,18 @@ use App\Models\HomePage;
 use App\Models\Bid;
 use App\Models\SiteInfo;
 use App\Models\Material;
-
+use App\Models\KnowYourCoin;
+use App\Models\ContactUs;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;;
 
 // get country , state, city with id
 	function getCountry($id){
 		$country=Country::where('id','=',$id)->first();
+		return $country;
+	}
+	function getregCountry($id){
+		$country=Country::where('id','=',$id)->get();
 		return $country;
 	}
 	function getState($id){
@@ -85,6 +90,16 @@ use Illuminate\Support\Facades\Route;;
 		$pendingseller=Seller::where('approved',0)->where('declined',0)->where('pending',1)->get();
 		return count($pendingseller);
 	}
+	// to display coin query count
+	function allPending_coin_query(){
+		$pendingquery=KnowYourCoin::where('contacted',0)->get();
+		return count($pendingquery);
+	}
+	// to display contact form count
+	function allPending_cotact_query(){
+		$pendingquery=ContactUs::where('contacted',0)->get();
+		return count($pendingquery);
+	}
 	// get all category
 	function all_category(){
 		$allcategories=category::all();
@@ -124,7 +139,7 @@ use Illuminate\Support\Facades\Route;;
 	function home_upcoming_auction(){
         $todayDate=now()->toDateString();
 
-		$auction=Auction::where('start_date','>',$todayDate)->get();
+		$auction=Auction::where('start_date','>',$todayDate)->orderBy('start_date','ASC')->get();
 		if ($auction) {
 			#$lots=Lot::where('auction_id',$auction->id)->orderBy('asking_bid',$orderby)->get();
 			return $auction;
@@ -161,6 +176,31 @@ use Illuminate\Support\Facades\Route;;
 	 
 	function all_materials(){
 		$result=Material::all();
+		return $result;
+	}
+	// category by auction
+	function cat_by_auc($id){
+		$result=Lot::where('auction_id',$id)->distinct('category')->get(['category']);
+		return $result;
+	}
+	// material by auction
+	function mat_by_auc($id){
+		$result=Lot::where('auction_id',$id)->distinct('material')->get(['material']);
+		return $result;
+	}
+	// material by category
+	function mat_by_cat($id){
+		$result=Lot::where('category',$id)->distinct('material')->get(['material']);
+		return $result;
+	}
+	// auction by category
+	function auc_by_cat($id){
+		$result=Lot::where('category',$id)->distinct('auction_id')->get(['auction_id']);
+		return $result;
+	}
+	// material by category and auction
+	function mat_by_cat_auc($cid,$aid){
+		$result=Lot::where('category',$cid)->where('auction_id',$aid)->distinct('material')->get(['material']);
 		return $result;
 	}
 ?>

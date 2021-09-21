@@ -16,24 +16,19 @@
       </div>
     </div><!-- /.container-fluid -->
   </section>
-  <section class="content">
+  {{-- <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <!-- /.col-md-6 -->
         <div class="col-lg-4 ml-auto mr-auto">
            <div class="card card-navy border-dark">
             <div class="card-header">
               <h3 class="card-title">{{$material->name}}</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            
+            </div>            
           </div>
         </div>
-        <!-- /.col-md-6 -->
       </div>
     </div>
-  </section>
+  </section> --}}
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -44,7 +39,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="materialtable" class="table table-bordered table-hover">
+              <table id="categorytable" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Auction no.</th>
@@ -58,7 +53,7 @@
                     @foreach ($material->lot as $lot)
                     <tr>
 
-                      <td>Auction no.{{$lot->auctions->id}}</td>
+                      <td>Auction no.{{$lot->auctions->auction_number}}</td>
                       <td>Lot No.{{$lot->lot_number}}</td>
                       <td>{{$lot->min_price}} - {{$lot->max_price}}</td>
                       <td><form id="closed{{ $lot->id }}" action="{{route('lot_closed',$lot->id)}}" method="post" style="display: inline;">

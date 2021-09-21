@@ -32,7 +32,7 @@
                         <i class="fa fa-mobile"></i>
                         {{auth()->user()->mobile_1}}
                         @if(auth()->user()->mobile_verify == 0)
-                        <a class="text-reset fs-14 verify_btn" href="javascript:void(0)">verify</a>
+                        <a class="text-reset fs-14 verify_btn" href="{{route('mobile-verify')}}">verify</a>
                         @else
                         <i class="fa fa-check-circle text-success"></i>
                         @endif

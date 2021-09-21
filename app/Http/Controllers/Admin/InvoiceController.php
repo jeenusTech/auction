@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class InvoiceController extends Controller
 {
     public function __construct(){
-        $this->middleware('admin');
+        $this->middleware(['auth', 'admin']);
     }
     public function index()
     {

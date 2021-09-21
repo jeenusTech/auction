@@ -92,38 +92,98 @@
               </div>
               {{-- bid description section starts here --}}
               <div class="col-sm-12 col-md-7 singleauction-right">
-                {{-- <div class="row">
-                  <h6>Antiques’ Auctions</h6>
-                  <p class="auction_description">Auctioneer of Coins, Bank Notes and Medals Antiques License No. 15.</p>
-                </div>
-                <div class="row">
-                  <h6>Venue</h6>
-                  <p class="auction_description">Oswal Antiques 307, Narayan Udyog Owners Premises. Co. Op. Society Ltd., 7, Industrial Estate, Chiwda Galli, Lalbaug, Mumbai-400 012.</p>
-                </div>
-                <div class="row">
-                  <h6>Public View</h6>
-                  <p class="auction_description">At Lalbuag office from 03.05.2021 to 08.05.2021 between 12:30 PM to 5:00 PM <label>( By Prior Appointment Only )</label></p>
-                </div>
-                <div class="row">
-                  <h6>OA Forthcoming Auctions</h6>
-                  <p class="auction_description">Auction No. 90 - Saturday 24th July 2021, 5PM Onwards at Kolkata.</p>
-                </div> --}}
                 <div class="row">
                   {!!$auction->description!!}
                 </div>
                 <div class="row">
                   <div class="col-md-12 p-2 auction-detail">
                     <ul>
-                      <li><a href="{{url('auction-lot/'.$auction->id.'/lots')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
+                      <li><a href="{{url('auction-lot/'.$auction->id.'/search')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
                       <li><a href="{{url($auction->catelogue)}}" target="blank" download><i class="fas fa-file-pdf"></i>Catelogue</a></li>
                     </ul>
                   </div>
                 </div>
-               {{--  <div class="row">
-                  <div class="col-md-12 pt-3">
-                    <button id="single_auc_bid_btn"><i class="fa fa-gavel pr-2"></i>Bid Now</button>                    
+              </div>
+              {{-- bid description section ends here --}}
+            </div>
+          </div>
+        </div>
+        @elseif($auction && $auction->auction_type=='2')
+        <div class="col-lg-8">
+            <h6 class="auctitle">Latest Auctions</h6>
+            <a href="{{route('realization',$auction->id)}}" class="realization-btn float-right">View Realization</a>
+          <div class="container latest-auction-container">
+            <div class="row">
+              <div class="container latest_auc_title">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Auction No.{{$auction->auction_number}}</h6>
+                    {{-- <label class="auc_title_label">Sunday 9th May 2021 10:30 Am Onwards</label> --}}
+                    @php
+                    // for start date and time
+                      $stimestamp = strtotime($auction->start_date);
+                      $sday = date('D', $stimestamp);
+                      $sdate = date('d', $stimestamp);
+                      $smonth = date('M', $stimestamp);
+                      $syear = date('Y', $stimestamp);
+                      
+                      $timefrom=$smonth.' '.$sdate.','.$syear.' '.$auction->start_time;
+                      // for end date and time
+                      $etimestamp = strtotime($auction->end_date);
+                      $eday = date('D', $etimestamp);
+                      $edate = date('d', $etimestamp);
+                      $emonth = date('M', $etimestamp);
+                      $eyear = date('Y', $etimestamp);
+                        
+                      $timeto=$emonth.' '.$edate.','.$eyear.' '.$auction->end_time;
+                    @endphp
+                    <label class="auc_title_label">{{$sday.' '.$sdate.'th '. $smonth.' '. $syear .'  '.$auction->start_time}} Onwards</label>
                   </div>
-                </div> --}}
+                  <div class="col-md-6">
+                    <div class="row">
+                        <label class="auc_title_label" for="time">Time :</label>
+                        <div id="clockdiv" class="">
+                          <div>
+                            <span class="days">1</span>
+                            <div class="smalltext">DAYS</div>
+                          </div>
+                          <div>
+                            <span class="hours">2</span>
+                            <div class="smalltext">HRS</div>
+                          </div>
+                          <div>
+                            <span class="minutes">30</span>
+                            <div class="smalltext">MINS</div>
+                          </div>
+                          <div>
+                            <span class="seconds">33</span>
+                            <div class="smalltext">SECS</div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-5 singleauction-left">
+                <div class="singleauctionswipper" id="latest_auction">
+                  <img src="{{getimg($auction->image)}}" alt="{{$auction->title}}" title="{{$auction->title}}" />
+                </div>
+              </div>
+              {{-- bid description section starts here --}}
+              <div class="col-sm-12 col-md-7 singleauction-right">
+                <div class="row">
+                  {!!$auction->description!!}
+                </div>
+                <div class="row">
+                  <div class="col-md-12 p-2 auction-detail">
+                    
+                    <ul>
+                      <li><a href="{{url('auction-lot/'.$auction->id.'/search')}}"><i class="fas fa-th-large"></i>View Lots</a></li>
+                      <li><a href="{{url($auction->catelogue)}}" target="blank" download><i class="fas fa-file-pdf"></i>Catelogue</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               {{-- bid description section ends here --}}
             </div>
@@ -176,7 +236,7 @@
           <div class="swiper-wrapper">
             @foreach($previousauction as $old_auction)
             <div class="col-md-4 medal-box swiper-slide">
-              <a href="{{url('auction-lot/'.$old_auction->id.'/lots')}}" class="row">
+              <a href="{{url('auction-lot/'.$old_auction->id.'/search')}}" class="row">
                 <div class="prev-auc-left">
                   <img src="{{getimg($old_auction->image)}}"  alt="{{$old_auction->title}}" title="{{$old_auction->title}}" class="" height="auto" width="100%">
                 </div>
@@ -195,7 +255,6 @@
 @endsection
 <script>
   window.addEventListener('load', () => {
-  @if($auction && $today < \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time)))
   function getTimeRemaining(endtime) {
     // const total = Date.parse(endtime) - Date.parse(new Date());
     // for ending the clock
@@ -245,12 +304,19 @@
     const timeinterval = setInterval(updateClock, 1000);
     updateClock();
   }
+
+  @if($auction && $today < \Carbon::createFromTimestamp(strtotime($auction->end_date.$auction->end_time)))
     // const deadline = new Date(Date.parse(new Date()) + 14 * 24 * 60 * 60 * 1000);
      const deadline = '{{$timeto}}';
   // const deadline = '{{$timefrom}}';
     
    initializeClock('clockdiv', deadline);
-
+@elseif($auction && $auction->auction_type =='2')
+// const deadline = new Date(Date.parse(new Date()) + 14 * 24 * 60 * 60 * 1000);
+     const deadline = '{{$timeto}}';
+  // const deadline = '{{$timefrom}}';
+    
+   initializeClock('clockdiv', deadline);
 @endif
   });
 </script>
