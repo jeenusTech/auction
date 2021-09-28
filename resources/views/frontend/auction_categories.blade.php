@@ -183,6 +183,7 @@
     </div>
   </section>
 @endsection
+
 <script>
   window.addEventListener('load', () => {
   @if($auction)

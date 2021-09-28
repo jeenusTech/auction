@@ -122,4 +122,48 @@
         </div>
       </div>
     </section>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-dark border-dark">
+          <div class="card-header bg-navy">
+            <h3 class="card-title">Site maintanance</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+           
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <a href="{{route('clear-cache')}}" class="btn bg-navy">Clear site cahce</a>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <a href="{{route('clear-config')}}" class="btn bg-navy">Clear configuration cache</a>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <a href="{{route('migrate')}}" class="btn btn-danger">Clear data base</a>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <a href="{{route('generate-key')}}" class="btn bg-navy">Generate fresh APP KEY</a>
+                  </div>
+                </div>
+              </div>
+            <!-- /.row -->
+          </div>
+         <div class="card-footer bg-navy">
+           <b class="text-danger"><i>Note *: After clearing the data base pls add the country, state, city data bases from admin panel and use the default credentials to login*</i></b>
+          </div>
+        </div>
+      </div>
+    </section>
 @endsection

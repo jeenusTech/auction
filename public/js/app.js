@@ -1697,7 +1697,13 @@ __webpack_require__(/*! bootstrap/js/dist/tab.js */ "./node_modules/bootstrap/js
 
 window.Swiper = __webpack_require__(/*! swiper/swiper-bundle.min.js */ "./node_modules/swiper/swiper-bundle.min.js");
 
-__webpack_require__(/*! ./frontend/header.js */ "./resources/js/frontend/header.js"); // for light box
+__webpack_require__(/*! ./frontend/header.js */ "./resources/js/frontend/header.js");
+
+__webpack_require__(/*! ./frontend/xzoom.min.js */ "./resources/js/frontend/xzoom.min.js");
+
+__webpack_require__(/*! ./frontend/fancybox/source/jquery.fancybox.js */ "./resources/js/frontend/fancybox/source/jquery.fancybox.js");
+
+__webpack_require__(/*! ./frontend/setup.js */ "./resources/js/frontend/setup.js"); // for light box
 
 
 __webpack_require__(/*! lightbox2 */ "./node_modules/lightbox2/dist/js/lightbox.js");
@@ -1831,6 +1837,1862 @@ var medal = new Swiper(".blog-post", {
     }
   }
 }); // window.Swal = Swal;
+
+/***/ }),
+
+/***/ "./resources/js/frontend/fancybox/source/jquery.fancybox.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/frontend/fancybox/source/jquery.fancybox.js ***!
+  \******************************************************************/
+/***/ (() => {
+
+/*!
+ * fancyBox - jQuery Plugin
+ * version: 2.1.5 (Fri, 14 Jun 2013)
+ * @requires jQuery v1.6 or later
+ *
+ * Examples at http://fancyapps.com/fancybox/
+ * License: www.fancyapps.com/fancybox/#license
+ *
+ * Copyright 2012 Janis Skarnelis - janis@fancyapps.com
+ *
+ */
+(function (window, document, $, undefined) {
+  "use strict";
+
+  var H = $("html"),
+      W = $(window),
+      D = $(document),
+      F = $.fancybox = function () {
+    F.open.apply(this, arguments);
+  },
+      IE = navigator.userAgent.match(/msie/i),
+      didUpdate = null,
+      isTouch = document.createTouch !== undefined,
+      isQuery = function isQuery(obj) {
+    return obj && obj.hasOwnProperty && obj instanceof $;
+  },
+      isString = function isString(str) {
+    return str && $.type(str) === "string";
+  },
+      isPercentage = function isPercentage(str) {
+    return isString(str) && str.indexOf('%') > 0;
+  },
+      isScrollable = function isScrollable(el) {
+    return el && !(el.style.overflow && el.style.overflow === 'hidden') && (el.clientWidth && el.scrollWidth > el.clientWidth || el.clientHeight && el.scrollHeight > el.clientHeight);
+  },
+      getScalar = function getScalar(orig, dim) {
+    var value = parseInt(orig, 10) || 0;
+
+    if (dim && isPercentage(orig)) {
+      value = F.getViewport()[dim] / 100 * value;
+    }
+
+    return Math.ceil(value);
+  },
+      getValue = function getValue(value, dim) {
+    return getScalar(value, dim) + 'px';
+  };
+
+  $.extend(F, {
+    // The current version of fancyBox
+    version: '2.1.5',
+    defaults: {
+      padding: 15,
+      margin: 20,
+      width: 800,
+      height: 600,
+      minWidth: 100,
+      minHeight: 100,
+      maxWidth: 9999,
+      maxHeight: 9999,
+      pixelRatio: 1,
+      // Set to 2 for retina display support
+      autoSize: true,
+      autoHeight: false,
+      autoWidth: false,
+      autoResize: true,
+      autoCenter: !isTouch,
+      fitToView: true,
+      aspectRatio: false,
+      topRatio: 0.5,
+      leftRatio: 0.5,
+      scrolling: 'auto',
+      // 'auto', 'yes' or 'no'
+      wrapCSS: '',
+      arrows: true,
+      closeBtn: true,
+      closeClick: false,
+      nextClick: false,
+      mouseWheel: true,
+      autoPlay: false,
+      playSpeed: 3000,
+      preload: 3,
+      modal: false,
+      loop: true,
+      ajax: {
+        dataType: 'html',
+        headers: {
+          'X-fancyBox': true
+        }
+      },
+      iframe: {
+        scrolling: 'auto',
+        preload: true
+      },
+      swf: {
+        wmode: 'transparent',
+        allowfullscreen: 'true',
+        allowscriptaccess: 'always'
+      },
+      keys: {
+        next: {
+          13: 'left',
+          // enter
+          34: 'up',
+          // page down
+          39: 'left',
+          // right arrow
+          40: 'up' // down arrow
+
+        },
+        prev: {
+          8: 'right',
+          // backspace
+          33: 'down',
+          // page up
+          37: 'right',
+          // left arrow
+          38: 'down' // up arrow
+
+        },
+        close: [27],
+        // escape key
+        play: [32],
+        // space - start/stop slideshow
+        toggle: [70] // letter "f" - toggle fullscreen
+
+      },
+      direction: {
+        next: 'left',
+        prev: 'right'
+      },
+      scrollOutside: true,
+      // Override some properties
+      index: 0,
+      type: null,
+      href: null,
+      content: null,
+      title: null,
+      // HTML templates
+      tpl: {
+        wrap: '<div class="fancybox-wrap" tabIndex="-1"><div class="fancybox-skin"><div class="fancybox-outer"><div class="fancybox-inner"></div></div></div></div>',
+        image: '<img class="fancybox-image" src="{href}" alt="" />',
+        iframe: '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen' + (IE ? ' allowtransparency="true"' : '') + '></iframe>',
+        error: '<p class="fancybox-error">The requested content cannot be loaded.<br/>Please try again later.</p>',
+        closeBtn: '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>',
+        next: '<a title="Next" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
+        prev: '<a title="Previous" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
+      },
+      // Properties for each animation type
+      // Opening fancyBox
+      openEffect: 'fade',
+      // 'elastic', 'fade' or 'none'
+      openSpeed: 250,
+      openEasing: 'swing',
+      openOpacity: true,
+      openMethod: 'zoomIn',
+      // Closing fancyBox
+      closeEffect: 'fade',
+      // 'elastic', 'fade' or 'none'
+      closeSpeed: 250,
+      closeEasing: 'swing',
+      closeOpacity: true,
+      closeMethod: 'zoomOut',
+      // Changing next gallery item
+      nextEffect: 'elastic',
+      // 'elastic', 'fade' or 'none'
+      nextSpeed: 250,
+      nextEasing: 'swing',
+      nextMethod: 'changeIn',
+      // Changing previous gallery item
+      prevEffect: 'elastic',
+      // 'elastic', 'fade' or 'none'
+      prevSpeed: 250,
+      prevEasing: 'swing',
+      prevMethod: 'changeOut',
+      // Enable default helpers
+      helpers: {
+        overlay: true,
+        title: true
+      },
+      // Callbacks
+      onCancel: $.noop,
+      // If canceling
+      beforeLoad: $.noop,
+      // Before loading
+      afterLoad: $.noop,
+      // After loading
+      beforeShow: $.noop,
+      // Before changing in current item
+      afterShow: $.noop,
+      // After opening
+      beforeChange: $.noop,
+      // Before changing gallery item
+      beforeClose: $.noop,
+      // Before closing
+      afterClose: $.noop // After closing
+
+    },
+    //Current state
+    group: {},
+    // Selected group
+    opts: {},
+    // Group options
+    previous: null,
+    // Previous element
+    coming: null,
+    // Element being loaded
+    current: null,
+    // Currently loaded element
+    isActive: false,
+    // Is activated
+    isOpen: false,
+    // Is currently open
+    isOpened: false,
+    // Have been fully opened at least once
+    wrap: null,
+    skin: null,
+    outer: null,
+    inner: null,
+    player: {
+      timer: null,
+      isActive: false
+    },
+    // Loaders
+    ajaxLoad: null,
+    imgPreload: null,
+    // Some collections
+    transitions: {},
+    helpers: {},
+
+    /*
+     *	Static methods
+     */
+    open: function open(group, opts) {
+      if (!group) {
+        return;
+      }
+
+      if (!$.isPlainObject(opts)) {
+        opts = {};
+      } // Close if already active
+
+
+      if (false === F.close(true)) {
+        return;
+      } // Normalize group
+
+
+      if (!$.isArray(group)) {
+        group = isQuery(group) ? $(group).get() : [group];
+      } // Recheck if the type of each element is `object` and set content type (image, ajax, etc)
+
+
+      $.each(group, function (i, element) {
+        var obj = {},
+            href,
+            title,
+            content,
+            type,
+            rez,
+            hrefParts,
+            selector;
+
+        if ($.type(element) === "object") {
+          // Check if is DOM element
+          if (element.nodeType) {
+            element = $(element);
+          }
+
+          if (isQuery(element)) {
+            obj = {
+              href: element.data('fancybox-href') || element.attr('href'),
+              title: element.data('fancybox-title') || element.attr('title'),
+              isDom: true,
+              element: element
+            };
+
+            if ($.metadata) {
+              $.extend(true, obj, element.metadata());
+            }
+          } else {
+            obj = element;
+          }
+        }
+
+        href = opts.href || obj.href || (isString(element) ? element : null);
+        title = opts.title !== undefined ? opts.title : obj.title || '';
+        content = opts.content || obj.content;
+        type = content ? 'html' : opts.type || obj.type;
+
+        if (!type && obj.isDom) {
+          type = element.data('fancybox-type');
+
+          if (!type) {
+            rez = element.prop('class').match(/fancybox\.(\w+)/);
+            type = rez ? rez[1] : null;
+          }
+        }
+
+        if (isString(href)) {
+          // Try to guess the content type
+          if (!type) {
+            if (F.isImage(href)) {
+              type = 'image';
+            } else if (F.isSWF(href)) {
+              type = 'swf';
+            } else if (href.charAt(0) === '#') {
+              type = 'inline';
+            } else if (isString(element)) {
+              type = 'html';
+              content = element;
+            }
+          } // Split url into two pieces with source url and content selector, e.g,
+          // "/mypage.html #my_id" will load "/mypage.html" and display element having id "my_id"
+
+
+          if (type === 'ajax') {
+            hrefParts = href.split(/\s+/, 2);
+            href = hrefParts.shift();
+            selector = hrefParts.shift();
+          }
+        }
+
+        if (!content) {
+          if (type === 'inline') {
+            if (href) {
+              content = $(isString(href) ? href.replace(/.*(?=#[^\s]+$)/, '') : href); //strip for ie7
+            } else if (obj.isDom) {
+              content = element;
+            }
+          } else if (type === 'html') {
+            content = href;
+          } else if (!type && !href && obj.isDom) {
+            type = 'inline';
+            content = element;
+          }
+        }
+
+        $.extend(obj, {
+          href: href,
+          type: type,
+          content: content,
+          title: title,
+          selector: selector
+        });
+        group[i] = obj;
+      }); // Extend the defaults
+
+      F.opts = $.extend(true, {}, F.defaults, opts); // All options are merged recursive except keys
+
+      if (opts.keys !== undefined) {
+        F.opts.keys = opts.keys ? $.extend({}, F.defaults.keys, opts.keys) : false;
+      }
+
+      F.group = group;
+      return F._start(F.opts.index);
+    },
+    // Cancel image loading or abort ajax request
+    cancel: function cancel() {
+      var coming = F.coming;
+
+      if (!coming || false === F.trigger('onCancel')) {
+        return;
+      }
+
+      F.hideLoading();
+
+      if (F.ajaxLoad) {
+        F.ajaxLoad.abort();
+      }
+
+      F.ajaxLoad = null;
+
+      if (F.imgPreload) {
+        F.imgPreload.onload = F.imgPreload.onerror = null;
+      }
+
+      if (coming.wrap) {
+        coming.wrap.stop(true, true).trigger('onReset').remove();
+      }
+
+      F.coming = null; // If the first item has been canceled, then clear everything
+
+      if (!F.current) {
+        F._afterZoomOut(coming);
+      }
+    },
+    // Start closing animation if is open; remove immediately if opening/closing
+    close: function close(event) {
+      F.cancel();
+
+      if (false === F.trigger('beforeClose')) {
+        return;
+      }
+
+      F.unbindEvents();
+
+      if (!F.isActive) {
+        return;
+      }
+
+      if (!F.isOpen || event === true) {
+        $('.fancybox-wrap').stop(true).trigger('onReset').remove();
+
+        F._afterZoomOut();
+      } else {
+        F.isOpen = F.isOpened = false;
+        F.isClosing = true;
+        $('.fancybox-item, .fancybox-nav').remove();
+        F.wrap.stop(true, true).removeClass('fancybox-opened');
+        F.transitions[F.current.closeMethod]();
+      }
+    },
+    // Manage slideshow:
+    //   $.fancybox.play(); - toggle slideshow
+    //   $.fancybox.play( true ); - start
+    //   $.fancybox.play( false ); - stop
+    play: function play(action) {
+      var clear = function clear() {
+        clearTimeout(F.player.timer);
+      },
+          set = function set() {
+        clear();
+
+        if (F.current && F.player.isActive) {
+          F.player.timer = setTimeout(F.next, F.current.playSpeed);
+        }
+      },
+          stop = function stop() {
+        clear();
+        D.unbind('.player');
+        F.player.isActive = false;
+        F.trigger('onPlayEnd');
+      },
+          start = function start() {
+        if (F.current && (F.current.loop || F.current.index < F.group.length - 1)) {
+          F.player.isActive = true;
+          D.bind({
+            'onCancel.player beforeClose.player': stop,
+            'onUpdate.player': set,
+            'beforeLoad.player': clear
+          });
+          set();
+          F.trigger('onPlayStart');
+        }
+      };
+
+      if (action === true || !F.player.isActive && action !== false) {
+        start();
+      } else {
+        stop();
+      }
+    },
+    // Navigate to next gallery item
+    next: function next(direction) {
+      var current = F.current;
+
+      if (current) {
+        if (!isString(direction)) {
+          direction = current.direction.next;
+        }
+
+        F.jumpto(current.index + 1, direction, 'next');
+      }
+    },
+    // Navigate to previous gallery item
+    prev: function prev(direction) {
+      var current = F.current;
+
+      if (current) {
+        if (!isString(direction)) {
+          direction = current.direction.prev;
+        }
+
+        F.jumpto(current.index - 1, direction, 'prev');
+      }
+    },
+    // Navigate to gallery item by index
+    jumpto: function jumpto(index, direction, router) {
+      var current = F.current;
+
+      if (!current) {
+        return;
+      }
+
+      index = getScalar(index);
+      F.direction = direction || current.direction[index >= current.index ? 'next' : 'prev'];
+      F.router = router || 'jumpto';
+
+      if (current.loop) {
+        if (index < 0) {
+          index = current.group.length + index % current.group.length;
+        }
+
+        index = index % current.group.length;
+      }
+
+      if (current.group[index] !== undefined) {
+        F.cancel();
+
+        F._start(index);
+      }
+    },
+    // Center inside viewport and toggle position type to fixed or absolute if needed
+    reposition: function reposition(e, onlyAbsolute) {
+      var current = F.current,
+          wrap = current ? current.wrap : null,
+          pos;
+
+      if (wrap) {
+        pos = F._getPosition(onlyAbsolute);
+
+        if (e && e.type === 'scroll') {
+          delete pos.position;
+          wrap.stop(true, true).animate(pos, 200);
+        } else {
+          wrap.css(pos);
+          current.pos = $.extend({}, current.dim, pos);
+        }
+      }
+    },
+    update: function update(e) {
+      var type = e && e.type,
+          anyway = !type || type === 'orientationchange';
+
+      if (anyway) {
+        clearTimeout(didUpdate);
+        didUpdate = null;
+      }
+
+      if (!F.isOpen || didUpdate) {
+        return;
+      }
+
+      didUpdate = setTimeout(function () {
+        var current = F.current;
+
+        if (!current || F.isClosing) {
+          return;
+        }
+
+        F.wrap.removeClass('fancybox-tmp');
+
+        if (anyway || type === 'load' || type === 'resize' && current.autoResize) {
+          F._setDimension();
+        }
+
+        if (!(type === 'scroll' && current.canShrink)) {
+          F.reposition(e);
+        }
+
+        F.trigger('onUpdate');
+        didUpdate = null;
+      }, anyway && !isTouch ? 0 : 300);
+    },
+    // Shrink content to fit inside viewport or restore if resized
+    toggle: function toggle(action) {
+      if (F.isOpen) {
+        F.current.fitToView = $.type(action) === "boolean" ? action : !F.current.fitToView; // Help browser to restore document dimensions
+
+        if (isTouch) {
+          F.wrap.removeAttr('style').addClass('fancybox-tmp');
+          F.trigger('onUpdate');
+        }
+
+        F.update();
+      }
+    },
+    hideLoading: function hideLoading() {
+      D.unbind('.loading');
+      $('#fancybox-loading').remove();
+    },
+    showLoading: function showLoading() {
+      var el, viewport;
+      F.hideLoading();
+      el = $('<div id="fancybox-loading"><div></div></div>').click(F.cancel).appendTo('body'); // If user will press the escape-button, the request will be canceled
+
+      D.bind('keydown.loading', function (e) {
+        if ((e.which || e.keyCode) === 27) {
+          e.preventDefault();
+          F.cancel();
+        }
+      });
+
+      if (!F.defaults.fixed) {
+        viewport = F.getViewport();
+        el.css({
+          position: 'absolute',
+          top: viewport.h * 0.5 + viewport.y,
+          left: viewport.w * 0.5 + viewport.x
+        });
+      }
+    },
+    getViewport: function getViewport() {
+      var locked = F.current && F.current.locked || false,
+          rez = {
+        x: W.scrollLeft(),
+        y: W.scrollTop()
+      };
+
+      if (locked) {
+        rez.w = locked[0].clientWidth;
+        rez.h = locked[0].clientHeight;
+      } else {
+        // See http://bugs.jquery.com/ticket/6724
+        rez.w = isTouch && window.innerWidth ? window.innerWidth : W.width();
+        rez.h = isTouch && window.innerHeight ? window.innerHeight : W.height();
+      }
+
+      return rez;
+    },
+    // Unbind the keyboard / clicking actions
+    unbindEvents: function unbindEvents() {
+      if (F.wrap && isQuery(F.wrap)) {
+        F.wrap.unbind('.fb');
+      }
+
+      D.unbind('.fb');
+      W.unbind('.fb');
+    },
+    bindEvents: function bindEvents() {
+      var current = F.current,
+          keys;
+
+      if (!current) {
+        return;
+      } // Changing document height on iOS devices triggers a 'resize' event,
+      // that can change document height... repeating infinitely
+
+
+      W.bind('orientationchange.fb' + (isTouch ? '' : ' resize.fb') + (current.autoCenter && !current.locked ? ' scroll.fb' : ''), F.update);
+      keys = current.keys;
+
+      if (keys) {
+        D.bind('keydown.fb', function (e) {
+          var code = e.which || e.keyCode,
+              target = e.target || e.srcElement; // Skip esc key if loading, because showLoading will cancel preloading
+
+          if (code === 27 && F.coming) {
+            return false;
+          } // Ignore key combinations and key events within form elements
+
+
+          if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey && !(target && (target.type || $(target).is('[contenteditable]')))) {
+            $.each(keys, function (i, val) {
+              if (current.group.length > 1 && val[code] !== undefined) {
+                F[i](val[code]);
+                e.preventDefault();
+                return false;
+              }
+
+              if ($.inArray(code, val) > -1) {
+                F[i]();
+                e.preventDefault();
+                return false;
+              }
+            });
+          }
+        });
+      }
+
+      if ($.fn.mousewheel && current.mouseWheel) {
+        F.wrap.bind('mousewheel.fb', function (e, delta, deltaX, deltaY) {
+          var target = e.target || null,
+              parent = $(target),
+              canScroll = false;
+
+          while (parent.length) {
+            if (canScroll || parent.is('.fancybox-skin') || parent.is('.fancybox-wrap')) {
+              break;
+            }
+
+            canScroll = isScrollable(parent[0]);
+            parent = $(parent).parent();
+          }
+
+          if (delta !== 0 && !canScroll) {
+            if (F.group.length > 1 && !current.canShrink) {
+              if (deltaY > 0 || deltaX > 0) {
+                F.prev(deltaY > 0 ? 'down' : 'left');
+              } else if (deltaY < 0 || deltaX < 0) {
+                F.next(deltaY < 0 ? 'up' : 'right');
+              }
+
+              e.preventDefault();
+            }
+          }
+        });
+      }
+    },
+    trigger: function trigger(event, o) {
+      var ret,
+          obj = o || F.coming || F.current;
+
+      if (!obj) {
+        return;
+      }
+
+      if ($.isFunction(obj[event])) {
+        ret = obj[event].apply(obj, Array.prototype.slice.call(arguments, 1));
+      }
+
+      if (ret === false) {
+        return false;
+      }
+
+      if (obj.helpers) {
+        $.each(obj.helpers, function (helper, opts) {
+          if (opts && F.helpers[helper] && $.isFunction(F.helpers[helper][event])) {
+            F.helpers[helper][event]($.extend(true, {}, F.helpers[helper].defaults, opts), obj);
+          }
+        });
+      }
+
+      D.trigger(event);
+    },
+    isImage: function isImage(str) {
+      return isString(str) && str.match(/(^data:image\/.*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg)((\?|#).*)?$)/i);
+    },
+    isSWF: function isSWF(str) {
+      return isString(str) && str.match(/\.(swf)((\?|#).*)?$/i);
+    },
+    _start: function _start(index) {
+      var coming = {},
+          obj,
+          href,
+          type,
+          margin,
+          padding;
+      index = getScalar(index);
+      obj = F.group[index] || null;
+
+      if (!obj) {
+        return false;
+      }
+
+      coming = $.extend(true, {}, F.opts, obj); // Convert margin and padding properties to array - top, right, bottom, left
+
+      margin = coming.margin;
+      padding = coming.padding;
+
+      if ($.type(margin) === 'number') {
+        coming.margin = [margin, margin, margin, margin];
+      }
+
+      if ($.type(padding) === 'number') {
+        coming.padding = [padding, padding, padding, padding];
+      } // 'modal' propery is just a shortcut
+
+
+      if (coming.modal) {
+        $.extend(true, coming, {
+          closeBtn: false,
+          closeClick: false,
+          nextClick: false,
+          arrows: false,
+          mouseWheel: false,
+          keys: null,
+          helpers: {
+            overlay: {
+              closeClick: false
+            }
+          }
+        });
+      } // 'autoSize' property is a shortcut, too
+
+
+      if (coming.autoSize) {
+        coming.autoWidth = coming.autoHeight = true;
+      }
+
+      if (coming.width === 'auto') {
+        coming.autoWidth = true;
+      }
+
+      if (coming.height === 'auto') {
+        coming.autoHeight = true;
+      }
+      /*
+       * Add reference to the group, so it`s possible to access from callbacks, example:
+       * afterLoad : function() {
+       *     this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+       * }
+       */
+
+
+      coming.group = F.group;
+      coming.index = index; // Give a chance for callback or helpers to update coming item (type, title, etc)
+
+      F.coming = coming;
+
+      if (false === F.trigger('beforeLoad')) {
+        F.coming = null;
+        return;
+      }
+
+      type = coming.type;
+      href = coming.href;
+
+      if (!type) {
+        F.coming = null; //If we can not determine content type then drop silently or display next/prev item if looping through gallery
+
+        if (F.current && F.router && F.router !== 'jumpto') {
+          F.current.index = index;
+          return F[F.router](F.direction);
+        }
+
+        return false;
+      }
+
+      F.isActive = true;
+
+      if (type === 'image' || type === 'swf') {
+        coming.autoHeight = coming.autoWidth = false;
+        coming.scrolling = 'visible';
+      }
+
+      if (type === 'image') {
+        coming.aspectRatio = true;
+      }
+
+      if (type === 'iframe' && isTouch) {
+        coming.scrolling = 'scroll';
+      } // Build the neccessary markup
+
+
+      coming.wrap = $(coming.tpl.wrap).addClass('fancybox-' + (isTouch ? 'mobile' : 'desktop') + ' fancybox-type-' + type + ' fancybox-tmp ' + coming.wrapCSS).appendTo(coming.parent || 'body');
+      $.extend(coming, {
+        skin: $('.fancybox-skin', coming.wrap),
+        outer: $('.fancybox-outer', coming.wrap),
+        inner: $('.fancybox-inner', coming.wrap)
+      });
+      $.each(["Top", "Right", "Bottom", "Left"], function (i, v) {
+        coming.skin.css('padding' + v, getValue(coming.padding[i]));
+      });
+      F.trigger('onReady'); // Check before try to load; 'inline' and 'html' types need content, others - href
+
+      if (type === 'inline' || type === 'html') {
+        if (!coming.content || !coming.content.length) {
+          return F._error('content');
+        }
+      } else if (!href) {
+        return F._error('href');
+      }
+
+      if (type === 'image') {
+        F._loadImage();
+      } else if (type === 'ajax') {
+        F._loadAjax();
+      } else if (type === 'iframe') {
+        F._loadIframe();
+      } else {
+        F._afterLoad();
+      }
+    },
+    _error: function _error(type) {
+      $.extend(F.coming, {
+        type: 'html',
+        autoWidth: true,
+        autoHeight: true,
+        minWidth: 0,
+        minHeight: 0,
+        scrolling: 'no',
+        hasError: type,
+        content: F.coming.tpl.error
+      });
+
+      F._afterLoad();
+    },
+    _loadImage: function _loadImage() {
+      // Reset preload image so it is later possible to check "complete" property
+      var img = F.imgPreload = new Image();
+
+      img.onload = function () {
+        this.onload = this.onerror = null;
+        F.coming.width = this.width / F.opts.pixelRatio;
+        F.coming.height = this.height / F.opts.pixelRatio;
+
+        F._afterLoad();
+      };
+
+      img.onerror = function () {
+        this.onload = this.onerror = null;
+
+        F._error('image');
+      };
+
+      img.src = F.coming.href;
+
+      if (img.complete !== true) {
+        F.showLoading();
+      }
+    },
+    _loadAjax: function _loadAjax() {
+      var coming = F.coming;
+      F.showLoading();
+      F.ajaxLoad = $.ajax($.extend({}, coming.ajax, {
+        url: coming.href,
+        error: function error(jqXHR, textStatus) {
+          if (F.coming && textStatus !== 'abort') {
+            F._error('ajax', jqXHR);
+          } else {
+            F.hideLoading();
+          }
+        },
+        success: function success(data, textStatus) {
+          if (textStatus === 'success') {
+            coming.content = data;
+
+            F._afterLoad();
+          }
+        }
+      }));
+    },
+    _loadIframe: function _loadIframe() {
+      var coming = F.coming,
+          iframe = $(coming.tpl.iframe.replace(/\{rnd\}/g, new Date().getTime())).attr('scrolling', isTouch ? 'auto' : coming.iframe.scrolling).attr('src', coming.href); // This helps IE
+
+      $(coming.wrap).bind('onReset', function () {
+        try {
+          $(this).find('iframe').hide().attr('src', '//about:blank').end().empty();
+        } catch (e) {}
+      });
+
+      if (coming.iframe.preload) {
+        F.showLoading();
+        iframe.one('load', function () {
+          $(this).data('ready', 1); // iOS will lose scrolling if we resize
+
+          if (!isTouch) {
+            $(this).bind('load.fb', F.update);
+          } // Without this trick:
+          //   - iframe won't scroll on iOS devices
+          //   - IE7 sometimes displays empty iframe
+
+
+          $(this).parents('.fancybox-wrap').width('100%').removeClass('fancybox-tmp').show();
+
+          F._afterLoad();
+        });
+      }
+
+      coming.content = iframe.appendTo(coming.inner);
+
+      if (!coming.iframe.preload) {
+        F._afterLoad();
+      }
+    },
+    _preloadImages: function _preloadImages() {
+      var group = F.group,
+          current = F.current,
+          len = group.length,
+          cnt = current.preload ? Math.min(current.preload, len - 1) : 0,
+          item,
+          i;
+
+      for (i = 1; i <= cnt; i += 1) {
+        item = group[(current.index + i) % len];
+
+        if (item.type === 'image' && item.href) {
+          new Image().src = item.href;
+        }
+      }
+    },
+    _afterLoad: function _afterLoad() {
+      var coming = F.coming,
+          previous = F.current,
+          placeholder = 'fancybox-placeholder',
+          current,
+          content,
+          type,
+          scrolling,
+          href,
+          embed;
+      F.hideLoading();
+
+      if (!coming || F.isActive === false) {
+        return;
+      }
+
+      if (false === F.trigger('afterLoad', coming, previous)) {
+        coming.wrap.stop(true).trigger('onReset').remove();
+        F.coming = null;
+        return;
+      }
+
+      if (previous) {
+        F.trigger('beforeChange', previous);
+        previous.wrap.stop(true).removeClass('fancybox-opened').find('.fancybox-item, .fancybox-nav').remove();
+      }
+
+      F.unbindEvents();
+      current = coming;
+      content = coming.content;
+      type = coming.type;
+      scrolling = coming.scrolling;
+      $.extend(F, {
+        wrap: current.wrap,
+        skin: current.skin,
+        outer: current.outer,
+        inner: current.inner,
+        current: current,
+        previous: previous
+      });
+      href = current.href;
+
+      switch (type) {
+        case 'inline':
+        case 'ajax':
+        case 'html':
+          if (current.selector) {
+            content = $('<div>').html(content).find(current.selector);
+          } else if (isQuery(content)) {
+            if (!content.data(placeholder)) {
+              content.data(placeholder, $('<div class="' + placeholder + '"></div>').insertAfter(content).hide());
+            }
+
+            content = content.show().detach();
+            current.wrap.bind('onReset', function () {
+              if ($(this).find(content).length) {
+                content.hide().replaceAll(content.data(placeholder)).data(placeholder, false);
+              }
+            });
+          }
+
+          break;
+
+        case 'image':
+          content = current.tpl.image.replace('{href}', href);
+          break;
+
+        case 'swf':
+          content = '<object id="fancybox-swf" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%"><param name="movie" value="' + href + '"></param>';
+          embed = '';
+          $.each(current.swf, function (name, val) {
+            content += '<param name="' + name + '" value="' + val + '"></param>';
+            embed += ' ' + name + '="' + val + '"';
+          });
+          content += '<embed src="' + href + '" type="application/x-shockwave-flash" width="100%" height="100%"' + embed + '></embed></object>';
+          break;
+      }
+
+      if (!(isQuery(content) && content.parent().is(current.inner))) {
+        current.inner.append(content);
+      } // Give a chance for helpers or callbacks to update elements
+
+
+      F.trigger('beforeShow'); // Set scrolling before calculating dimensions
+
+      current.inner.css('overflow', scrolling === 'yes' ? 'scroll' : scrolling === 'no' ? 'hidden' : scrolling); // Set initial dimensions and start position
+
+      F._setDimension();
+
+      F.reposition();
+      F.isOpen = false;
+      F.coming = null;
+      F.bindEvents();
+
+      if (!F.isOpened) {
+        $('.fancybox-wrap').not(current.wrap).stop(true).trigger('onReset').remove();
+      } else if (previous.prevMethod) {
+        F.transitions[previous.prevMethod]();
+      }
+
+      F.transitions[F.isOpened ? current.nextMethod : current.openMethod]();
+
+      F._preloadImages();
+    },
+    _setDimension: function _setDimension() {
+      var viewport = F.getViewport(),
+          steps = 0,
+          canShrink = false,
+          canExpand = false,
+          wrap = F.wrap,
+          skin = F.skin,
+          inner = F.inner,
+          current = F.current,
+          width = current.width,
+          height = current.height,
+          minWidth = current.minWidth,
+          minHeight = current.minHeight,
+          maxWidth = current.maxWidth,
+          maxHeight = current.maxHeight,
+          scrolling = current.scrolling,
+          scrollOut = current.scrollOutside ? current.scrollbarWidth : 0,
+          margin = current.margin,
+          wMargin = getScalar(margin[1] + margin[3]),
+          hMargin = getScalar(margin[0] + margin[2]),
+          wPadding,
+          hPadding,
+          wSpace,
+          hSpace,
+          origWidth,
+          origHeight,
+          origMaxWidth,
+          origMaxHeight,
+          ratio,
+          width_,
+          height_,
+          maxWidth_,
+          maxHeight_,
+          iframe,
+          body; // Reset dimensions so we could re-check actual size
+
+      wrap.add(skin).add(inner).width('auto').height('auto').removeClass('fancybox-tmp');
+      wPadding = getScalar(skin.outerWidth(true) - skin.width());
+      hPadding = getScalar(skin.outerHeight(true) - skin.height()); // Any space between content and viewport (margin, padding, border, title)
+
+      wSpace = wMargin + wPadding;
+      hSpace = hMargin + hPadding;
+      origWidth = isPercentage(width) ? (viewport.w - wSpace) * getScalar(width) / 100 : width;
+      origHeight = isPercentage(height) ? (viewport.h - hSpace) * getScalar(height) / 100 : height;
+
+      if (current.type === 'iframe') {
+        iframe = current.content;
+
+        if (current.autoHeight && iframe.data('ready') === 1) {
+          try {
+            if (iframe[0].contentWindow.document.location) {
+              inner.width(origWidth).height(9999);
+              body = iframe.contents().find('body');
+
+              if (scrollOut) {
+                body.css('overflow-x', 'hidden');
+              }
+
+              origHeight = body.outerHeight(true);
+            }
+          } catch (e) {}
+        }
+      } else if (current.autoWidth || current.autoHeight) {
+        inner.addClass('fancybox-tmp'); // Set width or height in case we need to calculate only one dimension
+
+        if (!current.autoWidth) {
+          inner.width(origWidth);
+        }
+
+        if (!current.autoHeight) {
+          inner.height(origHeight);
+        }
+
+        if (current.autoWidth) {
+          origWidth = inner.width();
+        }
+
+        if (current.autoHeight) {
+          origHeight = inner.height();
+        }
+
+        inner.removeClass('fancybox-tmp');
+      }
+
+      width = getScalar(origWidth);
+      height = getScalar(origHeight);
+      ratio = origWidth / origHeight; // Calculations for the content
+
+      minWidth = getScalar(isPercentage(minWidth) ? getScalar(minWidth, 'w') - wSpace : minWidth);
+      maxWidth = getScalar(isPercentage(maxWidth) ? getScalar(maxWidth, 'w') - wSpace : maxWidth);
+      minHeight = getScalar(isPercentage(minHeight) ? getScalar(minHeight, 'h') - hSpace : minHeight);
+      maxHeight = getScalar(isPercentage(maxHeight) ? getScalar(maxHeight, 'h') - hSpace : maxHeight); // These will be used to determine if wrap can fit in the viewport
+
+      origMaxWidth = maxWidth;
+      origMaxHeight = maxHeight;
+
+      if (current.fitToView) {
+        maxWidth = Math.min(viewport.w - wSpace, maxWidth);
+        maxHeight = Math.min(viewport.h - hSpace, maxHeight);
+      }
+
+      maxWidth_ = viewport.w - wMargin;
+      maxHeight_ = viewport.h - hMargin;
+
+      if (current.aspectRatio) {
+        if (width > maxWidth) {
+          width = maxWidth;
+          height = getScalar(width / ratio);
+        }
+
+        if (height > maxHeight) {
+          height = maxHeight;
+          width = getScalar(height * ratio);
+        }
+
+        if (width < minWidth) {
+          width = minWidth;
+          height = getScalar(width / ratio);
+        }
+
+        if (height < minHeight) {
+          height = minHeight;
+          width = getScalar(height * ratio);
+        }
+      } else {
+        width = Math.max(minWidth, Math.min(width, maxWidth));
+
+        if (current.autoHeight && current.type !== 'iframe') {
+          inner.width(width);
+          height = inner.height();
+        }
+
+        height = Math.max(minHeight, Math.min(height, maxHeight));
+      } // Try to fit inside viewport (including the title)
+
+
+      if (current.fitToView) {
+        inner.width(width).height(height);
+        wrap.width(width + wPadding); // Real wrap dimensions
+
+        width_ = wrap.width();
+        height_ = wrap.height();
+
+        if (current.aspectRatio) {
+          while ((width_ > maxWidth_ || height_ > maxHeight_) && width > minWidth && height > minHeight) {
+            if (steps++ > 19) {
+              break;
+            }
+
+            height = Math.max(minHeight, Math.min(maxHeight, height - 10));
+            width = getScalar(height * ratio);
+
+            if (width < minWidth) {
+              width = minWidth;
+              height = getScalar(width / ratio);
+            }
+
+            if (width > maxWidth) {
+              width = maxWidth;
+              height = getScalar(width / ratio);
+            }
+
+            inner.width(width).height(height);
+            wrap.width(width + wPadding);
+            width_ = wrap.width();
+            height_ = wrap.height();
+          }
+        } else {
+          width = Math.max(minWidth, Math.min(width, width - (width_ - maxWidth_)));
+          height = Math.max(minHeight, Math.min(height, height - (height_ - maxHeight_)));
+        }
+      }
+
+      if (scrollOut && scrolling === 'auto' && height < origHeight && width + wPadding + scrollOut < maxWidth_) {
+        width += scrollOut;
+      }
+
+      inner.width(width).height(height);
+      wrap.width(width + wPadding);
+      width_ = wrap.width();
+      height_ = wrap.height();
+      canShrink = (width_ > maxWidth_ || height_ > maxHeight_) && width > minWidth && height > minHeight;
+      canExpand = current.aspectRatio ? width < origMaxWidth && height < origMaxHeight && width < origWidth && height < origHeight : (width < origMaxWidth || height < origMaxHeight) && (width < origWidth || height < origHeight);
+      $.extend(current, {
+        dim: {
+          width: getValue(width_),
+          height: getValue(height_)
+        },
+        origWidth: origWidth,
+        origHeight: origHeight,
+        canShrink: canShrink,
+        canExpand: canExpand,
+        wPadding: wPadding,
+        hPadding: hPadding,
+        wrapSpace: height_ - skin.outerHeight(true),
+        skinSpace: skin.height() - height
+      });
+
+      if (!iframe && current.autoHeight && height > minHeight && height < maxHeight && !canExpand) {
+        inner.height('auto');
+      }
+    },
+    _getPosition: function _getPosition(onlyAbsolute) {
+      var current = F.current,
+          viewport = F.getViewport(),
+          margin = current.margin,
+          width = F.wrap.width() + margin[1] + margin[3],
+          height = F.wrap.height() + margin[0] + margin[2],
+          rez = {
+        position: 'absolute',
+        top: margin[0],
+        left: margin[3]
+      };
+
+      if (current.autoCenter && current.fixed && !onlyAbsolute && height <= viewport.h && width <= viewport.w) {
+        rez.position = 'fixed';
+      } else if (!current.locked) {
+        rez.top += viewport.y;
+        rez.left += viewport.x;
+      }
+
+      rez.top = getValue(Math.max(rez.top, rez.top + (viewport.h - height) * current.topRatio));
+      rez.left = getValue(Math.max(rez.left, rez.left + (viewport.w - width) * current.leftRatio));
+      return rez;
+    },
+    _afterZoomIn: function _afterZoomIn() {
+      var current = F.current;
+
+      if (!current) {
+        return;
+      }
+
+      F.isOpen = F.isOpened = true;
+      F.wrap.css('overflow', 'visible').addClass('fancybox-opened');
+      F.update(); // Assign a click event
+
+      if (current.closeClick || current.nextClick && F.group.length > 1) {
+        F.inner.css('cursor', 'pointer').bind('click.fb', function (e) {
+          if (!$(e.target).is('a') && !$(e.target).parent().is('a')) {
+            e.preventDefault();
+            F[current.closeClick ? 'close' : 'next']();
+          }
+        });
+      } // Create a close button
+
+
+      if (current.closeBtn) {
+        $(current.tpl.closeBtn).appendTo(F.skin).bind('click.fb', function (e) {
+          e.preventDefault();
+          F.close();
+        });
+      } // Create navigation arrows
+
+
+      if (current.arrows && F.group.length > 1) {
+        if (current.loop || current.index > 0) {
+          $(current.tpl.prev).appendTo(F.outer).bind('click.fb', F.prev);
+        }
+
+        if (current.loop || current.index < F.group.length - 1) {
+          $(current.tpl.next).appendTo(F.outer).bind('click.fb', F.next);
+        }
+      }
+
+      F.trigger('afterShow'); // Stop the slideshow if this is the last item
+
+      if (!current.loop && current.index === current.group.length - 1) {
+        F.play(false);
+      } else if (F.opts.autoPlay && !F.player.isActive) {
+        F.opts.autoPlay = false;
+        F.play();
+      }
+    },
+    _afterZoomOut: function _afterZoomOut(obj) {
+      obj = obj || F.current;
+      $('.fancybox-wrap').trigger('onReset').remove();
+      $.extend(F, {
+        group: {},
+        opts: {},
+        router: false,
+        current: null,
+        isActive: false,
+        isOpened: false,
+        isOpen: false,
+        isClosing: false,
+        wrap: null,
+        skin: null,
+        outer: null,
+        inner: null
+      });
+      F.trigger('afterClose', obj);
+    }
+  });
+  /*
+   *	Default transitions
+   */
+
+  F.transitions = {
+    getOrigPosition: function getOrigPosition() {
+      var current = F.current,
+          element = current.element,
+          orig = current.orig,
+          pos = {},
+          width = 50,
+          height = 50,
+          hPadding = current.hPadding,
+          wPadding = current.wPadding,
+          viewport = F.getViewport();
+
+      if (!orig && current.isDom && element.is(':visible')) {
+        orig = element.find('img:first');
+
+        if (!orig.length) {
+          orig = element;
+        }
+      }
+
+      if (isQuery(orig)) {
+        pos = orig.offset();
+
+        if (orig.is('img')) {
+          width = orig.outerWidth();
+          height = orig.outerHeight();
+        }
+      } else {
+        pos.top = viewport.y + (viewport.h - height) * current.topRatio;
+        pos.left = viewport.x + (viewport.w - width) * current.leftRatio;
+      }
+
+      if (F.wrap.css('position') === 'fixed' || current.locked) {
+        pos.top -= viewport.y;
+        pos.left -= viewport.x;
+      }
+
+      pos = {
+        top: getValue(pos.top - hPadding * current.topRatio),
+        left: getValue(pos.left - wPadding * current.leftRatio),
+        width: getValue(width + wPadding),
+        height: getValue(height + hPadding)
+      };
+      return pos;
+    },
+    step: function step(now, fx) {
+      var ratio,
+          padding,
+          value,
+          prop = fx.prop,
+          current = F.current,
+          wrapSpace = current.wrapSpace,
+          skinSpace = current.skinSpace;
+
+      if (prop === 'width' || prop === 'height') {
+        ratio = fx.end === fx.start ? 1 : (now - fx.start) / (fx.end - fx.start);
+
+        if (F.isClosing) {
+          ratio = 1 - ratio;
+        }
+
+        padding = prop === 'width' ? current.wPadding : current.hPadding;
+        value = now - padding;
+        F.skin[prop](getScalar(prop === 'width' ? value : value - wrapSpace * ratio));
+        F.inner[prop](getScalar(prop === 'width' ? value : value - wrapSpace * ratio - skinSpace * ratio));
+      }
+    },
+    zoomIn: function zoomIn() {
+      var current = F.current,
+          startPos = current.pos,
+          effect = current.openEffect,
+          elastic = effect === 'elastic',
+          endPos = $.extend({
+        opacity: 1
+      }, startPos); // Remove "position" property that breaks older IE
+
+      delete endPos.position;
+
+      if (elastic) {
+        startPos = this.getOrigPosition();
+
+        if (current.openOpacity) {
+          startPos.opacity = 0.1;
+        }
+      } else if (effect === 'fade') {
+        startPos.opacity = 0.1;
+      }
+
+      F.wrap.css(startPos).animate(endPos, {
+        duration: effect === 'none' ? 0 : current.openSpeed,
+        easing: current.openEasing,
+        step: elastic ? this.step : null,
+        complete: F._afterZoomIn
+      });
+    },
+    zoomOut: function zoomOut() {
+      var current = F.current,
+          effect = current.closeEffect,
+          elastic = effect === 'elastic',
+          endPos = {
+        opacity: 0.1
+      };
+
+      if (elastic) {
+        endPos = this.getOrigPosition();
+
+        if (current.closeOpacity) {
+          endPos.opacity = 0.1;
+        }
+      }
+
+      F.wrap.animate(endPos, {
+        duration: effect === 'none' ? 0 : current.closeSpeed,
+        easing: current.closeEasing,
+        step: elastic ? this.step : null,
+        complete: F._afterZoomOut
+      });
+    },
+    changeIn: function changeIn() {
+      var current = F.current,
+          effect = current.nextEffect,
+          startPos = current.pos,
+          endPos = {
+        opacity: 1
+      },
+          direction = F.direction,
+          distance = 200,
+          field;
+      startPos.opacity = 0.1;
+
+      if (effect === 'elastic') {
+        field = direction === 'down' || direction === 'up' ? 'top' : 'left';
+
+        if (direction === 'down' || direction === 'right') {
+          startPos[field] = getValue(getScalar(startPos[field]) - distance);
+          endPos[field] = '+=' + distance + 'px';
+        } else {
+          startPos[field] = getValue(getScalar(startPos[field]) + distance);
+          endPos[field] = '-=' + distance + 'px';
+        }
+      } // Workaround for http://bugs.jquery.com/ticket/12273
+
+
+      if (effect === 'none') {
+        F._afterZoomIn();
+      } else {
+        F.wrap.css(startPos).animate(endPos, {
+          duration: current.nextSpeed,
+          easing: current.nextEasing,
+          complete: F._afterZoomIn
+        });
+      }
+    },
+    changeOut: function changeOut() {
+      var previous = F.previous,
+          effect = previous.prevEffect,
+          endPos = {
+        opacity: 0.1
+      },
+          direction = F.direction,
+          distance = 200;
+
+      if (effect === 'elastic') {
+        endPos[direction === 'down' || direction === 'up' ? 'top' : 'left'] = (direction === 'up' || direction === 'left' ? '-' : '+') + '=' + distance + 'px';
+      }
+
+      previous.wrap.animate(endPos, {
+        duration: effect === 'none' ? 0 : previous.prevSpeed,
+        easing: previous.prevEasing,
+        complete: function complete() {
+          $(this).trigger('onReset').remove();
+        }
+      });
+    }
+  };
+  /*
+   *	Overlay helper
+   */
+
+  F.helpers.overlay = {
+    defaults: {
+      closeClick: true,
+      // if true, fancyBox will be closed when user clicks on the overlay
+      speedOut: 200,
+      // duration of fadeOut animation
+      showEarly: true,
+      // indicates if should be opened immediately or wait until the content is ready
+      css: {},
+      // custom CSS properties
+      locked: !isTouch,
+      // if true, the content will be locked into overlay
+      fixed: true // if false, the overlay CSS position property will not be set to "fixed"
+
+    },
+    overlay: null,
+    // current handle
+    fixed: false,
+    // indicates if the overlay has position "fixed"
+    el: $('html'),
+    // element that contains "the lock"
+    // Public methods
+    create: function create(opts) {
+      opts = $.extend({}, this.defaults, opts);
+
+      if (this.overlay) {
+        this.close();
+      }
+
+      this.overlay = $('<div class="fancybox-overlay"></div>').appendTo(F.coming ? F.coming.parent : opts.parent);
+      this.fixed = false;
+
+      if (opts.fixed && F.defaults.fixed) {
+        this.overlay.addClass('fancybox-overlay-fixed');
+        this.fixed = true;
+      }
+    },
+    open: function open(opts) {
+      var that = this;
+      opts = $.extend({}, this.defaults, opts);
+
+      if (this.overlay) {
+        this.overlay.unbind('.overlay').width('auto').height('auto');
+      } else {
+        this.create(opts);
+      }
+
+      if (!this.fixed) {
+        W.bind('resize.overlay', $.proxy(this.update, this));
+        this.update();
+      }
+
+      if (opts.closeClick) {
+        this.overlay.bind('click.overlay', function (e) {
+          if ($(e.target).hasClass('fancybox-overlay')) {
+            if (F.isActive) {
+              F.close();
+            } else {
+              that.close();
+            }
+
+            return false;
+          }
+        });
+      }
+
+      this.overlay.css(opts.css).show();
+    },
+    close: function close() {
+      var scrollV, scrollH;
+      W.unbind('resize.overlay');
+
+      if (this.el.hasClass('fancybox-lock')) {
+        $('.fancybox-margin').removeClass('fancybox-margin');
+        scrollV = W.scrollTop();
+        scrollH = W.scrollLeft();
+        this.el.removeClass('fancybox-lock');
+        W.scrollTop(scrollV).scrollLeft(scrollH);
+      }
+
+      $('.fancybox-overlay').remove().hide();
+      $.extend(this, {
+        overlay: null,
+        fixed: false
+      });
+    },
+    // Private, callbacks
+    update: function update() {
+      var width = '100%',
+          offsetWidth; // Reset width/height so it will not mess
+
+      this.overlay.width(width).height('100%'); // jQuery does not return reliable result for IE
+
+      if (IE) {
+        offsetWidth = Math.max(document.documentElement.offsetWidth, document.body.offsetWidth);
+
+        if (D.width() > offsetWidth) {
+          width = D.width();
+        }
+      } else if (D.width() > W.width()) {
+        width = D.width();
+      }
+
+      this.overlay.width(width).height(D.height());
+    },
+    // This is where we can manipulate DOM, because later it would cause iframes to reload
+    onReady: function onReady(opts, obj) {
+      var overlay = this.overlay;
+      $('.fancybox-overlay').stop(true, true);
+
+      if (!overlay) {
+        this.create(opts);
+      }
+
+      if (opts.locked && this.fixed && obj.fixed) {
+        if (!overlay) {
+          this.margin = D.height() > W.height() ? $('html').css('margin-right').replace("px", "") : false;
+        }
+
+        obj.locked = this.overlay.append(obj.wrap);
+        obj.fixed = false;
+      }
+
+      if (opts.showEarly === true) {
+        this.beforeShow.apply(this, arguments);
+      }
+    },
+    beforeShow: function beforeShow(opts, obj) {
+      var scrollV, scrollH;
+
+      if (obj.locked) {
+        if (this.margin !== false) {
+          $('*').filter(function () {
+            return $(this).css('position') === 'fixed' && !$(this).hasClass("fancybox-overlay") && !$(this).hasClass("fancybox-wrap");
+          }).addClass('fancybox-margin');
+          this.el.addClass('fancybox-margin');
+        }
+
+        scrollV = W.scrollTop();
+        scrollH = W.scrollLeft();
+        this.el.addClass('fancybox-lock');
+        W.scrollTop(scrollV).scrollLeft(scrollH);
+      }
+
+      this.open(opts);
+    },
+    onUpdate: function onUpdate() {
+      if (!this.fixed) {
+        this.update();
+      }
+    },
+    afterClose: function afterClose(opts) {
+      // Remove overlay if exists and fancyBox is not opening
+      // (e.g., it is not being open using afterClose callback)
+      //if (this.overlay && !F.isActive) {
+      if (this.overlay && !F.coming) {
+        this.overlay.fadeOut(opts.speedOut, $.proxy(this.close, this));
+      }
+    }
+  };
+  /*
+   *	Title helper
+   */
+
+  F.helpers.title = {
+    defaults: {
+      type: 'float',
+      // 'float', 'inside', 'outside' or 'over',
+      position: 'bottom' // 'top' or 'bottom'
+
+    },
+    beforeShow: function beforeShow(opts) {
+      var current = F.current,
+          text = current.title,
+          type = opts.type,
+          title,
+          target;
+
+      if ($.isFunction(text)) {
+        text = text.call(current.element, current);
+      }
+
+      if (!isString(text) || $.trim(text) === '') {
+        return;
+      }
+
+      title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + text + '</div>');
+
+      switch (type) {
+        case 'inside':
+          target = F.skin;
+          break;
+
+        case 'outside':
+          target = F.wrap;
+          break;
+
+        case 'over':
+          target = F.inner;
+          break;
+
+        default:
+          // 'float'
+          target = F.skin;
+          title.appendTo('body');
+
+          if (IE) {
+            title.width(title.width());
+          }
+
+          title.wrapInner('<span class="child"></span>'); //Increase bottom margin so this title will also fit into viewport
+
+          F.current.margin[2] += Math.abs(getScalar(title.css('margin-bottom')));
+          break;
+      }
+
+      title[opts.position === 'top' ? 'prependTo' : 'appendTo'](target);
+    }
+  }; // jQuery plugin initialization
+
+  $.fn.fancybox = function (options) {
+    var index,
+        that = $(this),
+        selector = this.selector || '',
+        run = function run(e) {
+      var what = $(this).blur(),
+          idx = index,
+          relType,
+          relVal;
+
+      if (!(e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) && !what.is('.fancybox-wrap')) {
+        relType = options.groupAttr || 'data-fancybox-group';
+        relVal = what.attr(relType);
+
+        if (!relVal) {
+          relType = 'rel';
+          relVal = what.get(0)[relType];
+        }
+
+        if (relVal && relVal !== '' && relVal !== 'nofollow') {
+          what = selector.length ? $(selector) : that;
+          what = what.filter('[' + relType + '="' + relVal + '"]');
+          idx = what.index(this);
+        }
+
+        options.index = idx; // Stop an event from bubbling if everything is fine
+
+        if (F.open(what, options) !== false) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    options = options || {};
+    index = options.index || 0;
+
+    if (!selector || options.live === false) {
+      that.unbind('click.fb-start').bind('click.fb-start', run);
+    } else {
+      D.undelegate(selector, 'click.fb-start').delegate(selector + ":not('.fancybox-item, .fancybox-nav')", 'click.fb-start', run);
+    }
+
+    this.filter('[data-fancybox-start=1]').trigger('click');
+    return this;
+  }; // Tests that need a body at doc ready
+
+
+  D.ready(function () {
+    var w1, w2;
+
+    if ($.scrollbarWidth === undefined) {
+      // http://benalman.com/projects/jquery-misc-plugins/#scrollbarwidth
+      $.scrollbarWidth = function () {
+        var parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo('body'),
+            child = parent.children(),
+            width = child.innerWidth() - child.height(99).innerWidth();
+        parent.remove();
+        return width;
+      };
+    }
+
+    if ($.support.fixedPosition === undefined) {
+      $.support.fixedPosition = function () {
+        var elem = $('<div style="position:fixed;top:20px;"></div>').appendTo('body'),
+            fixed = elem[0].offsetTop === 20 || elem[0].offsetTop === 15;
+        elem.remove();
+        return fixed;
+      }();
+    }
+
+    $.extend(F.defaults, {
+      scrollbarWidth: $.scrollbarWidth(),
+      fixed: $.support.fixedPosition,
+      parent: $('body')
+    }); //Get real width of page scroll-bar
+
+    w1 = $(window).width();
+    H.addClass('fancybox-lock-test');
+    w2 = $(window).width();
+    H.removeClass('fancybox-lock-test');
+    $("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
+  });
+})(window, document, jQuery);
 
 /***/ }),
 
@@ -2053,6 +3915,593 @@ $(document).ready(function () {
 Credits:
 https://github.com/marcaube/bootstrap-magnify
 */
+
+/***/ }),
+
+/***/ "./resources/js/frontend/setup.js":
+/*!****************************************!*\
+  !*** ./resources/js/frontend/setup.js ***!
+  \****************************************/
+/***/ (() => {
+
+(function ($) {
+  $(document).ready(function () {
+    $('.xzoom4, .xzoom-gallery4').xzoom({
+      tint: '#006699',
+      Xoffset: 15
+    }); //Integration with hammer.js
+
+    var isTouchSupported = ('ontouchstart' in window);
+
+    if (isTouchSupported) {
+      //If touch device
+      $('.xzoom4').each(function () {
+        var xzoom = $(this).data('xzoom');
+        xzoom.eventunbind();
+      });
+      $('.xzoom4').each(function () {
+        var xzoom = $(this).data('xzoom');
+        $(this).hammer().on("tap", function (event) {
+          event.pageX = event.gesture.center.pageX;
+          event.pageY = event.gesture.center.pageY;
+          var s = 1,
+              ls;
+
+          xzoom.eventmove = function (element) {
+            element.hammer().on('drag', function (event) {
+              event.pageX = event.gesture.center.pageX;
+              event.pageY = event.gesture.center.pageY;
+              xzoom.movezoom(event);
+              event.gesture.preventDefault();
+            });
+          };
+
+          var counter = 0;
+
+          xzoom.eventclick = function (element) {
+            element.hammer().on('tap', function () {
+              counter++;
+              if (counter == 1) setTimeout(openfancy, 300);
+              event.gesture.preventDefault();
+            });
+          };
+
+          function openfancy() {
+            if (counter == 2) {
+              xzoom.closezoom();
+              $.fancybox.open(xzoom.gallery().cgallery);
+            } else {
+              xzoom.closezoom();
+            }
+
+            counter = 0;
+          }
+
+          xzoom.openzoom(event);
+        });
+      });
+    } else {
+      //If not touch device
+      //Integration with fancybox plugin
+      $('.xzoom4').bind('click', function (event) {
+        var xzoom = $(this).data('xzoom');
+        xzoom.closezoom();
+        $.fancybox.open(xzoom.gallery().cgallery, {
+          padding: 0,
+          helpers: {
+            overlay: {
+              locked: false
+            }
+          }
+        });
+        event.preventDefault();
+      });
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./resources/js/frontend/xzoom.min.js":
+/*!********************************************!*\
+  !*** ./resources/js/frontend/xzoom.min.js ***!
+  \********************************************/
+/***/ (() => {
+
+/*!-----------------------------------------------------
+ * xZoom v1.0.15
+ * (c) 2013 by Azat Ahmedov & Elman Guseynov
+ * https://github.com/payalord
+ * https://dribbble.com/elmanvebs
+ * Apache License 2.0
+ *------------------------------------------------------*/
+function detect_old_ie() {
+  if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+    var o = new Number(RegExp.$1);
+    return !(9 <= o) && (8 <= o || 7 <= o || 6 <= o || 5 <= o || void 0);
+  }
+
+  return !1;
+}
+
+window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (o) {
+  window.setTimeout(o, 20);
+}, function (Ao) {
+  function n(s, o) {
+    this.xzoom = !0;
+
+    var t,
+        a,
+        p,
+        l,
+        r,
+        e,
+        n,
+        d,
+        i,
+        c,
+        h,
+        f,
+        u,
+        v,
+        m,
+        g,
+        w,
+        x,
+        b,
+        z,
+        y,
+        C,
+        k,
+        O,
+        M,
+        A,
+        S,
+        H,
+        W,
+        F,
+        I,
+        T,
+        X,
+        Y,
+        R,
+        q,
+        E,
+        L,
+        D,
+        Z,
+        _,
+        j,
+        N,
+        Q,
+        $,
+        B,
+        G,
+        J,
+        K,
+        P,
+        U,
+        V = this,
+        oo = {},
+        to = (new Array(), new Array()),
+        eo = 0,
+        io = 0,
+        so = 0,
+        no = 0,
+        ao = 0,
+        po = 0,
+        lo = 0,
+        ro = 0,
+        co = 0,
+        ho = 0,
+        fo = 0,
+        uo = 0,
+        vo = 0,
+        mo = detect_old_ie(),
+        go = /MSIE (\d+\.\d+);/.test(navigator.userAgent),
+        wo = "";
+
+    function xo() {
+      var o = document.documentElement;
+      return {
+        left: (window.pageXOffset || o.scrollLeft) - (o.clientLeft || 0),
+        top: (window.pageYOffset || o.scrollTop) - (o.clientTop || 0)
+      };
+    }
+
+    function bo() {
+      var o;
+      "circle" == V.options.lensShape && "lens" == V.options.position && (o = ((M = A = Math.max(M, A)) + 2 * Math.max(F, W)) / 2, k.css({
+        "-moz-border-radius": o,
+        "-webkit-border-radius": o,
+        "border-radius": o
+      }));
+    }
+
+    function zo(o, t, e, i) {
+      "lens" == V.options.position ? (C.css({
+        top: -(t - n) * T + A / 2,
+        left: -(o - d) * I + M / 2
+      }), V.options.bg && (k.css({
+        "background-image": "url(" + C.attr("src") + ")",
+        "background-repeat": "no-repeat",
+        "background-position": -(o - d) * I + M / 2 + "px " + (-(t - n) * T + A / 2) + "px"
+      }), e && i && k.css({
+        "background-size": e + "px " + i + "px"
+      }))) : C.css({
+        top: -H * T,
+        left: -S * I
+      });
+    }
+
+    function yo(o, t) {
+      var e, i;
+      1 < (so = so < -1 ? -1 : so) && (so = 1), X < Y ? i = (e = l * (X - (X - 1) * so)) / R : e = (i = r * (Y - (Y - 1) * so)) * R, L ? (no = o, ao = t, po = e, lo = i) : (L || (ro = po = e, co = lo = i), M = l / (I = e / a), A = r / (T = i / p), bo(), ko(o, t), C.width(e), C.height(i), k.width(M), k.height(A), k.css({
+        top: H - F,
+        left: S - W
+      }), O.css({
+        top: -H,
+        left: -S
+      }), zo(o, t, e, i));
+    }
+
+    function Co() {
+      var o = ho,
+          t = fo,
+          e = uo,
+          i = vo,
+          s = ro,
+          n = co;
+      o += (no - o) / V.options.smoothLensMove, t += (ao - t) / V.options.smoothLensMove, e += (no - e) / V.options.smoothZoomMove, i += (ao - i) / V.options.smoothZoomMove, s += (po - s) / V.options.smoothScale, n += (lo - n) / V.options.smoothScale, M = l / (I = s / a), A = r / (T = n / p), bo(), ko(o, t), C.width(s), C.height(n), k.width(M), k.height(A), k.css({
+        top: H - F,
+        left: S - W
+      }), O.css({
+        top: -H,
+        left: -S
+      }), ko(e, i), zo(o, t, s, n), ho = o, fo = t, uo = e, vo = i, ro = s, co = n, L && requestAnimFrame(Co);
+    }
+
+    function ko(o, t) {
+      S = (o -= d) - M / 2, H = (t -= n) - A / 2, "lens" != V.options.position && V.options.lensCollision && (S < 0 && (S = 0), M <= a && a - M < S && (S = a - M), a < M && (S = a / 2 - M / 2), H < 0 && (H = 0), A <= p && p - A < H && (H = p - A), p < A && (H = p / 2 - A / 2));
+    }
+
+    function Oo() {
+      void 0 !== m && m.remove(), void 0 !== w && w.remove(), void 0 !== N && N.remove();
+    }
+
+    function Mo(o) {
+      var t = o.attr("title"),
+          o = o.attr("xtitle");
+      return o || t || "";
+    }
+
+    this.adaptive = function () {
+      0 != B && 0 != G || (s.css("width", ""), s.css("height", ""), B = s.width(), G = s.height()), Oo(), Q = Ao(window).width(), $ = Ao(window).height(), J = s.width(), K = s.height(), B < J && (J = B), G < K && (K = G), (Q < B || $ < G ? !0 : !1) ? s.width("100%") : 0 != B && s.width(B), "fullscreen" != P && (!function () {
+        var o = s.offset();
+        l = "auto" == V.options.zoomWidth ? J : V.options.zoomWidth;
+        r = "auto" == V.options.zoomHeight ? K : V.options.zoomHeight;
+        "#" == V.options.position.substr(0, 1) ? oo = Ao(V.options.position) : oo.length = 0;
+        if (0 != oo.length) return !0;
+
+        switch (P) {
+          case "lens":
+          case "inside":
+            return !0;
+
+          case "top":
+            n = o.top, d = o.left, i = n - r, c = d;
+            break;
+
+          case "left":
+            n = o.top, d = o.left, i = n, c = d - l;
+            break;
+
+          case "bottom":
+            n = o.top, d = o.left, i = n + K, c = d;
+            break;
+
+          case "right":
+          default:
+            n = o.top, d = o.left, i = n, c = d + J;
+        }
+
+        return !(Q < c + l || c < 0);
+      }() ? V.options.position = V.options.mposition : V.options.position = P), V.options.lensReverse || (U = V.options.adaptiveReverse && V.options.position == V.options.mposition);
+    }, this.xscroll = function (o) {
+      var t, e;
+      u = o.pageX || o.originalEvent.pageX, v = o.pageY || o.originalEvent.pageY, o.preventDefault(), o.xscale ? (so = o.xscale, yo(u, v)) : (t = -o.originalEvent.detail || o.originalEvent.wheelDelta || o.xdelta, e = u, o = v, mo && (e = D, o = Z), so += t = 0 < t ? -.05 : .05, yo(e, o));
+    }, this.openzoom = function (o) {
+      switch (u = o.pageX, v = o.pageY, V.options.adaptive && V.adaptive(), so = V.options.defaultScale, L = !1, m = Ao("<div></div>"), "" != V.options.sourceClass && m.addClass(V.options.sourceClass), m.css("position", "absolute"), x = Ao("<div></div>"), "" != V.options.loadingClass && x.addClass(V.options.loadingClass), x.css("position", "absolute"), g = Ao('<div style="position: absolute; top: 0; left: 0;"></div>'), m.append(x), w = Ao("<div></div>"), "" != V.options.zoomClass && "fullscreen" != V.options.position && w.addClass(V.options.zoomClass), w.css({
+        position: "absolute",
+        overflow: "hidden",
+        opacity: 1
+      }), V.options.title && "" != wo && (N = Ao("<div></div>"), j = Ao("<div></div>"), N.css({
+        position: "absolute",
+        opacity: 1
+      }), V.options.titleClass && j.addClass(V.options.titleClass), j.html("<span>" + wo + "</span>"), N.append(j), V.options.fadeIn && N.css({
+        opacity: 0
+      })), k = Ao("<div></div>"), "" != V.options.lensClass && k.addClass(V.options.lensClass), k.css({
+        position: "absolute",
+        overflow: "hidden"
+      }), V.options.lens && (lenstint = Ao("<div></div>"), lenstint.css({
+        position: "absolute",
+        background: V.options.lens,
+        opacity: V.options.lensOpacity,
+        width: "100%",
+        height: "100%",
+        top: 0,
+        left: 0,
+        "z-index": 9999
+      }), k.append(lenstint)), function () {
+        switch (p = "fullscreen" == V.options.position ? (a = Ao(window).width(), Ao(window).height()) : (a = s.width(), s.height()), x.css({
+          top: p / 2 - x.height() / 2,
+          left: a / 2 - x.width() / 2
+        }), (e = V.options.rootOutput || "fullscreen" == V.options.position ? s.offset() : s.position()).top = Math.round(e.top), e.left = Math.round(e.left), V.options.position) {
+          case "fullscreen":
+            n = xo().top, d = xo().left, c = i = 0;
+            break;
+
+          case "inside":
+            n = e.top, d = e.left, c = i = 0;
+            break;
+
+          case "top":
+            n = e.top, d = e.left, i = n - r, c = d;
+            break;
+
+          case "left":
+            n = e.top, d = e.left, i = n, c = d - l;
+            break;
+
+          case "bottom":
+            n = e.top, d = e.left, i = n + p, c = d;
+            break;
+
+          case "right":
+          default:
+            n = e.top, d = e.left, i = n, c = d + a;
+        }
+
+        n -= m.outerHeight() / 2, d -= m.outerWidth() / 2, "#" == V.options.position.substr(0, 1) ? oo = Ao(V.options.position) : oo.length = 0, 0 == oo.length && "inside" != V.options.position && "fullscreen" != V.options.position ? (V.options.adaptive && B && G || (B = a, G = p), l = "auto" == V.options.zoomWidth ? a : V.options.zoomWidth, r = "auto" == V.options.zoomHeight ? p : V.options.zoomHeight, i += V.options.Yoffset, c += V.options.Xoffset, w.css({
+          width: l + "px",
+          height: r + "px",
+          top: i,
+          left: c
+        }), "lens" != V.options.position && t.append(w)) : "inside" == V.options.position || "fullscreen" == V.options.position ? (l = a, r = p, w.css({
+          width: l + "px",
+          height: r + "px"
+        }), m.append(w)) : (l = oo.width(), r = oo.height(), V.options.rootOutput ? (i = oo.offset().top, c = oo.offset().left, t.append(w)) : (i = oo.position().top, c = oo.position().left, oo.parent().append(w)), i += (oo.outerHeight() - r - w.outerHeight()) / 2, c += (oo.outerWidth() - l - w.outerWidth()) / 2, w.css({
+          width: l + "px",
+          height: r + "px",
+          top: i,
+          left: c
+        })), V.options.title && "" != wo && ("inside" == V.options.position || "lens" == V.options.position || "fullscreen" == V.options.position ? (h = i, f = c, m.append(N)) : (h = i + (w.outerHeight() - r) / 2, f = c + (w.outerWidth() - l) / 2, t.append(N)), N.css({
+          width: l + "px",
+          height: r + "px",
+          top: h,
+          left: f
+        })), m.css({
+          width: a + "px",
+          height: p + "px",
+          top: n,
+          left: d
+        }), g.css({
+          width: a + "px",
+          height: p + "px"
+        }), V.options.tint && "inside" != V.options.position && "fullscreen" != V.options.position ? g.css("background-color", V.options.tint) : mo && g.css({
+          "background-image": "url(" + s.attr("src") + ")",
+          "background-color": "#fff"
+        }), y = new Image();
+        var o = "";
+
+        switch (go && (o = "?r=" + new Date().getTime()), y.src = s.attr("xoriginal") + o, (C = Ao(y)).css("position", "absolute"), (y = new Image()).src = s.attr("src"), (O = Ao(y)).css("position", "absolute"), O.width(a), V.options.position) {
+          case "fullscreen":
+          case "inside":
+            w.append(C);
+            break;
+
+          case "lens":
+            k.append(C), V.options.bg && C.css({
+              display: "none"
+            });
+            break;
+
+          default:
+            w.append(C), k.append(O);
+        }
+      }(), "inside" != V.options.position && "fullscreen" != V.options.position ? ((V.options.tint || mo) && m.append(g), V.options.fadeIn && (g.css({
+        opacity: 0
+      }), k.css({
+        opacity: 0
+      }), w.css({
+        opacity: 0
+      }))) : V.options.fadeIn && w.css({
+        opacity: 0
+      }), t.append(m), V.eventmove(m), V.eventleave(m), V.options.position) {
+        case "inside":
+          i -= (w.outerHeight() - w.height()) / 2, c -= (w.outerWidth() - w.width()) / 2;
+          break;
+
+        case "top":
+          i -= w.outerHeight() - w.height(), c -= (w.outerWidth() - w.width()) / 2;
+          break;
+
+        case "left":
+          i -= (w.outerHeight() - w.height()) / 2, c -= w.outerWidth() - w.width();
+          break;
+
+        case "bottom":
+          c -= (w.outerWidth() - w.width()) / 2;
+          break;
+
+        case "right":
+          i -= (w.outerHeight() - w.height()) / 2;
+      }
+
+      w.css({
+        top: i,
+        left: c
+      }), C.xon("load", function (o) {
+        if (x.remove(), !V.options.openOnSmall && (C.width() < l || C.height() < r)) return V.closezoom(), o.preventDefault(), !1;
+        V.options.scroll && V.eventscroll(m), "inside" != V.options.position && "fullscreen" != V.options.position ? (m.append(k), V.options.fadeIn ? (g.fadeTo(300, V.options.tintOpacity), k.fadeTo(300, 1), w.fadeTo(300, 1)) : (g.css({
+          opacity: V.options.tintOpacity
+        }), k.css({
+          opacity: 1
+        }), w.css({
+          opacity: 1
+        }))) : V.options.fadeIn ? w.fadeTo(300, 1) : w.css({
+          opacity: 1
+        }), V.options.title && "" != wo && (V.options.fadeIn ? N.fadeTo(300, 1) : N.css({
+          opacity: 1
+        })), q = C.width(), E = C.height(), V.options.adaptive && (a < B || p < G) && (O.width(a), O.height(p), q *= a / B, E *= p / G, C.width(q), C.height(E)), ro = po = q, co = lo = E, R = q / E, X = q / l, Y = E / r;
+
+        for (var t, e = ["padding-", "border-"], i = F = W = 0; i < e.length; i++) {
+          t = parseFloat(k.css(e[i] + "top-width")), F += t != t ? 0 : t, t = parseFloat(k.css(e[i] + "bottom-width")), F += t != t ? 0 : t, t = parseFloat(k.css(e[i] + "left-width")), W += t != t ? 0 : t, t = parseFloat(k.css(e[i] + "right-width")), W += t != t ? 0 : t;
+        }
+
+        F /= 2, W /= 2, uo = ho = no = u, vo = fo = ao = v, yo(u, v), V.options.smooth && (L = !0, requestAnimFrame(Co)), V.eventclick(m);
+      });
+    }, this.movezoom = function (o) {
+      u = o.pageX, v = o.pageY, mo && (D = u, Z = v);
+      var t = u - d,
+          e = v - n;
+      U && (o.pageX -= 2 * (t - a / 2), o.pageY -= 2 * (e - p / 2)), (t < 0 || a < t || e < 0 || p < e) && m.trigger("mouseleave"), V.options.smooth ? (no = o.pageX, ao = o.pageY) : (bo(), ko(o.pageX, o.pageY), k.css({
+        top: H - F,
+        left: S - W
+      }), O.css({
+        top: -H,
+        left: -S
+      }), zo(o.pageX, o.pageY, 0, 0));
+    }, this.eventdefault = function () {
+      V.eventopen = function (o) {
+        o.xon("mouseenter", V.openzoom);
+      }, V.eventleave = function (o) {
+        o.xon("mouseleave", V.closezoom);
+      }, V.eventmove = function (o) {
+        o.xon("mousemove", V.movezoom);
+      }, V.eventscroll = function (o) {
+        o.xon("mousewheel DOMMouseScroll", V.xscroll);
+      }, V.eventclick = function (o) {
+        o.xon("click", function (o) {
+          s.trigger("click");
+        });
+      };
+    }, this.eventunbind = function () {
+      s.xoff("mouseenter"), V.eventopen = function (o) {}, V.eventleave = function (o) {}, V.eventmove = function (o) {}, V.eventscroll = function (o) {}, V.eventclick = function (o) {};
+    }, this.init = function (o) {
+      V.options = Ao.extend({}, Ao.fn.xzoom.defaults, o), t = V.options.rootOutput ? Ao("body") : s.parent(), P = V.options.position, U = V.options.lensReverse && "inside" == V.options.position, V.options.smoothZoomMove < 1 && (V.options.smoothZoomMove = 1), V.options.smoothLensMove < 1 && (V.options.smoothLensMove = 1), V.options.smoothScale < 1 && (V.options.smoothScale = 1), V.options.adaptive && Ao(window).xon("load", function () {
+        B = s.width(), G = s.height(), V.adaptive(), Ao(window).resize(V.adaptive);
+      }), V.eventdefault(), V.eventopen(s);
+    }, this.destroy = function () {
+      V.eventunbind();
+    }, this.closezoom = function () {
+      L = !1, V.options.fadeOut ? (V.options.title && "" != wo && N.fadeOut(299), "inside" == V.options.position && "fullscreen" == V.options.position || w.fadeOut(299), m.fadeOut(300, function () {
+        Oo();
+      })) : Oo();
+    }, this.gallery = function () {
+      for (var o = new Array(), t = 0, e = io; e < to.length; e++) {
+        o[t] = to[e], t++;
+      }
+
+      for (e = 0; e < io; e++) {
+        o[t] = to[e], t++;
+      }
+
+      return {
+        index: io,
+        ogallery: to,
+        cgallery: o
+      };
+    }, this.xappend = function (e) {
+      var i = e.parent();
+
+      function o(o) {
+        Oo(), o.preventDefault(), V.options.activeClass && (_.removeClass(V.options.activeClass), (_ = e).addClass(V.options.activeClass)), io = Ao(this).data("xindex"), V.options.fadeTrans && ((z = new Image()).src = s.attr("src"), (b = Ao(z)).css({
+          position: "absolute",
+          top: s.offset().top,
+          left: s.offset().left,
+          width: s.width(),
+          height: s.height()
+        }), Ao(document.body).append(b), b.fadeOut(200, function () {
+          b.remove();
+        }));
+        var t = i.attr("href"),
+            o = e.attr("xpreview") || e.attr("src");
+        wo = Mo(e), e.attr("title") && s.attr("title", e.attr("title")), s.attr("xoriginal", t), s.removeAttr("style"), s.attr("src", o), V.options.adaptive && (B = s.width(), G = s.height());
+      }
+
+      to[eo] = i.attr("href"), i.data("xindex", eo), 0 == eo && V.options.activeClass && (_ = e).addClass(V.options.activeClass), 0 == eo && V.options.title && (wo = Mo(e)), eo++, V.options.hover && i.xon("mouseenter", i, o), i.xon("click", i, o);
+    }, this.init(o);
+  }
+
+  Ao.fn.xon = Ao.fn.on || Ao.fn.bind, Ao.fn.xoff = Ao.fn.off || Ao.fn.bind, Ao.fn.xzoom = function (t) {
+    var e, i;
+
+    if (this.selector) {
+      var o,
+          s = this.selector.split(",");
+
+      for (o in s) {
+        s[o] = Ao.trim(s[o]);
+      }
+
+      this.each(function (o) {
+        if (1 == s.length) {
+          if (0 == o) {
+            if (void 0 !== (e = Ao(this)).data("xzoom")) return e.data("xzoom");
+            e.x = new n(e, t);
+          } else void 0 !== e.x && (i = Ao(this), e.x.xappend(i));
+        } else if (Ao(this).is(s[0]) && 0 == o) {
+          if (void 0 !== (e = Ao(this)).data("xzoom")) return e.data("xzoom");
+          e.x = new n(e, t);
+        } else void 0 === e.x || Ao(this).is(s[0]) || (i = Ao(this), e.x.xappend(i));
+      });
+    } else this.each(function (o) {
+      if (0 == o) {
+        if (void 0 !== (e = Ao(this)).data("xzoom")) return e.data("xzoom");
+        e.x = new n(e, t);
+      } else void 0 !== e.x && (i = Ao(this), e.x.xappend(i));
+    });
+
+    return void 0 !== e && (e.data("xzoom", e.x), Ao(e).trigger("xzoom_ready"), e.x);
+  }, Ao.fn.xzoom.defaults = {
+    position: "right",
+    mposition: "inside",
+    rootOutput: !0,
+    Xoffset: 0,
+    Yoffset: 0,
+    fadeIn: !0,
+    fadeTrans: !0,
+    fadeOut: !1,
+    smooth: !0,
+    smoothZoomMove: 3,
+    smoothLensMove: 1,
+    smoothScale: 6,
+    defaultScale: 0,
+    scroll: !0,
+    tint: !1,
+    tintOpacity: .5,
+    lens: !1,
+    lensOpacity: .5,
+    lensShape: "box",
+    lensCollision: !0,
+    lensReverse: !1,
+    openOnSmall: !0,
+    zoomWidth: "auto",
+    zoomHeight: "auto",
+    sourceClass: "xzoom-source",
+    loadingClass: "xzoom-loading",
+    lensClass: "xzoom-lens",
+    zoomClass: "xzoom-preview",
+    activeClass: "xactive",
+    hover: !1,
+    adaptive: !0,
+    adaptiveReverse: !1,
+    title: !1,
+    titleClass: "xzoom-caption",
+    bg: !1
+  };
+}(jQuery);
 
 /***/ }),
 

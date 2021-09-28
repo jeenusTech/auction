@@ -32,7 +32,7 @@
               <ul>
                 <li>
                   <a class="dropdown-item nav-link {{(Request::is('latest-auction*')) ? 'active' : ''}}" href="{{route('latest-auction')}}">
-                    Latest Auction
+                    Latest E-Auction
                   </a>
                 </li>
                 <li>
@@ -47,7 +47,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item {{(Request::is('floor-auction*')) ? 'active' : ''}}" href="{{route('floor-auction')}}">
-                    Floor Auction
+                    Latest Floor Auction
                   </a>
                 </li>
               </ul>
