@@ -10,14 +10,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{asset('/frontend/logo/logo.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="javascript:void(0)" class="d-block">{{Auth()->user()->name}}</a>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -286,37 +286,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item {{(Request::is('admin/terms*')||Request::is('admin/site-info*')||Request::is('admin/profile*')) ? 'menu-is-opening menu-open' : ''}}">
-            
-                
-                <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Site Settings
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('profile')}}" class="nav-link {{(Request::is('admin/profile')) ? 'active' : ''}}">
-                  <i class="fas fa-user  nav-icon"></i>
-                  <p>Admin Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('terms.index')}}" class="nav-link {{(Request::is('admin/terms')) ? 'active' : ''}}">
-                  <i class="fas fa-exclamation-triangle  nav-icon"></i>
-                  <p>Terms and conditions</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('site-info.index')}}" class="nav-link {{(Request::is('admin/invoices/pending')) ? 'active' : ''}}">
-                  <i class="fas fa-wrench nav-icon"></i>
-                  <p>Site Info</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item {{(Request::is('admin/user-coin-query*')||Request::is('admin/user-coin-query-contacted')) ? 'menu-is-opening menu-open' : ''}}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-question"></i>
@@ -363,6 +332,35 @@
                 <a href="{{route('user-contact-form-contacted')}}" class="nav-link {{(Request::is('admin/user-contact-form-contacted')) ? 'active' : ''}}">
                   <i class="fas fa-phone nav-icon"></i>
                   <p>Contacted</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{(Request::is('admin/terms*')||Request::is('admin/site-info*')||Request::is('admin/profile*')) ? 'menu-is-opening menu-open' : ''}}">
+                <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Site Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('profile')}}" class="nav-link {{(Request::is('admin/profile')) ? 'active' : ''}}">
+                  <i class="fas fa-user  nav-icon"></i>
+                  <p>Admin Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('terms.index')}}" class="nav-link {{(Request::is('admin/terms')) ? 'active' : ''}}">
+                  <i class="fas fa-exclamation-triangle  nav-icon"></i>
+                  <p>Terms and conditions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('site-info.index')}}" class="nav-link {{(Request::is('admin/invoices/pending')) ? 'active' : ''}}">
+                  <i class="fas fa-wrench nav-icon"></i>
+                  <p>Site Info</p>
                 </a>
               </li>
             </ul>

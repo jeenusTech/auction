@@ -226,13 +226,33 @@
         <div class="col-lg-12">
           <div class="container auction-container">
             <div class="row">
-              <div class="width_20 singleauction-left">
+              <div class="width_30 singleauction-left">
                 <div class="singleauctionswipper">
-                  <div class="swiper-container" >
+                  {{-- <div class="swiper-container" >
                     <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                        <img data-toggle="magnify" src="{{getimg(glob(ltrim($lot->image,'/').'/*.jpg')[0])}}" width="100%" height="100%" alt="filter-result" title="auction filter" />
+                        <img data-toggle="magnify" src="{{getimg(glob(ltrim($lot->image,'/').'/*.jpg')[0])}}" width="300px" height="300px" alt="filter-result" title="auction filter" />
+
                       </div>
+                    </div>
+                  </div> --}}
+                  <div class="swiper-container singleauctionswiper" >
+                    <div class="swiper-wrapper">
+                      @foreach(glob(ltrim($lot->image.'/*.jpg','/')) as $img)
+                      <div class="swiper-slide">
+                        {{-- <img data-toggle="magnify" src="{{asset('frontend/megamenu.png')}}" /> --}}
+                        <a href="{{URL::asset($img)}}" class="MagicZoom"  data-options="hint: off; variableZoom: true; zoomWidth:100%"><img src="{{URL::asset($img)}}" alt="current-auction" title="current lot {{$lot->lot_number}}" /></a>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+                  <div thumbsSlider="" class="swiper-container singleswiperthumb">
+                    <div class="swiper-wrapper">
+                      @foreach(glob(ltrim($lot->thumbnail.'/*.jpg','/')) as $thumbnail)
+                      <div class="swiper-slide">
+                        <img src="{{URL::asset($thumbnail)}}" alt="current-auction" title="current lot {{$lot->lot_number}}" />
+                      </div>
+                      @endforeach
                     </div>
                   </div>
                 </div>
@@ -245,7 +265,7 @@
                 </div> --}}
               </div>
               {{-- bid description section starts here --}}
-              <div class="width_50 singleauction-right">
+              <div class="width_40 singleauction-right">
                 <div class="row">
                     <div class="col-sm-3"><label>Auc:</label>&nbsp;<span>{{$lot->auctions->auction_number}}</span></div>
                     <div class="col-sm-3"><label>Lot:</label>&nbsp;<span>{{$lot->lot_number}}</span></div>
@@ -450,6 +470,7 @@
   </div>
 </div> --}}
 @endsection
+
 <script>
   window.addEventListener('load', () => {
     

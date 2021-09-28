@@ -244,4 +244,41 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::Resource('user-contact-form', ContactUsController::class);
     Route::get('user-contact-form-contacted',[ContactUsController::class,'contacted'])->name('user-contact-form-contacted');
 
+    Route::get('clear-config', function () {
+        /* php artisan cache clear */
+        \Artisan::call('config:clear');
+        $notification = array(
+            'message' => 'Configuration cache cleared Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    })->name('clear-config');
+
+    Route::get('clear-cache', function () {
+        \Artisan::call('cache:clear');
+        $notification = array(
+            'message' => 'System cache cleared Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    })->name('clear-cache');
+
+    Route::get('migrate', function () {
+        \Artisan::call('migrate:fresh --db=seed');
+        $notification = array(
+            'message' => 'All are set new Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    })->name('migrate');
+
+    Route::get('generate-key', function () {
+        \Artisan::call('key:generate');
+        $notification = array(
+            'message' => 'A fresh app key is generated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    })->name('generate-key');
+
 });

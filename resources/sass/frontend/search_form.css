@@ -64,6 +64,15 @@
 .wid_30{
   width: 30%;
 }
+.width_30{
+    width: 30%;
+}
+.width_30 .singleauctionswipper{
+   height: max-content !important;
+}
+.width_40{
+    width: 40%;
+}
 .width_50{
     width: 50%;
 }
@@ -111,6 +120,9 @@
     width: 100%;
   }
   .width_50{
+    width: 100%;
+  }
+  .width_40{
     width: 100%;
   }
 }

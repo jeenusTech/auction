@@ -15,6 +15,10 @@ require('bootstrap/js/dist/tab.js');
 // window.Swiper=require('swiper/swiper-bundle');
 window.Swiper=require('swiper/swiper-bundle.min.js');
 require('./frontend/header.js');
+require('./frontend/xzoom.min.js');
+require('./frontend/fancybox/source/jquery.fancybox.js');
+require('./frontend/setup.js');
+
 // for light box
 require('lightbox2')
 require('../vendor/magiczoomplus/magiczoomplus.js');
