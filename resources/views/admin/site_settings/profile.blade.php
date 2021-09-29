@@ -139,14 +139,14 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <a href="{{route('clear-cache')}}" class="btn bg-navy">Clear site cahce</a>
+                    <a href="{{route('clear')}}" class="btn bg-navy">Clear site cache</a>
                   </div>
                 </div>
-                <div class="col-md-4">
+               {{--  <div class="col-md-4">
                   <div class="form-group">
                     <a href="{{route('clear-config')}}" class="btn bg-navy">Clear configuration cache</a>
                   </div>
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                   <div class="form-group">
                     <a href="{{route('migrate')}}" class="btn btn-danger">Clear data base</a>
@@ -161,7 +161,7 @@
             <!-- /.row -->
           </div>
          <div class="card-footer bg-navy">
-           <b class="text-danger"><i>Note *: After clearing the data base pls add the country, state, city data bases from admin panel and use the default credentials to login*</i></b>
+           <b class="text-danger"><i></i></b>
           </div>
         </div>
       </div>
