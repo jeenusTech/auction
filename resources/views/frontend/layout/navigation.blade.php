@@ -3,7 +3,10 @@
     <div class="container d-flex align-items-center justify-content-between">
       <!-- Uncomment below if you prefer to use an image logo -->
        <a href="index" class="logo mobile_logo"><img src="{{asset('/frontend/logo/logo_small.png')}}" height="75px" alt="logo" title="logo" class="img-fluid"></a>
-
+ @php
+              // echo "<pre>".count(all_category())."</pre>";
+              // die();
+              @endphp
       <nav id="navbar" class="navbar">
         <ul>
         <div class="search_left">
@@ -13,8 +16,9 @@
               <input class="searchBox" type="search" name="keyword" value="{{request()->get('keyword')?request()->get('keyword'):''}}" placeholder="Search..." >
               <input type="hidden" class="form-control" value="{{request()->get('price_range')?request()->get('price_range'):''}}" name="price_range" id="price_range">
               <input type="hidden" class="form-control" value="Hight-Low" name="price_range_order" id="price_range_order">
-              <input type="hidden" class="form-control" value="{{all_category()?all_category()[0]['id']:''}}" name="category" id="category">
-              <input type="hidden" class="form-control" value="{{all_auction()?all_auction()[0]['id']:''}}" name="auction" id="auction">
+
+              <input type="hidden" class="form-control" value="{{count(all_category())>0?all_category()[0]['id']:''}}" name="category" id="category">
+              <input type="hidden" class="form-control" value="{{count(all_auction())>0?all_auction()[0]['id']:''}}" name="auction" id="auction">
             </div>
           </form>
 
@@ -200,8 +204,8 @@
       <input class="align-self-center search-input form-control" type="text" name="keyword" value="{{request()->get('keyword')?request()->get('keyword'):''}}" placeholder="Search">
       <input type="hidden" class="form-control" value="{{request()->get('price_range')?request()->get('price_range'):''}}" name="price_range" id="price_range">
       <input type="hidden" class="form-control" value="Hight-Low" name="price_range_order" id="price_range_order">
-      <input type="hidden" class="form-control" value="{{all_category()?all_category()[0]['id']:''}}" name="category" id="category">
-      <input type="hidden" class="form-control" value="{{all_auction()?all_auction()[0]['id']:''}}" name="auction" id="auction">
+      <input type="hidden" class="form-control" value="{{count(all_category())>0?all_category()[0]['id']:''}}" name="category" id="category">
+      <input type="hidden" class="form-control" value="{{count(all_auction())>0?all_auction()[0]['id']:''}}" name="auction" id="auction">
       <button type="submit" class="align-self-center"><i class="bi bi-search"></i>
       </button>
     </form>

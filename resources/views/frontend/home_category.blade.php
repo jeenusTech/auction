@@ -12,7 +12,7 @@
                     
                   <a href="{{url('auction-lot/'.$latest_lots->auction_id.'/search')}}" class="swiper-slide" title="{{site_info() !=null?site_info()->title:config('app.name')}} latest lot {{$latest_lots->lot_number}}">
                     <figure class="figure">
-                      <img src="{{getimg(glob(ltrim($latest_lots->image,'/').'/*.jpg')[0])}}" alt="latest-lot-{{$latest_lots->lot_number}}" title="latest-lot-{{$latest_lots->lot_number}}"  class="figure-img img-fluid rounded" width="175px">
+                      <img src="{{getimg(glob(ltrim($latest_lots->image,'/').'/*.jpg')?glob(ltrim($latest_lots->image,'/').'/*.jpg')[0]:'no_image.jpg')}}" alt="latest-lot-{{$latest_lots->lot_number}}" title="latest-lot-{{$latest_lots->lot_number}}"  class="figure-img img-fluid rounded" width="175px">
                       <figcaption class="figure-caption">
                         <p">
                           {{Str::substr($latest_lots->description, 0,51);}}...

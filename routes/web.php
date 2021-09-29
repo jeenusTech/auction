@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TermsAndConditionController;
 use App\Http\Controllers\Admin\SiteInfoController;
 use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Controllers\Admin\BidUpdateController;
 
 // for the frontendControllers
 use App\Http\Controllers\frontend\UserAuctionController;
@@ -216,6 +217,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::resource('admin_lot', LotController::class);
     Route::post('lot_closed/{id}', [LotController::class,'lot_closed'])->name('lot_closed');
     
+// for managing the floor auction bid
+    Route::get('bid-update/{id}',[BidUpdateController::class,'edit_bid'])->name('bid-update');
 // seller management
     Route::resource('seller', SellerController::class);
     Route::post('block_seller/{id}', [SellerController::class,'block_seller'])->name('block_seller');
@@ -244,6 +247,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::Resource('user-contact-form', ContactUsController::class);
     Route::get('user-contact-form-contacted',[ContactUsController::class,'contacted'])->name('user-contact-form-contacted');
 
+// for site maintanance
+   
+    Route::get('clear', function() {
+
+       Artisan::call('cache:clear');
+       Artisan::call('config:clear');
+       Artisan::call('config:cache');
+       Artisan::call('view:clear');
+       $notification = array(
+                'message' => 'All cache cleared Successfully!',
+                'alert-type' => 'success'
+            );
+        return redirect()->back()->with($notification);
+
+    })->name('clear');
+
     Route::get('clear-config', function () {
         /* php artisan cache clear */
         \Artisan::call('config:clear');
@@ -264,12 +283,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     })->name('clear-cache');
 
     Route::get('migrate', function () {
-        \Artisan::call('migrate:fresh --db=seed');
+        ini_set('max_execution_time', 0); // 0 = Unlimited
+        Artisan::call('migrate:fresh');
+        Artisan::call('db:seed');
         $notification = array(
             'message' => 'All are set new Successfully!',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        #return redirect()->back()->with($notification);
     })->name('migrate');
 
     Route::get('generate-key', function () {
